@@ -1586,6 +1586,12 @@ pre code {
   margin-right: auto;
   margin-left: auto;
 }
+
+.navbar-bottom{
+   position:absolute;
+   bottom:0;
+}
+
 @media (min-width: 768px) {
   .container {
     width: 750px;
@@ -3212,8 +3218,8 @@ fieldset[disabled] .btn-default.focus {
 }
 .btn-primary {
   color: #fff;
-  background-color: #337ab7;
-  border-color: #2e6da4;
+  background-color: #007bff;
+  border-color: #007bff;
 }
 .btn-primary:focus,
 .btn-primary.focus {
@@ -4569,26 +4575,26 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-default {
-  background-color: #f8f8f8;
+  background: #064acb;
   border-color: #e7e7e7;
 }
 .navbar-default .navbar-brand {
-  color: #777;
+  color: #fff;
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
-  color: #5e5e5e;
+  color: #fff;
   background-color: transparent;
 }
 .navbar-default .navbar-text {
-  color: #777;
+  color: #fff;
 }
 .navbar-default .navbar-nav > li > a {
-  color: #777;
+  color: #fff;
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
-  color: #333;
+  color: #fff78f;
   background-color: transparent;
 }
 .navbar-default .navbar-nav > .active > a,
