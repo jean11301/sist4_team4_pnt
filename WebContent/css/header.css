@@ -1,0 +1,26 @@
+	.navbar{
+    padding: 50px;
+    padding-bottom: 0px;
+}
+.logo{
+    text-align: right;
+}
+.navbar .nav-link {
+    color: black;
+}
+
+.navbar .navbar-brand {
+    color: midnightblue;
+    font-size: 20pt;
+    font-weight: bold;
+}
+.navbar-nav {
+    list-style: none;
+}
+.nav-item{			padding: 20px;
+    
+}	
+.navbar-login{
+    list-style: none;
+    font-size: 15pt;
+}
