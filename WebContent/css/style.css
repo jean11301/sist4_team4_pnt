@@ -6,8 +6,12 @@
 
 /* nav */ 
 nav{}
-
-
+.navbar-default .navbar-nav > .active > a{background: #007bff; color: #FFF;}
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  color: yellow;
+  background-color: #007bff;
+}
 /* body */
 body{}
 #titletext{display:none;}

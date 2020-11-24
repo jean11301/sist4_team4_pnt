@@ -6,13 +6,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
        
-    <link rel="stylesheet" href="css/bootstrap-theme.css">
-    <link rel="stylesheet" href="css/bootstrap.css">
-	<link rel="stylesheet" href="css/style.css">  
+    <link rel="stylesheet" href="../css/bootstrap-theme.css">
+    <link rel="stylesheet" href="../css/bootstrap.css">
+	<link rel="stylesheet" href="../css/style.css">  
 <!--<link rel="stylesheet" href="css/header.css">-->
-    <script src="js/jquery-3.5.1.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <script src="js/script.js"></script>
+    <script src="../js/jquery-3.5.1.js"></script>
+    <script src="../js/bootstrap.js"></script>
+    <script src="../js/script.js"></script>
 </head>
 <body>
   <nav class="navbar navbar-default navbar-fixed-top">
@@ -20,7 +20,7 @@
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
           <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
+          <span class="icon-bar" ></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
@@ -29,7 +29,7 @@
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
           <!-- <li class="active"><a href="#">물가 정보</a></li> -->
-          <li><a href="#" onclick="changeView(4)">물가 정보</a></li>
+          <li><a href="#" onclick="changeView(1)">물가 정보</a></li>
           <li><a href="#">교통 정보</a></li>
           <li><a href="#">여행리뷰</a></li>
           <li><a href="#">뉴스</a></li>
