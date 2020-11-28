@@ -1408,6 +1408,7 @@ a.bg-danger:focus {
   background-color: #e4b9b9;
 }
 .page-header {
+  text-indent: 1.3rem;
   padding-bottom: 9px;
   margin: 40px 0 20px;
   border-bottom: 1px solid #eeeeee;
@@ -2744,7 +2745,7 @@ textarea.form-control {
   }
 }
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 25px;
 }
 .radio,
 .checkbox {
@@ -4576,7 +4577,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-default {
   background: #064acb;
-  border-color: #e7e7e7;
+  /* border-color: #e7e7e7; */
 }
 .navbar-default .navbar-brand {
   color: #fff;

@@ -21,8 +21,16 @@ body{}
 	margin: 51px 0 0 0;
 	}
 
-/* side_search */
-.side_search{background: #CCC; padding: 2% 1%;}
+/* 좌측 검색창 .side_search */
+.side_search{background: #636363; padding: 1% 1.5%; color:#FFF;}
+.btn_search{margin:6% 0 3% 0%; width: 100%;}
+
+/* 지도(.pnt_map)  */
+.pnt_map{min-height: 300px; overflow: hidden;}
+
+
+/* 인기검색종목물가, 급변동물가 .pnt_hit */
+.pnt_hit{min-height:300px; }
 
 /* footer */ 
 footer{padding: 20px 0; text-align: center;}

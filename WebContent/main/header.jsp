@@ -16,7 +16,6 @@
 </head>
 <body>
   <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
           <span class="sr-only">Toggle navigation</span>
@@ -51,9 +50,8 @@
           <li><a href="../navbar-static-top/">Static top</a></li>
           <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li> -->
           <!-- <li><a href="#">로그인</a></li> -->
-          <button type="button" class="btn btn-primary navbar-btn"  onclick="changeView(1)">로그인</button>
+          <button type="button" class="btn btn-primary navbar-btn"  onclick="changeView(1)" style="margin-right:30px">로그인</button>
         </ul>
       </div><!--/.nav-collapse -->
-    </div>
   </nav>
 <div class="container-fluid">
