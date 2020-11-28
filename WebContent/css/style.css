@@ -21,6 +21,8 @@ body{}
 	margin: 51px 0 0 0;
 	}
 
+/* side_search */
+.side_search{background: #CCC; padding: 2% 1%;}
 
 /* footer */ 
 footer{padding: 20px 0; text-align: center;}
