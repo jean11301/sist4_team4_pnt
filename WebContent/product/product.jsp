@@ -19,7 +19,7 @@
 		</div>
 		
 		<div class="col-sm-10">
-			
+			<div id="titletext" class="menu1">물가 정보</div>
 		</div>
 	</div>
 	
