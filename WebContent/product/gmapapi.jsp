@@ -4,13 +4,11 @@
 <html>
 <head>
     <title>Simple Map</title>
-    <link rel="stylesheet" href="css/bootstrap.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3xeJ9DUxybWjyRnhzKtZDBYxMwewhelE&callback=initMap&libraries=&v=weekly"
       defer
     ></script> 
-    <script src="js/jquery-3.5.1.js"></script>
     <style>
       #map {
         text-align: center;
@@ -72,10 +70,8 @@
   </head>
   <body>
         <div id="map"></div>
-        <div class="container">
-          <div class="row">
+
             <div  class="text-center"><input type="text" id="citycode" placeholder="도시코드 입력"><button id="btnSearch">검색하기</button></div>
-          </div>
-        </div>
+
   </body>
 </html>   
