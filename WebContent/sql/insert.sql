@@ -1,4 +1,4 @@
---KIMTAEWON
+--Rem
 --userinfo
 INSERT INTO userinfo VALUES(1,1,1,1,1,1,1,1);
 --city 
