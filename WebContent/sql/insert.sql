@@ -17,6 +17,8 @@ INSERT INTO market VALUES(1,'카오산로드','gwang',0.58,0.699,'info',2);
 INSERT INTO market VALUES(2,'짝두짝시장','jjak',0.342,0.785,'info',1);
 
 
+
+
 REM 베트남 임시데이터 insert
 --USERINFO
 INSERT INTO USERINFO (USER_ID, USER_PASSWORD, USER_NAME, AUTHORITY) VALUES ('admin', '12345', '관리자', '1');
