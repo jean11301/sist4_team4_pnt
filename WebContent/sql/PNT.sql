@@ -29,7 +29,7 @@ CREATE TABLE USERINFO
 -- 2-2. 국가 테이블 생성하기
 CREATE TABLE COUNTRY
 (
-    country_code        NUMBER(3)     GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1),
+    country_code        NUMBER(3)     NOT NULL,
     country_kr_name     VARCHAR2(45)    NOT NULL, 
     country_en_name     VARCHAR2(45)    NOT NULL, 
     country_flag_img    TIMESTAMP       NOT NULL, 
@@ -39,7 +39,7 @@ CREATE TABLE COUNTRY
 -- 2-3. 도시 테이블 생성하기
 CREATE TABLE CITY
 (
-    city_number     NUMBER(3)  GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1),
+    city_number     NUMBER(3) NOT NULL,
     city_kr_name    VARCHAR2(45)    NOT NULL, 
     city_en_name    VARCHAR2(45)    NOT NULL, 
     country_code    NUMBER(3)      NOT NULL, 
@@ -50,7 +50,7 @@ CREATE TABLE CITY
 -- 2-4. 시장 테이블 생성하기
 CREATE TABLE MARKET
 (
-    market_number     NUMBER(3)     GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1),
+    market_number     NUMBER(3)     NOT NULL,
     market_kr_name    VARCHAR2(45)      NOT NULL, 
     market_en_name    VARCHAR2(45)      NOT NULL, 
     latitude          NUMBER(12, 9)     NOT NULL, 
@@ -64,7 +64,7 @@ CREATE TABLE MARKET
 -- 2-5. 물품 테이블 생성하기
 CREATE TABLE PRODUCT
 (
-    product_number    NUMBER(3)     GENERATED ALWAYS as IDENTITY(START with 1 INCREMENT by 1),
+    product_number    NUMBER(3)     NOT NULL,
     product_name      VARCHAR2(45)    NOT NULL, 
     product_price     NUMBER          NOT NULL, 
     product_img       TIMESTAMP       NULL, 
