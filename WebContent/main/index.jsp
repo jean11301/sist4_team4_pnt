@@ -2,8 +2,10 @@
 <jsp:include page="header.jsp" />
 
 	<div id="titletext">타이틀네임을 입력</div>
-	<div class="container">내용물</div>
+<jsp:include page="mainpageMap.html" />
 	
+	<div class="container">내용물</div>
+		
 
 <jsp:include page="footer.jsp" />
 
