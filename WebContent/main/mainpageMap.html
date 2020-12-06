@@ -1,0 +1,104 @@
+
+    <link rel="stylesheet" type="text/css" href="../css/cssmap-continents.css" media="screen" />
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- CSSMap SCRIPT -->
+    <script type="text/javascript" src="https://cssmapsplugin.com/5/jquery.cssmap.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom-container@0.3.1"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+           
+            // CSSMap;
+            $("#map-continents").CSSMap({
+                "size": 1450,
+                onClick: function(listItem){
+                    var target = event.target;
+                    var parent = target.parentElement;
+                    var grand = parent.parentElement.className;
+                    console.log(grand);
+                    substring = "c2";
+                    if(grand.indexOf(substring) != -1){
+                        var name = $(parent).siblings('a').html()
+                        console.log($(parent).siblings('a').html());
+					    $('.row').children('.anw_name').text(name);
+                        $('.anw2').fadeIn(100);
+                        var mapheight = window.getComputedStyle(document.querySelector("#map-continents")).height;
+                        $('.modal').css({"display": "block", "height": mapheight});
+
+
+                    }else{
+                        console.log("없습니다.");
+                        $('.anw').fadeIn(100);
+                        $('.anw').fadeOut(2500);
+                    }
+                    
+                }//End onClick
+            });
+            $('.modal').click(function (e){
+                     $('.anw2').fadeOut(500);
+                     $('.modal').css({"display": "none"});
+            });
+            $('.close-container').click(function (e){
+                     $('.anw2').fadeOut(500);
+                     $('.modal').css({"display": "none"});
+            });
+			$('.goToPrice').click(function(){
+				location.href="../product/product.jsp";
+			});
+			$('.goToTrans').click(function(){
+				alert("교통페이지 주소 입력해야합니다.");
+			});
+        });
+    </script>
+
+    <!-- CSSMap - Continents -->
+    <div id="put-buttons"></div>
+    <div class="modal"></div>
+    <div id="map-continents">
+        <ul class="continents">
+            <li class="c1"><a href="#africa">아프리카</a></li>
+            <li class="c2"><a href="#asia">아시아</a></li>
+            <li class="c3"><a href="#australia">오세아니아</a></li>
+            <li class="c4"><a href="#europe">유럽</a></li>
+            <li class="c5"><a href="#north-america">북아메리카</a></li>
+            <li class="c6"><a href="#south-america">남아메리카</a></li>
+        </ul>
+        <div class="anw">
+            <img src="../images/f6c3c910f8cf76eaafa6a8978a170cf3.gif" alt="로켓" />    
+            <div class="anw_sub">준비중입니다. <br /> ※ 현재 아시아 지역만 서비스 하고 있습니다.</div>
+        </div>
+        
+        <div class="anw2" aria-hidden="true">
+            <div class="row" >
+                <div class="col-sm-1"></div>
+                <div class="col-sm-2">
+                    <div class="close-container">
+                        <div class="leftright"></div>
+                        <div class="rightleft"></div>
+                    </div>
+                </div>
+            </div>        
+            <div class="row">
+                <p class="anw_name"></p>
+                <p class="anw_name_sub" style="display:inline; font-size: 1.8vw; position: relative; top: 0; right: -4vw;">의 정보를 확인합니다.</p>
+            </div>
+            <div class="row">
+                <p class="anw_name_sub">정보 종류를 선택하십시오.</p>
+            </div>
+            <div class="row">
+                <div class="anw_sub">
+                    <button type="button" class="goToPrice">물가</button>
+                    <button type="button" class="goToTrans">교통</button>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- END OF THE CSSMap - Continents -->
+    <div class="box2">내용</div>
+
