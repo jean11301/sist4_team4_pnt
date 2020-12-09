@@ -9,6 +9,7 @@
     		INNER JOIN market ON(city.city_number = market.city_number)
 	ORDER BY country_kr_name, city_kr_name, market_kr_name
 </sql:query>
+
 <div id="titletext">물가 관리 | 시장 관리</div>
 
 <jsp:include page="../main/header.jsp" />
@@ -51,7 +52,7 @@
 											</select> <label><input type="search"
 												class="form-control form-control-sm" placeholder=""
 												aria-controls="example1"></label>
-											<button type="button">검색</button>
+											<button type="button" >검색</button>
 										</div>
 									</div>
 								</div>
@@ -89,8 +90,8 @@
 								<div class="row">
 									<div class="col-sm-12 col-md-6"></div>
 									<div class="col-sm-12 col-md-6">
-										<button type="button" class="btn btn-danger float-right">삭제</button>
-										<button type="button" class="btn btn-success float-right">등록</button>
+										<button type="button" id="deleteMarket" class="btn btn-danger float-right" >삭제</button>
+										<button type="button" id="insertMarket" class="btn btn-success float-right">등록</button>
 									</div>
 								</div>
 								<div class="row">
