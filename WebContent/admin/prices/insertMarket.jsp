@@ -2,31 +2,83 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
+<script src="../js/jquery-3.5.1.js"></script>
+
 
 <sql:setDataSource dataSource="jdbc/myoracle" var="conn" />
 <sql:query dataSource="${conn}" var="countries">
 	SELECT country_kr_name FROM country ORDER BY country_kr_name
 </sql:query>
-<c:set var="country" value="${param.country}" />
+
+															
+<%-- <c:if test="${country != ''}">
+<sql:query dataSource="${conn}" var="cities">
+	SELECT city_kr_name 
+	FROM COUNTRY NATURAL JOIN city
+	WHERE country_kr_name = ?
+	ORDER BY city_kr_name;
+	<sql:param value="${country}" />
+</sql:query>
+<c:forEach items="${cities.rows}" var="city">
+<option>${city.city_kr_name}</option>
+</c:forEach>
+</c:if>	 --%>
 
 
-<script src="../js/jquery-3.5.1.js"></script>
+
 <script>
 	var xhr = null;
 	$(document).ready(function() {
 		xhr = new XMLHttpRequest();
 		$('#selCountry').on('change',function() {
-			xhr.onreadystatechange = getCity;
-			xhr.open('POST', 'insertMarket.jsp', true);
-			xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=utf-8");
-			xhr.send('country=' + $(this).val());
-			console.log($(this).val());
+			//xhr.onreadystatechange = getCity;
+			var selectedCountry = $(this).val();
+			if(selectedCountry == "국가명"){
+				$('#txtCountry').val("");
+				$('#txtCountry').attr("disabled", "true");
+				selectedCountry = "";
+				
+				$('#selCity').html("<option>도시명</option>");
+				$('#txtCity').val("국가를 먼저 선택해주세요.");
+				$('#txtCity').attr("disabled", "true");
+			}else if(selectedCountry == "신규 국가 입력"){	
+				$('#txtCountry').val("");
+				$('#txtCountry').removeAttr("disabled");
+				selectedCountry = "";
+				
+				$('#selCity').html("<option>신규 도시 입력</option>");
+				$('#txtCity').val("");
+				$('#txtCity').removeAttr("disabled");
+			}else{
+				$('#txtCountry').val(selectedCountry);
+				$('#txtCountry').attr("disabled", "true");
+				
+				<%--var str = "<option selected>도시명</option>" + 
+				"<sql:query dataSource='${conn}' var='cities'>" +
+				"SELECT city_kr_name FROM COUNTRY NATURAL JOIN city " + 
+				"WHERE country_kr_name = ? ORDER BY city_kr_name;" + 
+				"<sql:param value='" + selectedCountry + "' /></sql:query>" + 
+				"<c:forEach items='${cities.rows}' var='city'>" + 
+				"<option value='<c:out value='" + "${city.city_kr_name}' />>" + 
+				"${country.country_kr_name}</option></c:forEach>" + 
+				"<option>신규 도시 입력</option>";
+				${'#selCity'}.html(str); --%>
+				
+				
+				
+				
+			}
+			//xhr.open('POST', 'insertMarket.jsp', true);
+			//xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=utf-8");
+			//xhr.send('country=' + $(this).val());
+			console.log(selectedCountry);
+			
 		});
-		function getCity() {
+		/* function getCity() {
 			if (xhr.readyState == 4 && xhr.status == 200) {
 				$('#cityDiv').html(xhr.responseText.trim());
 			}
-		}
+		} */
 	});
 </script>
 
@@ -67,40 +119,31 @@
 												<th>국가명</th>
 												<td colspan="2">
 												<label> 
-												<input type="text" class="form-control form-control-sm" id="txtCountry" aria-controls="example1">
+												<input type="text" class="form-control form-control-sm" id="txtCountry" 
+														aria-controls="example1" disabled="true">
 												</label>
 													<select id="selCountry" name="selCountry">
-														<option>국가명</option>
+														<option selected>국가명</option>
 														<c:forEach items="${countries.rows}" var="country">
-															<option>${country.country_kr_name}</option>
+															<option value="<c:out value='${country.country_kr_name}' />">
+																${country.country_kr_name}
+															</option>
 														</c:forEach>
 														<option>신규 국가 입력</option>
 													</select>
+													<c:out value="${selectedCountry}" />
 												</td>
 											</tr>
 											<tr role="row">
 												<th>한글 도시명</th>
-												<td colspan="2"><label> <input type="search" class="form-control form-control-sm" id="txtCity" aria-controls="example1">
+												<td colspan="2">
+												<label>
+												<input type="search" class="form-control form-control-sm" id="txtCity" 
+														aria-controls="example1" disabled="true" value="국가를 먼저 선택해주세요." >
 												</label>
-													<div id="cityDiv">
 														<select id="selCity" name="selCity">
-															<option>도시명</option>
-															<option>신규 도시 입력</option>
-															<c:if test="${not empty country}">
-																<sql:query dataSource="${conn}" var="cities">
-																	SELECT city_kr_name 
-																	FROM COUNTRY NATURAL JOIN city
-																	WHERE country_kr_name = ?
-																	ORDER BY city_kr_name;
-																	<sql:param value="${country}" />
-																</sql:query>
-																<c:forEach items="${cities.rows}" var="city">
-																	<option>${city.city_kr_name}</option>
-																</c:forEach>
-															</c:if>
-															<c:if test="${empty country}"></c:if>
+															<option selected>도시명</option>
 														</select>
-													</div>
 												</td>
 											</tr>
 											<tr role="row">
