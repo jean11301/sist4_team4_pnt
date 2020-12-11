@@ -10,28 +10,11 @@
 	SELECT country_kr_name FROM country ORDER BY country_kr_name
 </sql:query>
 
-															
-<%-- <c:if test="${country != ''}">
-<sql:query dataSource="${conn}" var="cities">
-	SELECT city_kr_name 
-	FROM COUNTRY NATURAL JOIN city
-	WHERE country_kr_name = ?
-	ORDER BY city_kr_name;
-	<sql:param value="${country}" />
-</sql:query>
-<c:forEach items="${cities.rows}" var="city">
-<option>${city.city_kr_name}</option>
-</c:forEach>
-</c:if>	 --%>
-
-
-
 <script>
 	var xhr = null;
 	$(document).ready(function() {
 		xhr = new XMLHttpRequest();
 		$('#selCountry').on('change',function() {
-			//xhr.onreadystatechange = getCity;
 			var selectedCountry = $(this).val();
 			if(selectedCountry == "국가명"){
 				$('#txtCountry').val("");
@@ -41,6 +24,9 @@
 				$('#selCity').html("<option>도시명</option>");
 				$('#txtCity').val("국가를 먼저 선택해주세요.");
 				$('#txtCity').attr("disabled", "true");
+				 
+				$('#txtMarketKr').attr("disabled", "true");
+				$('#txtMarketEn').attr("disabled", "true");
 			}else if(selectedCountry == "신규 국가 입력"){	
 				$('#txtCountry').val("");
 				$('#txtCountry').removeAttr("disabled");
@@ -53,32 +39,28 @@
 				$('#txtCountry').val(selectedCountry);
 				$('#txtCountry').attr("disabled", "true");
 				
-				<%--var str = "<option selected>도시명</option>" + 
-				"<sql:query dataSource='${conn}' var='cities'>" +
-				"SELECT city_kr_name FROM COUNTRY NATURAL JOIN city " + 
-				"WHERE country_kr_name = ? ORDER BY city_kr_name;" + 
-				"<sql:param value='" + selectedCountry + "' /></sql:query>" + 
-				"<c:forEach items='${cities.rows}' var='city'>" + 
-				"<option value='<c:out value='" + "${city.city_kr_name}' />>" + 
-				"${country.country_kr_name}</option></c:forEach>" + 
-				"<option>신규 도시 입력</option>";
-				${'#selCity'}.html(str); --%>
-				
+				$('#txtCity').val("");
+				$('#txtCity').attr("disabled", "true");
+				xhr.onreadystatechange = getCity;     //4
+				xhr.open('POST', 'getCitylist.jsp', true);  //2. open()
+				xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=utf-8");
+				xhr.send('country=' + $(this).val());     //3.
 				
 				
 				
 			}
-			//xhr.open('POST', 'insertMarket.jsp', true);
-			//xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=utf-8");
-			//xhr.send('country=' + $(this).val());
 			console.log(selectedCountry);
 			
 		});
-		/* function getCity() {
+		
+		
+		
+		function getCity() {
 			if (xhr.readyState == 4 && xhr.status == 200) {
 				$('#cityDiv').html(xhr.responseText.trim());
 			}
-		} */
+		}
+		
 	});
 </script>
 
@@ -125,34 +107,45 @@
 													<select id="selCountry" name="selCountry">
 														<option selected>국가명</option>
 														<c:forEach items="${countries.rows}" var="country">
-															<option value="<c:out value='${country.country_kr_name}' />">
+															<option value="${country.country_kr_name}" >
 																${country.country_kr_name}
 															</option>
 														</c:forEach>
 														<option>신규 국가 입력</option>
 													</select>
-													<c:out value="${selectedCountry}" />
 												</td>
 											</tr>
 											<tr role="row">
 												<th>한글 도시명</th>
 												<td colspan="2">
 												<label>
-												<input type="search" class="form-control form-control-sm" id="txtCity" 
+												<input type="text" class="form-control form-control-sm" id="txtCity" 
 														aria-controls="example1" disabled="true" value="국가를 먼저 선택해주세요." >
 												</label>
-														<select id="selCity" name="selCity">
-															<option selected>도시명</option>
-														</select>
+												<span id="cityDiv">
+													<select id="selCity" name="selCity">
+														<option selected>도시명</option>
+													</select>
+												</span>
 												</td>
 											</tr>
 											<tr role="row">
 												<th>한글 시장명</th>
-												<td colspan="2"></td>
+												<td colspan="2">
+												<label>
+												<input type="text" class="form-control form-control-sm" id="txtMarketKr" 
+														aria-controls="example1" disabled="true" >
+												</label>
+												</td>
 											</tr>
 											<tr role="row">
 												<th>영어 시장명</th>
-												<td colspan="2"></td>
+												<td colspan="2">
+												<label>
+												<input type="text" class="form-control form-control-sm" id="txtMarketEn" 
+														aria-controls="example1" disabled="true" >
+												</label>
+												</td>
 											</tr>
 											<tr role="row">
 												<th rowspan="2">좌표</th>
