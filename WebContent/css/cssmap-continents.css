@@ -82,16 +82,18 @@ end of the maps */
 }
 
 /* anw: 불가능한 지역 선택시 뜨는 모달창, anw2: 가능한 지역 선택시 뜨는 모달창 */
-.anw{width:25vw; background: #fff; position: absolute;left: 33.3%; top: 19%; z-index:999999;border: 2px solid #ccc;border-radius: 30px; padding: 0 0 3% 0; display: none;}
-.anw2{width:35vw; height: 35%; background: #fff; position: absolute;left: 30%; top: 19%; z-index:999999; border: 2px solid #ccc;border-radius: 15px; display: none;}
+.anw{width:50%; background: #fff; position: absolute;left: 24%; top: 15%; z-index:999999;border: 2px solid #ccc;border-radius: 20px; padding: 0 0 2% 0; display: none; }
+.anw2{width:50%; background: #fff; position: absolute;left: 24%; top: 26%; z-index:999999; border: 2px solid #ccc;border-radius: 15px; display: none; padding:3% 0;}
 .anw img{width:50%; text-align: center; display: block; margin: 0 auto; }
-.anw .anw_sub, { text-align: center; font-weight: bold; font-size: 1em; color:#6e6c69;}
+.anw .anw_sub { text-align: center; font-weight: bold; font-size: 1.8vh; color:#6e6c69;}
 .anw2 .anw_sub{ text-align: center; font-weight: bold; font-size: 1.5vw; color:#6e6c69;}
 
 /* 모달 창 안 내용 */
-.anw_name{text-align: center; color: #066199; display: inline; height:8%; font-size: 2.2vw; font-weight: bold;  position: relative; top:-0.1vw; left: 4vw;};
-.anw2 .anw_name_sub { text-align: center; font-weight: bold; font-size: 1em; color:#6e6c69; display:inline; }
-.row .anw_name_sub{text-align: center; font-weight: bold; font-size: 1.8vw; color:#6e6c69; position: relative; margin-top: -1vw;}
+.test_1213_1{width:100%; text-align: center;}
+.anw_name{color: #066199; display: inline; font-size: 1.9vh; font-weight: bold;}
+/* .anw_name_sub1{color:#6e6c69; display:inline; font-size: 1.1vw; font-weight: bold; } */
+.anw_name_sub2{color:#6e6c69;  font-size: 1.7vh; font-weight: bold; text-align: center;}
+
 
 .box2{width:100%; height:auto; background: pink;}
 
@@ -100,16 +102,16 @@ end of the maps */
 
 
 /* 물가 교통 페이지 이동 버튼 */
-.goToPrice, .goToTrans {position: relative; top: 0vw; width:25%; height: 25%; border-radius: 10px; font-size: 1.5vw; background: #337AB7; color: #fff; cursor: pointer; display: inline; position: relative; bottom:-15px; border: 1px solid #5BC0DE; transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1); 0s;}
+.goToPrice, .goToTrans { padding: 5px 11px; border-radius: 5px; font-size: 1.7vh; background: #337AB7; color: #fff; cursor: pointer; border: 1px solid #5BC0DE; transition: all 0.2s cubic-bezier(0.42, 0, 0.58, 1); 0s;}
 .goToPrice:hover , .goToTrans:hover{color: #337AB7 !important; background-color: transparent; text-shadow: nthree;}
 .goToPrice:hover:before, .goToTrans:hover:before {left: 0%; right: auto; width: 100%;}
-.goToPrice:before, .goToTrans:before{display: block; position: absolute; top: 0px; right: 0px; height: 100%; width: 0px; z-index: -1; content: ''; color: #5BC0DE !important; background: #fff; transition: all 0.4s cubic-bezier(0.42, 0, 0.58, 1); 0s; }
+.goToPrice:before, .goToTrans:before{display: block; position: absolute; top: 0px; right: 0px; height: 100%; width: 0px; z-index: -1; content: ''; color: #5BC0DE !important; background: #fff; transition: all 0.2s cubic-bezier(0.42, 0, 0.58, 1); 0s; }
 
 
 /* 모달창 닫기 버튼 */
-.close-container{position: relative; top: -2%; right: -40%;margin: auto;width: 5%;height: 5%;cursor: pointer;border: 1px black; text-align:center;}
-.leftright{height: 0.4vw;width: 2.5vw;position: absolute; margin-top: 24px;background-color:#87b7c9;border-radius: 2px;transform: rotate(45deg);transition: all .3s ease-in;}
-.rightleft{height: 0.4vw;width: 2.5vw;position: absolute;margin-top: 24px;background-color:#87b7c9;border-radius: 2px;transform: rotate(-45deg);transition: all .3s ease-in;}
+.close-container{position: absolute; top: 0; right: 0; margin: auto;width: 9%;height: 48px;cursor: pointer;border: 1px black; overflow: hidden;}
+.leftright{height: 0.3vw;width: 1.6vw;position: absolute; margin-top: 24px;background-color:#CCC;border-radius: 2px;transform: rotate(45deg);transition: all .3s ease-in;}
+.rightleft{height: 0.3vw;width: 1.6vw;position: absolute;margin-top: 24px;background-color:#CCC;border-radius: 2px;transform: rotate(-45deg);transition: all .3s ease-in;}
 label{width: 0.4vw; color: black;font-family: Helvetica, Arial, sans-serif; font-size: .6em;text-transform: uppercase;letter-spacing: 2px;transition: all .3s ease-in;opacity: 0;}
 .close{margin: 60px 0 0 5px;position: absolute;}
 .close-container:hover .leftright{transform: rotate(-45deg);background-color: #F25C66;}
