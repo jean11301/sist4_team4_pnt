@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
+<script src="../js/jquery-3.5.1.js"></script>
+
 <sql:setDataSource dataSource="jdbc/myoracle" var="conn" />
 <sql:query dataSource="${conn}" var="rs">
 	SELECT country.country_kr_name, city.city_kr_name, market_kr_name, market_en_name
@@ -9,6 +11,49 @@
     		INNER JOIN market ON(city.city_number = market.city_number)
 	ORDER BY country_kr_name, city_kr_name, market_kr_name
 </sql:query>
+
+<script>
+$(function($){
+	xhr = new XMLHttpRequest();
+	$('#searchMarket').on('click', function(){
+		xhr.onreadystatechange = getMarket;     //4
+		xhr.open('POST', 'getMarketlist.jsp', true);  //2. open()
+		xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=utf-8");
+		let param = 'searchWith=' + $('#searchWith').val() + 
+        			'&keyword=' + $('#searchKeyword').val();
+		xhr.send(param);   //3. send()
+	});
+	
+	$('#insertMarket').on('click', function(){
+		location.href="insertMarket.jsp";
+	});
+	
+	
+	$('a').on('click', function(){
+		var country = $(this).parent().siblings()[1].innerHTML;
+		var city = $(this).parent().siblings()[2].innerHTML;
+		var marketKr = $(this).parent().siblings()[3].innerHTML;
+		var marketEn = $(this).parent().siblings()[4].innerHTML;
+		xhr.onreadystatechange = updateMarket;     //4
+		xhr.open('POST', 'getMarketlist.jsp', true);  //2. open()
+		xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=utf-8");
+		let param = 'country=' + country + '&city=' + city + 
+        			'&marketKr=' + marketKr + '&marketEn=' + marketEn;
+		xhr.send(param);   //3. send()
+	});
+});	
+function getMarket() {
+	if (xhr.readyState == 4 && xhr.status == 200) {
+		$('#listDiv').html(xhr.responseText.trim());
+	}
+}
+function updateMarket(){
+	if (xhr.readyState == 4 && xhr.status == 200) {
+		location.href = "updateMarket.jsp";
+	}
+}
+
+</script>
 
 <div id="titletext">물가 관리 | 시장 관리</div>
 
@@ -31,33 +76,32 @@
 					<div class="card">
 						<div class="card-header">
 							<h3 class="card-title">전체 몇 건</h3>
-							::after
 						</div>
 						<!-- /.card-header -->
 						<div class="card-body">
 							<div id="example2_wrapper"
 								class="dataTables_wrapper dt-bootstrap4">
 								<div class="row">
-
-
 									<div class="col-sm-12 col-md-6">
 										<div id="example1_filter" class="dataTables_filter">
-										
-											<select id="selSearch" name="selSearch">
+											<select id="searchWith" name="selSearch">
 												<option value="all" selected>전체</option>
 												<option value="country_kr_name">국가명</option>
 												<option value="city_kr_name">도시명</option>
 												<option value="market_kr_name">한글 시장명</option>
 												<option value="market_en_name">영어 시장명</option>
-											</select> <label><input type="search"
+											</select> 
+											<label><input type="text" id="searchKeyword"
 												class="form-control form-control-sm" placeholder=""
-												aria-controls="example1"></label>
-											<button type="button" >검색</button>
+												aria-controls="example1">
+											</label>
+											<button type="button" id="searchMarket">검색</button>
 										</div>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-sm-12">
+									<div id="listDiv">
 										<table id="example2"
 											class="table tavle-bordered table-hover dataTable dtr-inline"
 											role="grid" aria-describedby="example2_info">
@@ -84,6 +128,7 @@
 												</c:forEach>
 											</tbody>
 										</table>
+										</div>
 									</div>
 								</div>
 								<!-- /.table -->
@@ -91,12 +136,10 @@
 									<div class="col-sm-12 col-md-6"></div>
 									<div class="col-sm-12 col-md-6">
 										<button type="button" id="deleteMarket" class="btn btn-danger float-right" >삭제</button>
-										<button type="button" id="insertMarket" class="btn btn-success float-right">등록</button>
+										<button type="button" id="insertMarket" class="btn btn-success float-right" >등록</button>
 									</div>
 								</div>
 								<div class="row">
-
-
 									<div class="col-sm-12 col-md-5">
 										<div class="dataTables_info" id="example2_info" role="status"
 											aria-live="polite">Showing 1 to 10 of 57 entries</div>

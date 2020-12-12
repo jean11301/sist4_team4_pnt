@@ -3,7 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <script src="../js/jquery-3.5.1.js"></script>
-
+<c:set var="country" value="${param.country}" />
+<c:set var="city" value="${param.city}" />
+<c:set var="marketKr" value="${param.marketKr}" />
+<c:set var="marketEn" value="${param.marketEn}" />
 
 <sql:setDataSource dataSource="jdbc/myoracle" var="conn" />
 <sql:query dataSource="${conn}" var="countries">
@@ -13,6 +16,7 @@
 <script>
 	var xhr = null;
 	$(document).ready(function() {
+		alert("어디까지 disable??");
 		xhr = new XMLHttpRequest();
 		$('#selCountry').on('change',function() {
 			$('#txtMarketKr').val("");
@@ -95,7 +99,7 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1 class="m-0">시장 관리 > 신규 시장 등록</h1>
+					<h1 class="m-0">시장 관리 > 시장 수정</h1>
 				</div>
 			</div>
 		</div>
@@ -128,7 +132,6 @@
 																${country.country_kr_name}
 															</option>
 														</c:forEach>
-														<option>신규 국가 입력</option>
 													</select>
 												</td>
 											</tr>
@@ -189,7 +192,7 @@
 								<!-- /.table -->
 								<div class="row">
 									<div class="col-sm-12 col-md-5">
-										<button type="button" id="insertMarket" class="btn btn-success">등록</button>
+										<button type="button" id="insertMarket" class="btn btn-success">수정</button>
 										<button type="submit" id="cancel" class="btn btn-danger">취소</button>
 									</div>
 									<div class="col-sm-12 col-md-7"></div>

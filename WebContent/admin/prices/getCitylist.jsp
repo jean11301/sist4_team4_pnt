@@ -17,32 +17,46 @@
 <script>
 $(document).ready(function() {
 	$('#selCity').on('change',function() {
-		$('#txtMarketKr').attr("disabled", "true");
-		$('#txtMarketEn').attr("disabled", "true");
+		$('#txtCity').val("");
+		$('#txtMarketKr').val("");
+		$('#txtMarketEn').val("");
+		$("#txtLatitude").val("");
+		$("#txtLongitude").val("");
 		var selectedCity = $(this).val();
 		if(selectedCity == "도시명"){
-			$('#txtCity').val("");
 			$('#txtCity').attr("disabled", "true");
 			selectedCity = "";
+			
 			$('#txtMarketKr').attr("disabled", "true");
 			$('#txtMarketEn').attr("disabled", "true");
+			
+			$("#txtLatitude").attr("disabled", "true");
+			$("#txtLongitude").attr("disabled", "true");
 		}else if(selectedCity == "신규 도시 입력"){	
-			$('#txtCity').val("");
 			$('#txtCity').removeAttr("disabled");
 			selectedCity = "";
+			
 			$('#txtMarketEn').removeAttr("disabled");
 			$('#txtMarketKr').removeAttr("disabled");
+			
+			$("#txtLatitude").removeAttr("disabled");
+			$("#txtLongitude").removeAttr("disabled");
 		}else{
 			$('#txtCity').val(selectedCity); 
 			$('#txtCity').attr("disabled", "true");
+			
 			$('#txtMarketEn').removeAttr("disabled");
 			$('#txtMarketKr').removeAttr("disabled");
 			
-			
+			$("#txtLatitude").removeAttr("disabled");
+			$("#txtLongitude").removeAttr("disabled");
 		}
 		
 		console.log(selectedCity);
 	});
+	
+	
+	
 });
 </script>
 
