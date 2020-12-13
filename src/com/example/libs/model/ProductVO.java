@@ -11,7 +11,13 @@ public class ProductVO {
 	private String country_kr_name;
 	private String city_kr_name;
 	private String market_kr_name;
-	
+
+	private String product_name2;
+	private double product_price_P1Data;
+	private double product_price_P2Data;
+	private double product_price_P3Data;
+	private double product_price_P4Data;
+	private double product_price_P5Data;
 	
 	public ProductVO() {}
 	
@@ -26,7 +32,20 @@ public class ProductVO {
 		this.product_price = product_price;
 	}
 
-
+	//급변동 리스트
+	public ProductVO(String country_kr_name, String product_name, double product_price_P1Data,  String product_name2, 
+			double product_price_P2Data, double product_price_P3Data, double product_price_P4Data,
+			double product_price_P5Data) {
+		this.product_name = product_name;
+		this.country_kr_name = country_kr_name;
+		this.product_name2 = product_name2;
+		this.product_price_P1Data = product_price_P1Data;
+		this.product_price_P2Data = product_price_P2Data;
+		this.product_price_P3Data = product_price_P3Data;
+		this.product_price_P4Data = product_price_P4Data;
+		this.product_price_P5Data = product_price_P5Data;
+	}
+	
 	public String getProduct_name() {
 		return product_name;
 	}
@@ -116,5 +135,69 @@ public class ProductVO {
 		this.market_kr_name = market_kr_name;
 	}
 
+	
+	//급변동 get,set
+	public String getProduct_name2() {
+		return product_name2;
+	}
+
+
+	public void setProduct_name2(String product_name2) {
+		this.product_name2 = product_name2;
+	}
+
+
+	public double getProduct_price_P1Data() {
+		return product_price_P1Data;
+	}
+
+
+	public void setProduct_price_P1Data(double product_price_P1Data) {
+		this.product_price_P1Data = product_price_P1Data;
+	}
+
+
+	public double getProduct_price_P2Data() {
+		return product_price_P2Data;
+	}
+
+
+	public void setProduct_price_P2Data(double product_price_P2Data) {
+		this.product_price_P2Data = product_price_P2Data;
+	}
+
+
+	public double getProduct_price_P3Data() {
+		return product_price_P3Data;
+	}
+
+
+	public void setProduct_price_P3Data(double product_price_P3Data) {
+		this.product_price_P3Data = product_price_P3Data;
+	}
+
+
+	public double getProduct_price_P4Data() {
+		return product_price_P4Data;
+	}
+
+
+	public void setProduct_price_P4Data(double product_price_P4Data) {
+		this.product_price_P4Data = product_price_P4Data;
+	}
+
+
+	public double getProduct_price_P5Data() {
+		return product_price_P5Data;
+	}
+
+
+	public void setProduct_price_P5Data(double product_price_P5Data) {
+		this.product_price_P5Data = product_price_P5Data;
+	}
+
+	
+
+	
 	
 }

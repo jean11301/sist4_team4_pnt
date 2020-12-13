@@ -16,4 +16,15 @@ public class PopularService {
 		}
 		return list;
 	}
+	
+	//급변동
+	public ArrayList<ProductVO> variancelist(){
+		ArrayList<ProductVO> list2 = null;
+		try {
+			list2 = ProductDao.variancelist();
+		}catch(SQLException ex) {
+			System.out.println(ex);
+		}
+		return list2;
+	}
 }
