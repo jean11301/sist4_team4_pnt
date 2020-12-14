@@ -20,7 +20,7 @@
 			<h4>
 				<strong>인기 검색 종목 물가</strong>
 			</h4>
-			<!--  인기 검색 종목 물가, 급변동 물가 -->
+			<!--  인기 검색 종목 물가 -->
 			<div class="table-responsive">
 				<table class="table">
 					<thead>
@@ -54,27 +54,22 @@
 					</tbody>
 				</table>
 			</div>
-		</div>
-		<div class="col-sm-6">급변동 물가</div>
-		<div class="col-sm-3">환전 고시 환율</div>
-	</div><!-- End row 인기 검색 종목 물가, 급변동 물가-->
-	
-	<!-- <div class="row">
-		<div class="col-sm-7">인기 교통 정보</div>
-		<div class="col-sm-5">나라별 인기 교통 수단</div>
-	</div> -->
+		</div><!--ENd 인기 검색-->
 
-
-		<div class="table-responsive">
+		<!--  급변동 -->
+		<div class="col-sm-6">
+			<h4>
+				<strong>급변동 물가</strong>
+			</h4>
+			<div class="table-responsive">
 				<table class="table">
 					<thead>
 						<tr class="info">
 							<th>국가</th>
 							<th>상품명</th>
 							<th>평균가격</th>
-							<th>4</th>
-							<th>5</th>
-							<th>6</th>
+							<th>상승/하락</th>
+							<th>변동값</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -92,9 +87,26 @@
 						<tr>
 							<td><%=pop2.getCountry_kr_name()%></td>
 							<td><%=pop2.getProduct_name()%></td>
-							<td><%=pop2.getProduct_price_P1Data()%></td>
-							<td><%=pop2.getProduct_price_P4Data()%></td>
-							<td><%=pop2.getProduct_price_P5Data()%></td>
+							<td><%=pop2.getProduct_price_P1Data()%>원</td>
+							<% 
+								double p3 = pop2.getProduct_price_P3Data()*100;
+								int p31 = (int)Math.abs(p3);
+								int p4 = (int)pop2.getProduct_price_P4Data()*10;
+								int p5 = (int)pop2.getProduct_price_P5Data()*100;
+								if(p5 >= 100){
+									p5 = p5/10;
+							%>
+								<td><%=p5 %>% 하락</td>
+								<td style="color:blue">▼<%=p31 %></td>	
+							<%
+								}else{
+									p4 = p4/100;
+							%>
+								<td><%=p4 %>% 상승</td>
+								<td style="color:red">▲<%=p31 %></td>	
+							<%
+								}
+							%>
 						</tr>
 						<%
 						} //for end
@@ -103,6 +115,17 @@
 					</tbody>
 				</table>
 			</div>
+		</div><!--급변동-->
+
+		<div class="col-sm-3">환전 고시 환율</div>
+	</div><!-- End row 인기 검색 종목 물가, 급변동 물가-->
+	
+	<!-- <div class="row">
+		<div class="col-sm-7">인기 교통 정보</div>
+		<div class="col-sm-5">나라별 인기 교통 수단</div>
+	</div> -->
+
+
 
 
 
