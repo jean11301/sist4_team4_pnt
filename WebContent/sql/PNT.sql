@@ -32,7 +32,7 @@ CREATE TABLE COUNTRY
     country_code        NUMBER(3)     NOT NULL,
     country_kr_name     VARCHAR2(45)    NOT NULL, 
     country_en_name     VARCHAR2(45)    NOT NULL, 
-    country_flag_img    TIMESTAMP       NOT NULL, 
+    country_flag_img    BLOB        NULL, 
     CONSTRAINT COUNTRY_PK PRIMARY KEY (country_code)
 );
 
@@ -67,7 +67,7 @@ CREATE TABLE PRODUCT
     product_number    NUMBER(3)     NOT NULL,
     product_name      VARCHAR2(45)    NOT NULL, 
     product_price     NUMBER          NOT NULL, 
-    product_img       TIMESTAMP       NULL, 
+    product_img       BLOB            NULL, 
     product_date      DATE            NOT NULL, 
     sequence          NUMBER(15)      DEFAULT 0 NOT NULL, 
     check_status      CHAR(1)         DEFAULT '0' NOT NULL, 
@@ -79,3 +79,6 @@ CREATE TABLE PRODUCT
     CONSTRAINT product_city_number_fk FOREIGN KEY (city_number) REFERENCES city (city_number),
     CONSTRAINT product_market_number_kf FOREIGN KEY (market_number) REFERENCES market (market_number)      
 );
+
+
+
