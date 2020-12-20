@@ -32,15 +32,6 @@ $(document).ready(function() {
 			
 			$("#txtLatitude").attr("disabled", "true");
 			$("#txtLongitude").attr("disabled", "true");
-		}else if(selectedCity == "신규 도시 입력"){	
-			$('#txtCity').removeAttr("disabled");
-			selectedCity = "";
-			
-			$('#txtMarketEn').removeAttr("disabled");
-			$('#txtMarketKr').removeAttr("disabled");
-			
-			$("#txtLatitude").removeAttr("disabled");
-			$("#txtLongitude").removeAttr("disabled");
 		}else{
 			$('#txtCity').val(selectedCity); 
 			$('#txtCity').attr("disabled", "true");
@@ -60,10 +51,9 @@ $(document).ready(function() {
 });
 </script>
 
-<select id="selCity" name="selCity">
+<select id="selCity" name="city_kr_name">
 	<option value="">도시명</option>
 	<c:forEach items="${cities.rows}" var="city">
-		<option value="${city.city_kr_name}">${city.city_kr_name}</option>
+		<option value="${city.city_kr_name}" >${city.city_kr_name}</option>
 	</c:forEach>
-	<option>신규 도시 입력</option>
 </select>
