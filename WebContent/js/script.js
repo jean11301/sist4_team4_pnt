@@ -21,7 +21,7 @@ function changeView(value) {
 	}
 	else if (value == "1") // go to 물가 정보
 	{
-		location.href = "../product/product.jsp";
+		location.href = "../product/localsearch.jsp";
 	}
 }
 	// else if (value == "1") // 로그인 버튼 클릭시 로그인 화면으로 이동
