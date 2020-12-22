@@ -1,103 +1,121 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList, com.example.libs.model.ProductVO"%>
-<jsp:useBean id="popular"
-	class="com.example.libs.service.PopularService" />
-<%
-	ArrayList<ProductVO> list = popular.populist();
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:useBean id="popular" class="com.example.libs.service.PopularService" />
+<% 
+	ArrayList<ProductVO> list = popular.populist(); 
+	ArrayList<ProductVO> list2 = popular.variancelist();
 %>
-<jsp:include page="../main/header.jsp" />
 
-
-<div id="titletext" class="menu1">물가 정보</div>
-<div class="row">
-	<div class="col-sm-2 side_search">
-		<form class="ml-1">
-			<div class="form-group pd-5">
-				<label for="sel1">나라선택</label> <select class="form-control"
-					id="sel1">
-					<option>태국</option>
-					<option>싱가포르</option>
-					<option>베트남</option>
-					<option>ex1</option>
-					<option>ex2</option>
-				</select>
-			</div>
-		</form>
-	</div>
-
-	<div class="col-sm-10">
-		<div id="titletext" class="menu1">물가 정보</div>
-	</div>
+<div class="col-sm-4 pnt_map pd-5" >
+	<jsp:include page="map_ex.html" />
 </div>
-
-
-
-
 <!--  인기 검색 종목 물가, 급변동 물가 -->
-<div class="col-sm-5 pnt_hit">
-	<div class="row">
-		<h4>
-			<strong>인기 검색 종목 물가</strong>
-		</h4>
-		<div class="table-responsive">
-			<table class="table">
-				<thead>
-					<tr class="info">
-						<th>국가</th>
-						<th>도시</th>
-						<th>시장</th>
-						<th>물품명</th>
-						<th>가격</th>
-					</tr>
-				</thead>
-				<tbody>
-					<%
-						if (list == null) {
+		<div class="col-sm-4">
+			<h4>
+					<strong>인기 검색 종목 물가</strong>
+				</h4>
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr class="info">
+								<th>국가</th>
+								<th>도시</th>
+								<th>시장</th>
+								<th>물품명</th>
+								<th>가격</th>
+							</tr>
+						</thead>
+						<tbody>
+							<%
+								if (list == null) {
+							%>
+							<tr>
+								<td colspan="5" class="text-center">No Data</td>
+							</tr>
+							<%
+								} else {
+							for (int i = 0; i < 3; i++) {
+								ProductVO pop = list.get(i);
+							%>
+							<tr>
+								<td><%=pop.getCountry_kr_name()%></td>
+								<td><%=pop.getCity_kr_name()%></td>
+								<td><%=pop.getMarket_kr_name()%></td>
+								<td><%=pop.getProduct_name()%></td>
+								<td><%=pop.getProduct_price()%></td>
+							</tr>
+							<%
+								} //for end
+							} //if end
+							%>
+						</tbody>
+					</table>
+			</div>
+		</div><!--ENd 인기 검색-->
+
+		<!--  급변동 -->
+		<div class="col-sm-4">
+			<h4>
+				<strong>급변동 물가</strong>
+			</h4>
+			<div class="table-responsive">
+				<table class="table">
+					<thead>
+						<tr class="info">
+							<th>국가</th>
+							<th>상품명</th>
+							<th>평균가격</th>
+							<th>상승/하락</th>
+							<th>변동값</th>
+						</tr>
+					</thead>
+					<tbody>
+						<%
+						if (list2 == null) {
 					%>
-					<tr>
-						<td colspan="5" class="text-center">No Data</td>
-					</tr>
-					<%
+						<tr>
+							<td colspan="5" class="text-center">No Data</td>
+						</tr>
+						<%
 						} else {
 					for (int i = 0; i < 3; i++) {
-						ProductVO pop = list.get(i);
+						ProductVO pop2 = list2.get(i);
 					%>
-					<tr>
-						<td><%=pop.getCountry_kr_name()%></td>
-						<td><%=pop.getCity_kr_name()%></td>
-						<td><%=pop.getMarket_kr_name()%></td>
-						<td><%=pop.getProduct_name()%></td>
-						<td><%=pop.getProduct_price()%></td>
-					</tr>
-					<%
+						<tr>
+							<td><%=pop2.getCountry_kr_name()%></td>
+							<td><%=pop2.getProduct_name()%></td>
+							<td><%=pop2.getProduct_price_P1Data()%>원</td>
+							<% 
+								double p3 = pop2.getProduct_price_P3Data()*100;
+								int p31 = (int)Math.abs(p3);
+								int p4 = (int)pop2.getProduct_price_P4Data()*10;
+								int p5 = (int)pop2.getProduct_price_P5Data()*100;
+								if(p5 >= 100){
+									p5 = p5/10;
+							%>
+								<td><%=p5 %>% 하락</td>
+								<td style="color:blue">▼<%=p31 %></td>	
+							<%
+								}else{
+									p4 = p4/100;
+							%>
+								<td><%=p4 %>% 상승</td>
+								<td style="color:red">▲<%=p31 %></td>	
+							<%
+								}
+							%>
+						</tr>
+						<%
 						} //for end
 					} //if end
 					%>
-			</tbody>
-			</table>
-		</div>
-	</div>
-	<div class="row">
-		<h4>
-			<strong>급변동 물가</strong>
-		</h4>
-		<div class="table-responsive">
-			<table class="table">
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-			</table>
-		</div>
-	</div>
-</div>
+					</tbody>
+				</table>
+			</div>
+		</div><!--급변동-->
+	<!-- End  인기 검색 종목 물가, 급변동 물가-->
 
 
-<jsp:include page="../main/footer.jsp" />
 
