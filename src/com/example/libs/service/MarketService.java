@@ -9,6 +9,7 @@ import com.example.libs.model.MarketVO;
 public class MarketService {
 	
 	public List<MarketVO> selectAllMarket() throws SQLException {
+		
 		return MarketDao.selectAllMarket();
 	}
 	
@@ -24,11 +25,33 @@ public class MarketService {
 		return MarketDao.updateMarket(market);
 	}
 	
-	public List<MarketVO> selectPagination(int from, int to) throws SQLException {
-		return MarketDao.selectPagination(from, to);
+	public int getTotalCount() throws SQLException{
+		return MarketDao.getTotalCount();
+	}
+	
+	public int getTotalPage(int pageSize) throws SQLException {
+		
+		int count = MarketDao.getTotalCount();
+		int totalPage = 0;
+		if(count % pageSize == 0)
+				totalPage = count / pageSize;
+		else totalPage = count / pageSize + 1;
+		
+		return totalPage;
+	}
+	
+	public int getTotalPage(int pageSize, int count) throws SQLException {
+		
+		int totalPage = 0;
+		if(count % pageSize == 0)
+			totalPage = count / pageSize;
+		else totalPage = count / pageSize + 1;
+		
+		return totalPage;
 	}
 	
 	public int deleteMarket(int market_number) throws SQLException{
 		return MarketDao.deleteMarket(market_number);
 	}
+	
 }

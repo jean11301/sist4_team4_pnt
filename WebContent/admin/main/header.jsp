@@ -78,7 +78,7 @@
           <li class="nav-header">물가 관리</li>
           <li class="nav-item">
           	<a href="#" class="nav-link"></a>
-            <a href="../prices/market.jsp" class="nav-link">
+            <a href="../prices/market.jsp?page=1" class="nav-link">
               <i class="fas fa-shopping-cart nav-icon "></i>
               <p>시장 관리</p>
             </a>

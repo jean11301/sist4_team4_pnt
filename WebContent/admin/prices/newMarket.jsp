@@ -14,7 +14,7 @@
 <c:if test="${row eq 1}">
 	<script>
 		alert("신규 시장이 추가되었습니다.");
-		location.href="market.jsp";
+		location.href="market.jsp?page=1";
 	</script>
 </c:if>
 <c:if test="${row ne 1}">

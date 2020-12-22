@@ -80,27 +80,15 @@ public class MarketDao {
 		return row;
 	}
 
-	public static List<MarketVO> selectPagination(int from, int to) throws SQLException {
+	public static int getTotalCount() throws SQLException {
 		Connection conn = DBConnection.getConnection();
-		String sql = "{ call sp_market_selectOffset(?, ?, ?) }";
+		String sql = "{ call sp_market_selectCount(?) }";
 		CallableStatement cstmt = conn.prepareCall(sql);
-		cstmt.setInt(1, from);
-		cstmt.setInt(2, to);
-		cstmt.registerOutParameter(3, OracleTypes.CURSOR);
+		cstmt.registerOutParameter(1, OracleTypes.NUMBER);
 		cstmt.execute();
-		ResultSet rs = (ResultSet) cstmt.getObject(3);
-		ArrayList<MarketVO> list = new ArrayList<MarketVO>();
-		if (rs.next()) {
-			do {
-				MarketVO market = new MarketVO(rs.getInt("market_number"), rs.getString("country_kr_name"), rs.getString("city_kr_name"),
-						rs.getString("market_kr_name"), rs.getString("market_en_name"), rs.getDouble("latitude"), rs.getDouble("longitude"), rs.getString("market_info"));
-				list.add(market);
-			} while (rs.next());
-		} else {
-			list = null;
-		}
-		DBClose.close(conn, cstmt, rs);
-		return list;
+		int count =  cstmt.getInt(1);
+		DBClose.close(conn, cstmt);
+		return count;
 	}
 
 	public static int deleteMarket(int market_number) throws SQLException {

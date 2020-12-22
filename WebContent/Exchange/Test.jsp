@@ -1,8 +1,22 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="krw" value="null" />
+<c:set var="thb" value="null" />
+<c:set var="krw" value="${param.priceKr}" />
+<c:set var="thb" value="${param.priceViet }" />
+
 <!DOCTYPE html>
 <html>
 <head>
       <title>Live Currency Converter</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+	alert("${krw}");
+	alert("${thb}");
+</script>
 </head>
 <body>
 <form>
@@ -54,3 +68,6 @@
 </script>
 </body>
 </html>
+
+<c:set var="krw" value="${}" />
+<c:set var="thb" value="${}" />

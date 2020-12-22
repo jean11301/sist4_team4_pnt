@@ -42,7 +42,7 @@ create or replace NONEDITIONABLE PROCEDURE sp_market_insert
 IS
 BEGIN
     INSERT INTO MARKET (MARKET_NUMBER, MARKET_KR_NAME, MARKET_EN_NAME, LATITUDE,LONGITUDE, market_info, city_number) 
-    VALUES ((SELECT (COUNT(*) + 1) FROM market), v_market_kr_name, v_market_en_name, v_latitude, v_longitude, v_market_info, 
+    VALUES ((SELECT (MAX(*) + 1) FROM market), v_market_kr_name, v_market_en_name, v_latitude, v_longitude, v_market_info, 
     (SELECT MAX(city_number) FROM city INNER JOIN country ON (country.country_code = city.country_code) 
         WHERE country_kr_name= v_country_kr_name AND city_kr_name = v_city_kr_name));
     COMMIT;
@@ -73,20 +73,14 @@ BEGIN
     WHERE market_number = v_market_number;
 END;
 
---페이지네이션
-create or replace NONEDITIONABLE PROCEDURE sp_market_selectOffset
+--전체 게시글 수 불러오기
+create or replace NONEDITIONABLE PROCEDURE sp_market_selectCount
 (
-    v_from           IN    NUMBER,
-    v_to             IN    NUMBER,
-    market_record    OUT   SYS_REFCURSOR
+    selectCount    OUT   NUMBER
 )
 AS
 BEGIN
-    OPEN market_record FOR
-    SELECT market.market_number, country.country_kr_name, city.city_kr_name, market_kr_name, market_en_name, market.latitude, market.longitude, market.market_info
-    FROM country INNER JOIN city ON(country.country_code = city.country_code)
-        INNER JOIN market ON(city.city_number = market.city_number) 
-    ORDER BY country_kr_name, city_kr_name, market_kr_name
-    OFFSET v_from ROWS FETCH NEXT v_to ROWS ONLY;
+    SELECT COUNT(market_number) AS selectCount INTO selectCount
+    FROM market;
 END;
     
