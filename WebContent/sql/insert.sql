@@ -1,79 +1,180 @@
-
---Rem
+--user
+INSERT INTO USERINFO (USER_ID, USER_PASSWORD, USER_NAME, AUTHORITY) VALUES ('admin', '12345', '관리자', '1');
+INSERT INTO USERINFO (USER_ID, USER_PASSWORD, USER_NAME, AUTHORITY) VALUES ('team4', 'team4', 'team4', '0');
 
 --country
-INSERT INTO country (country_code, country_kr_name, country_en_name) VALUES(1,'태국','tai');
-INSERT INTO country (country_code, country_kr_name, country_en_name) VALUES(2,'베트남','VIETNAM');
-INSERT INTO country (country_code, country_kr_name, country_en_name) VALUES(3,'필리핀','phil');
---city 
+INSERT INTO country (country_code, country_kr_name, country_en_name, COUNTRY_FLAG_IMG) VALUES('1', '태국', 'Thailand', '<img src="../images/country/Thailand.png">');
+INSERT INTO country (country_code, country_kr_name, country_en_name, COUNTRY_FLAG_IMG) VALUES('2', '베트남', 'Vietnam', '<img src="../images/country/Vietnam.png">');
+INSERT INTO country (country_code, country_kr_name, country_en_name, COUNTRY_FLAG_IMG) VALUES('3', '라오스', 'Laos', '<img src="../images/country/Laos.png">');
+INSERT INTO country (country_code, country_kr_name, country_en_name, COUNTRY_FLAG_IMG) VALUES('4', '말레이시아', 'Malaysia', '<img src="../images/country/Malaysia.png">');
+INSERT INTO country (country_code, country_kr_name, country_en_name, COUNTRY_FLAG_IMG) VALUES('5', '싱가폴', 'Singapore', '<img src="../images/country/Singapore.png">');
+
+
+--city
 INSERT INTO city VALUES( 1, '방콕', 'Bangkok',1);
-INSERT INTO city VALUES( 2,'카오산', 'kaosan',1);
-INSERT INTO city VALUES( 3,'담헤이', 'dam',1);
-INSERT INTO city VALUES( 4,'호치민', 'hochi',2);
-INSERT INTO city VALUES( 5, '달랏', 'dalot',2);
+INSERT INTO city VALUES( 2,'카오산', 'Khaosan',1);
+INSERT INTO city VALUES( 3,'파타야', 'Pattaya',1);
+INSERT INTO city VALUES( 4,'호치민', 'Ho Chi Minh',2);
+INSERT INTO city VALUES( 5, '달랏', 'Dalat',2);
 INSERT INTO city VALUES( 6,'하노이', 'Hanoi',2);
-INSERT INTO city VALUES( 7,'아시아티크', 'asiateak',1);
-INSERT INTO city VALUES( 8,'마닐라', 'Carti',3);
+INSERT INTO city VALUES( 7,'비엔티앤', 'Vientiane',3);
+INSERT INTO city VALUES( 8,'루앙프라방', 'Luang Prabang',3);
+INSERT INTO city VALUES( 9,'방비엥', 'Vang Vieng',3);
+INSERT INTO city VALUES( 10,'쿠알라룸푸르', 'Kuala Lumpur',4);
+INSERT INTO city VALUES( 11,'조호르바루', 'Johor Bahru',4);
+INSERT INTO city VALUES( 12,'수방자야', 'Subang Jaya',4);
+INSERT INTO city VALUES( 13,'오차드로드', 'Orchard Road',5);
+INSERT INTO city VALUES( 14,'리버사이드', 'Singapore River',5);
+INSERT INTO city VALUES( 15,'칼랑', 'Kallang',5);
 
 
 --market
-INSERT INTO market VALUES(1,'카오산로드','gwang',0.58,0.699,'info',2);
-INSERT INTO market VALUES(2,'짝두짝시장','jjak',0.342,0.785,'info',1);
-INSERT INTO market VALUES(3,'깔티마시장','jjak',0.342,0.785,'info',8);
+INSERT INTO market VALUES(1, '빠뚜남', 'Pratunam', 13.7516048, 100.5396511, '방콕 여행에 필수로 뽑히는 스팟! 칫롬역, 플래티넘 쇼핑몰, 바이욕 스카이 빌딩과 인접해있어 접근성이 좋아 부담 없이 찾아가기 좋다. 흔히들 빠뚜남 시장에서 길거리 노점상만 보지만 시장 건물 안으로 들어가면 활기찬 로컬시장을 볼 수 있을 것이다. ', 1);
+INSERT INTO market VALUES(2, '짜뚜짝', 'Chatuchak', 13.8005637, 100.5481822, '세계에서 가장 큰 주말 시장으로 사람 사는 온기로 가득하며, 하루종일 둘러봐도 골목골목 빼곡히 자리한 이곳의 상점들을 모두 훑어보기에는 역부족일 정도입니다. 27개 구역에서 없는 것 없이 다양한 물건이 판매되며, 가정 용품, 주방용품, 액세서리, 의류, 태국 전통 수공예품, 종교 품목, 수집품, 중고 책, 음식, 동물들까지 상품의 천국입니다. ', 1);
+INSERT INTO market VALUES(3, '방람푸', 'Banglamphu', 13.7615106, 100.4977185, '한적하고 현지인들이 더 자주 이용하는 곳이다. 소박하고 정감 있는 분위기로 저렴한 가격의 생활 용품을 많이 판매한다. 액세서리, 식재료, 먹거리 등 다양한 물품이 많아 카오산 로드에서 천천히 걸어 가 구경하기 좋다. 태국 분위기가 가득 담긴 기념품 및 선물도 구입할 수 있는 곳.', 2);
+INSERT INTO market VALUES(4, '파타야 수상시장', 'Pattaya Floating', 12.8683868, 100.9021487, '선박과 물가의 상점에서 전통적인 태국 공예품과 농산물을 판매하는 다채로운 시장입니다.', 3);
+INSERT INTO market VALUES(5, '나이트바자', 'Night Bazaar', 12.9325672, 100.8818633, '250개가 넘는 가판대에서 의류, 신발, 여행 가방, 보석, 태국 기념품 등을 24시간 판매하는 활기찬 시장입니다.', 3);
+INSERT INTO market VALUES(6, '벤탄', 'Ben Thanh', 10.7919695, 106.6250147, '정문에 우뚝 솟아 있는 시계탑이 인상적인, 호치민 최대 규모의 재래시장. 2,000여 개의 상점이 빼곡하게 모여 있는 곳으로, 활기찬 로컬 분위기를 느낄 수 있다. 식료품과 의류, 라탄 가방, 기념품 등 다양한 상품을 만날 수 있으며, 베트남 현지 요리를 판매하는 맛집도 곳곳에 들어서 식사를 해결하기도 좋다. 저녁 무렵 열리는 벤탄 야시장을 비롯해 인근에 푸드 코트형 먹거리 시장 벤탄 스트리트 푸드 마켓이 있어, 함께 둘러보는 것을 추천한다.', 4);
+INSERT INTO market VALUES(7, '안동', 'Andong ', 10.7581489, 106.6696639, '옷감, 의류, 말린 음식, 공예품 등 다채로운 물건을 판매하는 실내 시장입니다.', 4);
+INSERT INTO market VALUES(8, '달랏', 'Dalat', 11.9428556, 108.4346737, '딸기, 오디, 커피, 아티초크 차(茶) 등의 특산품으로 유명한 달랏지역의 식료품을 파는 시장. 특산품과 다양한 현지 과일, 채소 등을 구입할 수 있어 현지인도 즐겨 찾는다. 밤이 되면 시장 앞 광장에서 각종 물건과 음식을 파는 노점들이 길게 늘어서는 달랏 야시장이 열려 로컬 분위기를 제대로 느낄 수 있다.', 5);
+INSERT INTO market VALUES(9, '치랑', 'Chi Lang', 11.9473988, 108.426472, '달랏의 현지 시장으로 활기찬 작은 시장으로 좋고 다양한 제품을 판매합니다.다양한 음식을 판매하고 풍부하고 야채와 고기는 매우 싸고 신선합니다. 시장 방문객은 맛있고 저렴한 아침 식사로 붐 빕니다.', 5);
+INSERT INTO market VALUES(10, '동쑤언', 'Dong Xuan', 21.0345583, 105.8484525, '구시가 내에 위치한 대규모 재래시장. 베트남 북부 최대의 시장으로 실내로 이루어져 있다. 3층 규모의 건물 내부에는 먹거리, 의류, 생활용품, 기념품 등 없는 게 없을 정도. 하노이를 여행하며 필요한 게 있다면 구경도 하고, 겸사겸사 들렀다 가기 좋다. 시장 앞에 노점이 빽빽이 늘어서 있어 활기찬 분위기를 느낄 수 있다.', 6);
+INSERT INTO market VALUES(11, '하노이 야시장', 'Hanoi night market', 21.0334054, 105.84875, '옷, 기념품, 길거리 음식 등을 판매하는 가판대로 활기 넘치는 인기 야시장입니다.', 6);
+INSERT INTO market VALUES(12, '메콩강 야시장', 'Mekong Riverside Park', 17.9624644, 102.6034772, '메콩강의 야경을 보며 즐기는 야시장 라오스인들의 생활상을 볼 수 있는 곳 볼거리, 먹거리, 기념품을 구입할 수 있는 현지 시장', 7);
+INSERT INTO market VALUES(13, '쿠아딘', 'Kuha Din', 17.9644915, 102.6140642, '이곳은 주로 아침 일찍 시장을 찾는 손님을 위해 새벽 시장이 열립니다. 시장의 가게 문을 열기 전에 길에 좌판을 열고 아침일찍 시장을 열었다가 8시에 닫습니다. 물건 값이 비교적 싼 편이라 사람들이 많이 모입니다. 어떤 과일은 반값 이하로도 떨어지기에 적은 돈으로도 장바구니를 가득 채울 수 있습니다.', 7);
+INSERT INTO market VALUES(14, '루앙프라방 야시장', 'Luang Prabang Night Market', 19.89045, 102.1329906, '매일 저녁 5시부터 10시까지 시사방봉로드를 중심으로 시장이 열린다. 판매하는 물건은 의류, 가방,  공예품 등 다양하며,  주변에는 노천 부페식당과 과일주스 등 먹거리도 풍부하다.', 8);
+INSERT INTO market VALUES(15, '다라마켓', 'Dara Market', 19.8876457, 102.1333026, '다라 시장은 루앙프라방에서 큰 지역 시장입니다. 과일과 채소를 파는 노점들이 많이 있습니다. 현지 기념품과 간식을 많이 파는 노점도 볼 수 있습니다. 야시장에서 판매되는 것과 비슷한 다양한 액세서리와 수공예품이 있고, 가격도 저렴합니다.', 8);
+INSERT INTO market VALUES(16, '몬도가네', 'Vangvieng Market', 18.9403302, 102.4434472, '현지 시장이나 관광객들이 더욱 많은 곳, 아침 시장이지만 실제로는 오후 늦게까지 열리는 현지 음식을 저렴하게 구입해 먹을 수 있는 곳', 9);
+INSERT INTO market VALUES(17, '페탈링 야시장', 'Petaling Street Market', 3.1453293, 101.6974355, '쿠알라룸푸르에서 꼭 가야하는 야시장 중 하나이며 차이나 타운에 위치한 야시장이다.', 10);
+INSERT INTO market VALUES(18, '잘란알로 야시장', 'Jalan Alor Night Food Court', 3.1453642, 101.7082614, '쿠알라룸푸르를 오게 되신다면 꼭 가세요!!! 한국인 입 맛에 그래도 가장 잘 맞는 곳이에요.', 10);
+INSERT INTO market VALUES(19, '바자르 캐럿', 'Pasar Karat (Bazar JB)', 1.4585558, 103.7644741, '현지인들이 많이 찾는 야시장이며 가격도 저렴하고 다양한 간식거리도 만날 수 있다. 여행객들이 거의 보이지않음', 11);
+INSERT INTO market VALUES(20, '부킷 인다 야시장 2', 'Pasar Malam Bukit Indah 2', 1.472708, 103.6545715, '엄청 긴 야시장이며 수요일마다 열린다. 신선한 과일과 야채가 많고, 특히 달걀을 추천', 11);
+INSERT INTO market VALUES(21, 'MPSJ 수방 자야 현대 시장 (SS15)', 'Pasar Moden SS15 MPSJ', 3.0750187, 101.5878017, '가장 깨끗한 습식 시장, 닭고기, 생선등 신선함이 최고인 시장', 12);
+INSERT INTO market VALUES(22, '벼룩 파티 @ 럭키 플라자', 'Flea Party @ Lucky Plaza', 1.3048007, 103.8342597, '옷장을 정리하고 싶은 모든 사람들에게 확실한 추천! ', 13);
+INSERT INTO market VALUES(23, '텔록 에이어 마켓', 'Telok Ayer Market', 1.2808556, 103.8504543, '싱가폴에서 나름 저렴한 로컬 야시장 느낌 야시장이지만 다른 동남아에비해 깨끗해서 좋음.', 14);
+INSERT INTO market VALUES(24, '티옹 바루 마켓', 'Tiong Bahru Market', 1.2851665, 103.832368, '1층엔 꽃.과일.고기등을 파는 시장, 2층은 현지인위주의 호커센터입니다. 저렴한가격에 먹을수있으나 현지위주의 음식이 많습니다.', 14);
+INSERT INTO market VALUES(25, '테카 센터', 'Tekka Centre', 1.3064615, 103.8506168, '1층은 음식점과 수산물등이 가득하고 2층은 의류가 가득한데 가격이 착합니다', 15);
 
-
-
-REM 베트남 임시데이터 
---USERINFO
-INSERT INTO USERINFO (USER_ID, USER_PASSWORD, USER_NAME, AUTHORITY) VALUES ('admin', '12345', '관리자', '1');
-
-
---Country 데이터 5행에서 삽입했으므로 중복되므로 생략하고 넘어가주세요
-INSERT INTO COUNTRY (country_code,COUNTRY_KR_NAME, COUNTRY_EN_NAME) VALUES (1,'베트남','VIETNAM');
---CITY 데이터  11~13행에서 삽입했으므로 중복되므로 생략하고 넘어가주세요
-INSERT INTO CITY (CITY_NUMBER,CITY_KR_NAME, CITY_EN_NAME, COUNTRY_CODE)VALUES (4,'호치민', 'Ho Chi Minh', 2);
-INSERT INTO CITY (CITY_NUMBER,CITY_KR_NAME, CITY_EN_NAME, COUNTRY_CODE)VALUES (5,'달랏', 'Dalat', 2);
-INSERT INTO CITY (CITY_NUMBER,CITY_KR_NAME, CITY_EN_NAME, COUNTRY_CODE)VALUES (6,'하노이', 'Hanoi', 2);
-
-
---MARKET 데이터
-INSERT INTO MARKET (MARKET_NUMBER, MARKET_KR_NAME, MARKET_EN_NAME, LATITUDE, LONGITUDE, market_info, city_number) VALUES (4, '벤탄','Ben Thanh',10.7919695,106.6250147, '여기는 벤탄시장입니다.', 4);
-INSERT INTO MARKET (MARKET_NUMBER, MARKET_KR_NAME, MARKET_EN_NAME, LATITUDE, LONGITUDE, market_info,city_number) VALUES (5, '달랏','Dalat',11.9428556,108.4346737, '여기는 달랏시장입니다.', 5);
-INSERT INTO MARKET (MARKET_NUMBER, MARKET_KR_NAME, MARKET_EN_NAME, LATITUDE, LONGITUDE, market_info,city_number) VALUES (6, '동쑤언','Dong Xuan',21.0345583,105.8484525, '여기는 동쑤언시장입니다.', 6);
-
---PRODUCT 데이터
-INSERT INTO PRODUCT (PRODUCT_NUMBER,PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DATE, SEQUENCE, CHECK_STATUS, CITY_NUMBER, MARKET_NUMBER, USER_ID) VALUES (1,'바나나',2000,to_date('2020-11-24', 'RRRR-MM-DD'),80, 1, 4,4,'admin');
-INSERT INTO PRODUCT (PRODUCT_NUMBER,PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DATE, SEQUENCE, CHECK_STATUS, CITY_NUMBER, MARKET_NUMBER, USER_ID) VALUES (2,'사과',500,to_date('2020-11-25', 'RRRR-MM-DD'),50, 0, 4,4,'admin');
-INSERT INTO PRODUCT (PRODUCT_NUMBER,PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DATE, SEQUENCE, CHECK_STATUS, CITY_NUMBER, MARKET_NUMBER, USER_ID) VALUES (3,'물',1200,to_date('2020-11-26', 'RRRR-MM-DD'),10, 1, 4,4,'admin');
-INSERT INTO PRODUCT (PRODUCT_NUMBER,PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DATE, SEQUENCE, CHECK_STATUS, CITY_NUMBER, MARKET_NUMBER, USER_ID) VALUES (4,'망고',2870,to_date('2020-11-27', 'RRRR-MM-DD'),9, 1, 4,4,'admin');
-INSERT INTO PRODUCT (PRODUCT_NUMBER,PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DATE, SEQUENCE, CHECK_STATUS, CITY_NUMBER, MARKET_NUMBER, USER_ID) VALUES (5,'라면',1080,to_date('2020-11-28', 'RRRR-MM-DD'),1, 1, 4,4,'admin');
-INSERT INTO PRODUCT (PRODUCT_NUMBER,PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DATE, SEQUENCE, CHECK_STATUS, CITY_NUMBER, MARKET_NUMBER, USER_ID) VALUES (6,'커피포트',38900,to_date('2020-11-29', 'RRRR-MM-DD'),8, 0, 4,4,'admin');
-INSERT INTO PRODUCT (PRODUCT_NUMBER,PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DATE, SEQUENCE, CHECK_STATUS, CITY_NUMBER, MARKET_NUMBER, USER_ID) VALUES (7,'우동',5000,to_date('2020-11-30', 'RRRR-MM-DD'),15, 1, 4,4,'admin');
-INSERT INTO PRODUCT (PRODUCT_NUMBER,PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DATE, SEQUENCE, CHECK_STATUS, CITY_NUMBER, MARKET_NUMBER, USER_ID) VALUES (8,'커피',2160,to_date('2020-12-01', 'RRRR-MM-DD'),152, 1, 4,4,'admin');
-INSERT INTO PRODUCT (PRODUCT_NUMBER,PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DATE, SEQUENCE, CHECK_STATUS, CITY_NUMBER, MARKET_NUMBER, USER_ID) VALUES (9,'요거트',220,to_date('2020-12-02', 'RRRR-MM-DD'),157, 1, 4,4,'admin');
-INSERT INTO PRODUCT (PRODUCT_NUMBER,PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DATE, SEQUENCE, CHECK_STATUS, CITY_NUMBER, MARKET_NUMBER, USER_ID) VALUES (10,'인형',10100,to_date('2020-12-03', 'RRRR-MM-DD'),111, 0, 4,4,'admin');
-INSERT INTO PRODUCT (PRODUCT_NUMBER,PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DATE, SEQUENCE, CHECK_STATUS, CITY_NUMBER, MARKET_NUMBER, USER_ID) VALUES (11,'스타애플',80,to_date('2020-12-04', 'RRRR-MM-DD'),26, 1, 4,4,'admin');
-INSERT INTO PRODUCT (PRODUCT_NUMBER,PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DATE, SEQUENCE, CHECK_STATUS, CITY_NUMBER, MARKET_NUMBER, USER_ID) VALUES (12,'커스타드 애플',250,to_date('2020-12-05', 'RRRR-MM-DD'),258, 1, 4,4,'admin');
-INSERT INTO PRODUCT (PRODUCT_NUMBER,PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DATE, SEQUENCE, CHECK_STATUS, CITY_NUMBER, MARKET_NUMBER, USER_ID) VALUES (13,'바나나',1810,to_date('2020-12-06', 'RRRR-MM-DD'),17, 1, 5,5,'admin');
-INSERT INTO PRODUCT (PRODUCT_NUMBER,PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DATE, SEQUENCE, CHECK_STATUS, CITY_NUMBER, MARKET_NUMBER, USER_ID) VALUES (14,'사과',300,to_date('2020-12-07', 'RRRR-MM-DD'),89, 1, 5,5,'admin');
-INSERT INTO PRODUCT (PRODUCT_NUMBER,PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DATE, SEQUENCE, CHECK_STATUS, CITY_NUMBER, MARKET_NUMBER, USER_ID) VALUES (15,'물',800,to_date('2020-12-08', 'RRRR-MM-DD'),69, 0, 5,5,'admin');
-INSERT INTO PRODUCT (PRODUCT_NUMBER,PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DATE, SEQUENCE, CHECK_STATUS, CITY_NUMBER, MARKET_NUMBER, USER_ID) VALUES (16,'반미',1500,to_date('2020-12-09', 'RRRR-MM-DD'),92, 1, 5,5,'admin');
-INSERT INTO PRODUCT (PRODUCT_NUMBER,PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DATE, SEQUENCE, CHECK_STATUS, CITY_NUMBER, MARKET_NUMBER, USER_ID) VALUES (17,'볶음밥',1320,to_date('2020-12-10', 'RRRR-MM-DD'),100, 1, 5,5,'admin');
-INSERT INTO PRODUCT (PRODUCT_NUMBER,PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DATE, SEQUENCE, CHECK_STATUS, CITY_NUMBER, MARKET_NUMBER, USER_ID) VALUES (18,'닭',4500,to_date('2020-12-11', 'RRRR-MM-DD'),871, 1, 5,5,'admin');
-INSERT INTO PRODUCT (PRODUCT_NUMBER,PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DATE, SEQUENCE, CHECK_STATUS, CITY_NUMBER, MARKET_NUMBER, USER_ID) VALUES (19,'우렁이찜',7110,to_date('2020-12-12', 'RRRR-MM-DD'),50, 1, 5,5,'admin');
-INSERT INTO PRODUCT (PRODUCT_NUMBER,PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DATE, SEQUENCE, CHECK_STATUS, CITY_NUMBER, MARKET_NUMBER, USER_ID) VALUES (20,'쌀국수',800,to_date('2020-12-13', 'RRRR-MM-DD'),33, 0, 5,5,'admin');
-INSERT INTO PRODUCT (PRODUCT_NUMBER,PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DATE, SEQUENCE, CHECK_STATUS, CITY_NUMBER, MARKET_NUMBER, USER_ID) VALUES (21,'인형',800,to_date('2020-12-14', 'RRRR-MM-DD'),120, 1, 5,5,'admin');
-INSERT INTO PRODUCT (PRODUCT_NUMBER,PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DATE, SEQUENCE, CHECK_STATUS, CITY_NUMBER, MARKET_NUMBER, USER_ID) VALUES (22,'망고주스',320,to_date('2020-12-15', 'RRRR-MM-DD'),77, 1, 5,5,'admin');
-INSERT INTO PRODUCT (PRODUCT_NUMBER,PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DATE, SEQUENCE, CHECK_STATUS, CITY_NUMBER, MARKET_NUMBER, USER_ID) VALUES (23,'바나나',800,to_date('2020-12-16', 'RRRR-MM-DD'),0, 1, 6,6,'admin');
-INSERT INTO PRODUCT (PRODUCT_NUMBER,PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DATE, SEQUENCE, CHECK_STATUS, CITY_NUMBER, MARKET_NUMBER, USER_ID) VALUES (24,'사과',450,to_date('2020-12-17', 'RRRR-MM-DD'),0, 0, 6,6,'admin');
-INSERT INTO PRODUCT (PRODUCT_NUMBER,PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DATE, SEQUENCE, CHECK_STATUS, CITY_NUMBER, MARKET_NUMBER, USER_ID) VALUES (25,'물',970,to_date('2020-12-18', 'RRRR-MM-DD'),0, 1, 6,6,'admin');
-INSERT INTO PRODUCT (PRODUCT_NUMBER,PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DATE, SEQUENCE, CHECK_STATUS, CITY_NUMBER, MARKET_NUMBER, USER_ID) VALUES (26,'쌀국수',1210,to_date('2020-12-19', 'RRRR-MM-DD'),0, 1, 6,6,'admin');
-INSERT INTO PRODUCT (PRODUCT_NUMBER,PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DATE, SEQUENCE, CHECK_STATUS, CITY_NUMBER, MARKET_NUMBER, USER_ID) VALUES (27,'망고',1800,to_date('2020-12-20', 'RRRR-MM-DD'),0, 1, 6,6,'admin');
-INSERT INTO PRODUCT (PRODUCT_NUMBER,PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DATE, SEQUENCE, CHECK_STATUS, CITY_NUMBER, MARKET_NUMBER, USER_ID) VALUES (28,'커스터드 애플',500,to_date('2020-12-21', 'RRRR-MM-DD'),0, 1, 6,6,'admin');
-INSERT INTO PRODUCT (PRODUCT_NUMBER,PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DATE, SEQUENCE, CHECK_STATUS, CITY_NUMBER, MARKET_NUMBER, USER_ID) VALUES (29,'당근',110,to_date('2020-12-22', 'RRRR-MM-DD'),0, 0, 6,6,'admin');
-INSERT INTO PRODUCT (PRODUCT_NUMBER,PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DATE, SEQUENCE, CHECK_STATUS, CITY_NUMBER, MARKET_NUMBER, USER_ID) VALUES (30,'코코넛',90,to_date('2020-12-23', 'RRRR-MM-DD'),0, 1, 6,6,'admin');
-INSERT INTO PRODUCT (PRODUCT_NUMBER,PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DATE, SEQUENCE, CHECK_STATUS, CITY_NUMBER, MARKET_NUMBER, USER_ID) VALUES (31,'코코넛 가루',250,to_date('2020-12-24', 'RRRR-MM-DD'),0, 0, 6,6,'admin');
-INSERT INTO PRODUCT (PRODUCT_NUMBER,PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DATE, SEQUENCE, CHECK_STATUS, CITY_NUMBER, MARKET_NUMBER, USER_ID) VALUES (32,'말린 새우',6520,to_date('2020-12-25', 'RRRR-MM-DD'),990, 1, 6,6,'admin');
-
-
-COMMIT;
+--product
+INSERT INTO product VALUES(1, '물', 1100, '<img src="../images/product/water_1.png">', TO_DATE('2020-12-01', 'RRRR-MM-DD'), 73, 1, 1, 1, 'admin');	
+INSERT INTO product VALUES(2, '바나나', 2500, '<img src="../images/product/banana_1.png">', TO_DATE('2020-12-02', 'RRRR-MM-DD'), 92, 1, 1, 1, 'admin');	
+INSERT INTO product VALUES(3, '사과', 1500, '<img src="../images/product/apple_1.png">', TO_DATE('2020-12-03', 'RRRR-MM-DD'), 452, 1, 1, 1, 'admin');	
+INSERT INTO product VALUES(4, '망고', 800, '<img src="../images/product/mango.png">', TO_DATE('2020-12-04', 'RRRR-MM-DD'), 823, 1, 1, 1, 'admin');	
+INSERT INTO product VALUES(5, '라면', 1200, '<img src="../images/product/라면.png">', TO_DATE('2020-12-05', 'RRRR-MM-DD'), 566, 1, 1, 1, 'admin');	
+INSERT INTO product VALUES(6, '물', 900, '<img src="../images/product/water_2.png">', TO_DATE('2020-12-06', 'RRRR-MM-DD'), 538, 1, 1, 2, 'admin');	
+INSERT INTO product VALUES(7, '바나나', 1500, '<img src="../images/product/banana_2.png">', TO_DATE('2020-12-07', 'RRRR-MM-DD'), 730, 1, 1, 2, 'admin');	
+INSERT INTO product VALUES(8, '사과', 500, '<img src="../images/product/apple_2.png">', TO_DATE('2020-12-08', 'RRRR-MM-DD'), 808, 1, 1, 2, 'admin');	
+INSERT INTO product VALUES(9, '라면', 2500, '<img src="../images/product/라면.png">', TO_DATE('2020-12-09', 'RRRR-MM-DD'), 636, 1, 1, 2, 'admin');	
+INSERT INTO product VALUES(10, '요거트', 500, '<img src="../images/product/요거트.png">', TO_DATE('2020-12-01', 'RRRR-MM-DD'), 1038, 1, 1, 2, 'admin');	
+INSERT INTO product VALUES(11, '물', 880, '<img src="../images/product/water_3.png">', TO_DATE('2020-12-02', 'RRRR-MM-DD'), 564, 1, 2, 3, 'admin');	
+INSERT INTO product VALUES(12, '바나나', 2300, '<img src="../images/product/banana_1.png">', TO_DATE('2020-12-03', 'RRRR-MM-DD'), 1229, 1, 2, 3, 'admin');	
+INSERT INTO product VALUES(13, '사과', 800, '<img src="../images/product/apple_2.png">', TO_DATE('2020-12-13', 'RRRR-MM-DD'), 641, 1, 2, 3, 'admin');	
+INSERT INTO product VALUES(14, '반미', 1300, '<img src="../images/product/반미.png">', TO_DATE('2020-12-14', 'RRRR-MM-DD'), 767, 1, 2, 3, 'admin');	
+INSERT INTO product VALUES(15, '우렁이찜', 2500, '<img src="../images/product/우렁이찜.png">', TO_DATE('2020-12-15', 'RRRR-MM-DD'), 614, 1, 2, 3, 'admin');	
+INSERT INTO product VALUES(16, '물', 800, '<img src="../images/product/water_2.png">', TO_DATE('2020-12-16', 'RRRR-MM-DD'), 1127, 1, 3, 4, 'admin');	
+INSERT INTO product VALUES(17, '바나나', 3900, '<img src="../images/product/banana_3.png">', TO_DATE('2020-12-17', 'RRRR-MM-DD'), 533, 1, 3, 4, 'admin');	
+INSERT INTO product VALUES(18, '사과', 2300, '<img src="../images/product/apple_3.png">', TO_DATE('2020-12-18', 'RRRR-MM-DD'), 990, 1, 3, 4, 'admin');	
+INSERT INTO product VALUES(19, '반미', 3500, '<img src="../images/product/반미.png">', TO_DATE('2020-12-19', 'RRRR-MM-DD'), 847, 1, 3, 4, 'admin');	
+INSERT INTO product VALUES(20, '쌀국수', 6500, '<img src="../images/product/쌀국수.png">', TO_DATE('2020-12-20', 'RRRR-MM-DD'), 161, 1, 3, 4, 'admin');	
+INSERT INTO product VALUES(21, '물', 1500, '<img src="../images/product/water_1.png">', TO_DATE('2020-12-21', 'RRRR-MM-DD'), 22, 1, 3, 5, 'admin');	
+INSERT INTO product VALUES(22, '바나나', 1900, '<img src="../images/product/banana_3.png">', TO_DATE('2020-12-22', 'RRRR-MM-DD'), 538, 1, 3, 5, 'admin');	
+INSERT INTO product VALUES(23, '사과', 250, '<img src="../images/product/apple_1.png">', TO_DATE('2020-12-01', 'RRRR-MM-DD'), 730, 1, 3, 5, 'admin');	
+INSERT INTO product VALUES(24, '쌀국수', 1300, '<img src="../images/product/쌀국수.png">', TO_DATE('2020-12-02', 'RRRR-MM-DD'), 808, 1, 3, 5, 'admin');	
+INSERT INTO product VALUES(25, '반미', 800, '<img src="../images/product/반미.png">', TO_DATE('2020-12-03', 'RRRR-MM-DD'), 760, 1, 3, 5, 'admin');	
+INSERT INTO product VALUES(26, '물', 1000, '<img src="../images/product/water_1.png">', TO_DATE('2020-12-03', 'RRRR-MM-DD'), 73, 1, 4, 6, 'admin');	
+INSERT INTO product VALUES(27, '바나나', 1300, '<img src="../images/product/banana_2.png">', TO_DATE('2020-12-13', 'RRRR-MM-DD'), 92, 1, 4, 6, 'admin');	
+INSERT INTO product VALUES(28, '사과', 1020, '<img src="../images/product/apple_3.png">', TO_DATE('2020-12-14', 'RRRR-MM-DD'), 534, 1, 4, 6, 'admin');	
+INSERT INTO product VALUES(29, '쌀국수', 2450, '<img src="../images/product/쌀국수.png">', TO_DATE('2020-12-15', 'RRRR-MM-DD'), 798, 1, 4, 6, 'admin');	
+INSERT INTO product VALUES(30, '두리안', 3100, '<img src="../images/product/두리안.png">', TO_DATE('2020-12-16', 'RRRR-MM-DD'), 401, 1, 4, 6, 'admin');	
+INSERT INTO product VALUES(31, '물', 1060, '<img src="../images/product/water_3.png">', TO_DATE('2020-12-17', 'RRRR-MM-DD'), 538, 1, 4, 7, 'admin');	
+INSERT INTO product VALUES(32, '바나나', 1350, '<img src="../images/product/banana_2.png">', TO_DATE('2020-12-18', 'RRRR-MM-DD'), 730, 1, 4, 7, 'admin');	
+INSERT INTO product VALUES(33, '사과', 1280, '<img src="../images/product/apple_1.png">', TO_DATE('2020-12-19', 'RRRR-MM-DD'), 581, 1, 4, 7, 'admin');	
+INSERT INTO product VALUES(34, '망고스틴', 1100, '<img src="../images/product/망고스틴.png">', TO_DATE('2020-12-20', 'RRRR-MM-DD'), 864, 1, 4, 7, 'admin');	
+INSERT INTO product VALUES(35, '스타후르츠', 2800, '<img src="../images/product/스타후르츠.png">', TO_DATE('2020-12-21', 'RRRR-MM-DD'), 980, 1, 4, 7, 'admin');	
+INSERT INTO product VALUES(36, '물', 1010, '<img src="../images/product/water_3.png">', TO_DATE('2020-12-22', 'RRRR-MM-DD'), 564, 1, 5, 8, 'admin');	
+INSERT INTO product VALUES(37, '바나나', 1280, '<img src="../images/product/banana_3.png">', TO_DATE('2020-12-01', 'RRRR-MM-DD'), 1229, 1, 5, 8, 'admin');	
+INSERT INTO product VALUES(38, '사과', 730, '<img src="../images/product/apple_2.png">', TO_DATE('2020-12-02', 'RRRR-MM-DD'), 333, 1, 5, 8, 'admin');	
+INSERT INTO product VALUES(39, '용과', 3200, '<img src="../images/product/용과.png">', TO_DATE('2020-12-03', 'RRRR-MM-DD'), 878, 1, 5, 8, 'admin');	
+INSERT INTO product VALUES(40, '패션후르츠', 2000, '<img src="../images/product/패션후르츠.png">', TO_DATE('2020-12-04', 'RRRR-MM-DD'), 714, 1, 5, 8, 'admin');	
+INSERT INTO product VALUES(41, '물', 770, '<img src="../images/product/water_3.png">', TO_DATE('2020-12-05', 'RRRR-MM-DD'), 1127, 1, 5, 9, 'admin');	
+INSERT INTO product VALUES(42, '바나나', 1350, '<img src="../images/product/banana_2.png">', TO_DATE('2020-12-06', 'RRRR-MM-DD'), 533, 1, 5, 9, 'admin');	
+INSERT INTO product VALUES(43, '사과', 800, '<img src="../images/product/apple_2.png">', TO_DATE('2020-12-07', 'RRRR-MM-DD'), 818, 1, 5, 9, 'admin');	
+INSERT INTO product VALUES(44, '망고스틴', 1400, '<img src="../images/product/망고스틴.png">', TO_DATE('2020-12-08', 'RRRR-MM-DD'), 910, 1, 5, 9, 'admin');	
+INSERT INTO product VALUES(45, '두리안', 2500, '<img src="../images/product/두리안.png">', TO_DATE('2020-12-09', 'RRRR-MM-DD'), 262, 1, 5, 9, 'admin');	
+INSERT INTO product VALUES(46, '물', 760, '<img src="../images/product/water_3.png">', TO_DATE('2020-12-01', 'RRRR-MM-DD'), 22, 1, 6, 10, 'admin');	
+INSERT INTO product VALUES(47, '바나나', 1080, '<img src="../images/product/banana_3.png">', TO_DATE('2020-12-02', 'RRRR-MM-DD'), 538, 1, 6, 10, 'admin');	
+INSERT INTO product VALUES(48, '사과', 770, '<img src="../images/product/apple_3.png">', TO_DATE('2020-12-03', 'RRRR-MM-DD'), 636, 1, 6, 10, 'admin');	
+INSERT INTO product VALUES(49, '망고', 1600, '<img src="../images/product/mango.png">', TO_DATE('2020-12-13', 'RRRR-MM-DD'), 907, 1, 6, 10, 'admin');	
+INSERT INTO product VALUES(50, '코코넛', 950, '<img src="../images/product/코코넛.png">', TO_DATE('2020-12-01', 'RRRR-MM-DD'), 800, 1, 6, 10, 'admin');	
+INSERT INTO product VALUES(51, '물', 910, '<img src="../images/product/water_1.png">', TO_DATE('2020-12-02', 'RRRR-MM-DD'), 94, 1, 6, 11, 'admin');	
+INSERT INTO product VALUES(52, '바나나', 1120, '<img src="../images/product/banana_1.png">', TO_DATE('2020-12-03', 'RRRR-MM-DD'), 152, 1, 6, 11, 'admin');	
+INSERT INTO product VALUES(53, '사과', 970, '<img src="../images/product/apple_1.png">', TO_DATE('2020-12-04', 'RRRR-MM-DD'), 525, 1, 6, 11, 'admin');	
+INSERT INTO product VALUES(54, '쌀국수', 2100, '<img src="../images/product/쌀국수.png">', TO_DATE('2020-12-05', 'RRRR-MM-DD'), 834, 1, 6, 11, 'admin');	
+INSERT INTO product VALUES(55, '망고', 1420, '<img src="../images/product/mango.png">', TO_DATE('2020-12-06', 'RRRR-MM-DD'), 568, 1, 6, 11, 'admin');	
+INSERT INTO product VALUES(56, '물', 990, '<img src="../images/product/water_3.png">', TO_DATE('2020-12-07', 'RRRR-MM-DD'), 683, 1, 7, 12, 'admin');	
+INSERT INTO product VALUES(57, '바나나', 1520, '<img src="../images/product/banana_1.png">', TO_DATE('2020-12-08', 'RRRR-MM-DD'), 910, 1, 7, 12, 'admin');	
+INSERT INTO product VALUES(58, '사과', 890, '<img src="../images/product/apple_1.png">', TO_DATE('2020-12-09', 'RRRR-MM-DD'), 919, 1, 7, 12, 'admin');	
+INSERT INTO product VALUES(59, '망고스틴', 2100, '<img src="../images/product/망고스틴.png">', TO_DATE('2020-12-01', 'RRRR-MM-DD'), 678, 1, 7, 12, 'admin');	
+INSERT INTO product VALUES(60, '분짜', 4890, '<img src="../images/product/분짜.png">', TO_DATE('2020-12-02', 'RRRR-MM-DD'), 4109, 1, 7, 12, 'admin');	
+INSERT INTO product VALUES(61, '물', 670, '<img src="../images/product/water_1.png">', TO_DATE('2020-12-03', 'RRRR-MM-DD'), 411, 1, 7, 13, 'admin');	
+INSERT INTO product VALUES(62, '바나나', 770, '<img src="../images/product/banana_3.png">', TO_DATE('2020-12-13', 'RRRR-MM-DD'), 931, 1, 7, 13, 'admin');	
+INSERT INTO product VALUES(63, '사과', 1110, '<img src="../images/product/apple_2.png">', TO_DATE('2020-12-14', 'RRRR-MM-DD'), 599, 1, 7, 13, 'admin');	
+INSERT INTO product VALUES(64, '반미', 1490, '<img src="../images/product/반미.png">', TO_DATE('2020-12-15', 'RRRR-MM-DD'), 779, 1, 7, 13, 'admin');	
+INSERT INTO product VALUES(65, '망고', 1210, '<img src="../images/product/mango.png">', TO_DATE('2020-12-16', 'RRRR-MM-DD'), 624, 1, 7, 13, 'admin');	
+INSERT INTO product VALUES(66, '물', 710, '<img src="../images/product/water_1.png">', TO_DATE('2020-12-17', 'RRRR-MM-DD'), 872, 1, 8, 14, 'admin');	
+INSERT INTO product VALUES(67, '바나나', 920, '<img src="../images/product/banana_3.png">', TO_DATE('2020-12-18', 'RRRR-MM-DD'), 100, 1, 8, 14, 'admin');	
+INSERT INTO product VALUES(68, '사과', 910, '<img src="../images/product/apple_3.png">', TO_DATE('2020-12-19', 'RRRR-MM-DD'), 735, 1, 8, 14, 'admin');	
+INSERT INTO product VALUES(69, '코코넛', 980, '<img src="../images/product/코코넛.png">', TO_DATE('2020-12-20', 'RRRR-MM-DD'), 468, 1, 8, 14, 'admin');	
+INSERT INTO product VALUES(70, '파파야', 1420, '<img src="../images/product/파파야.png">', TO_DATE('2020-12-21', 'RRRR-MM-DD'), 213, 1, 8, 14, 'admin');	
+INSERT INTO product VALUES(71, '물', 610, '<img src="../images/product/water_3.png">', TO_DATE('2020-12-22', 'RRRR-MM-DD'), 51, 1, 9, 16, 'admin');	
+INSERT INTO product VALUES(72, '바나나', 870, '<img src="../images/product/banana_1.png">', TO_DATE('2020-12-01', 'RRRR-MM-DD'), 381, 1, 9, 16, 'admin');	
+INSERT INTO product VALUES(73, '사과', 680, '<img src="../images/product/apple_3.png">', TO_DATE('2020-12-02', 'RRRR-MM-DD'), 688, 1, 9, 16, 'admin');	
+INSERT INTO product VALUES(74, '망고', 1000, '<img src="../images/product/mango.png">', TO_DATE('2020-12-03', 'RRRR-MM-DD'), 973, 1, 9, 16, 'admin');	
+INSERT INTO product VALUES(75, '쌀국수', 1300, '<img src="../images/product/쌀국수.png">', TO_DATE('2020-12-19', 'RRRR-MM-DD'), 315, 1, 9, 16, 'admin');	
+INSERT INTO product VALUES(76, '물', 800, '<img src="../images/product/water_1.png">', TO_DATE('2020-12-01', 'RRRR-MM-DD'), 43, 1, 10, 17, 'admin');	
+INSERT INTO product VALUES(77, '바나나', 1800, '<img src="../images/product/banana_3.png">', TO_DATE('2020-12-02', 'RRRR-MM-DD'), 877, 1, 10, 17, 'admin');	
+INSERT INTO product VALUES(78, '사과', 1820, '<img src="../images/product/apple_1.png">', TO_DATE('2020-12-03', 'RRRR-MM-DD'), 10, 1, 10, 17, 'admin');	
+INSERT INTO product VALUES(79, '망고', 2450, '<img src="../images/product/mango.png">', TO_DATE('2020-12-04', 'RRRR-MM-DD'), 156, 1, 10, 17, 'admin');	
+INSERT INTO product VALUES(80, '용과', 3100, '<img src="../images/product/용과.png">', TO_DATE('2020-12-05', 'RRRR-MM-DD'), 200, 1, 10, 17, 'admin');	
+INSERT INTO product VALUES(81, '물', 850, '<img src="../images/product/water_2.png">', TO_DATE('2020-12-06', 'RRRR-MM-DD'), 604, 1, 10, 18, 'admin');	
+INSERT INTO product VALUES(82, '바나나', 2000, '<img src="../images/product/banana_3.png">', TO_DATE('2020-12-07', 'RRRR-MM-DD'), 589, 1, 10, 18, 'admin');	
+INSERT INTO product VALUES(83, '사과', 1100, '<img src="../images/product/apple_3.png">', TO_DATE('2020-12-08', 'RRRR-MM-DD'), 312, 1, 10, 18, 'admin');	
+INSERT INTO product VALUES(84, '파인애플', 2300, '<img src="../images/product/pineapple.png">', TO_DATE('2020-12-09', 'RRRR-MM-DD'), 711, 1, 10, 18, 'admin');	
+INSERT INTO product VALUES(85, '계란', 400, '<img src="../images/product/egg.png">', TO_DATE('2020-12-01', 'RRRR-MM-DD'), 123, 1, 10, 18, 'admin');	
+INSERT INTO product VALUES(86, '물', 1100, '<img src="../images/product/water_3.png">', TO_DATE('2020-12-02', 'RRRR-MM-DD'), 421, 1, 11, 19, 'admin');	
+INSERT INTO product VALUES(87, '바나나', 1300, '<img src="../images/product/banana_1.png">', TO_DATE('2020-12-03', 'RRRR-MM-DD'), 511, 1, 11, 19, 'admin');	
+INSERT INTO product VALUES(88, '사과', 1610, '<img src="../images/product/apple_2.png">', TO_DATE('2020-12-13', 'RRRR-MM-DD'), 381, 1, 11, 19, 'admin');	
+INSERT INTO product VALUES(89, '티셔츠', 4200, '<img src="../images/product/티셔츠.png">', TO_DATE('2020-12-14', 'RRRR-MM-DD'), 369, 1, 11, 19, 'admin');	
+INSERT INTO product VALUES(90, '반미', 2000, '<img src="../images/product/반미.png">', TO_DATE('2020-12-15', 'RRRR-MM-DD'), 756, 1, 11, 19, 'admin');	
+INSERT INTO product VALUES(91, '물', 970, '<img src="../images/product/water_2.png">', TO_DATE('2020-12-16', 'RRRR-MM-DD'), 777, 1, 11, 20, 'admin');	
+INSERT INTO product VALUES(92, '바나나', 1920, '<img src="../images/product/banana_2.png">', TO_DATE('2020-12-01', 'RRRR-MM-DD'), 1231, 1, 11, 20, 'admin');	
+INSERT INTO product VALUES(93, '사과', 1350, '<img src="../images/product/apple_2.png">', TO_DATE('2020-12-02', 'RRRR-MM-DD'), 943, 1, 11, 20, 'admin');	
+INSERT INTO product VALUES(94, '망고', 2600, '<img src="../images/product/mango.png">', TO_DATE('2020-12-03', 'RRRR-MM-DD'), 487, 1, 11, 20, 'admin');	
+INSERT INTO product VALUES(95, '파파야', 2300, '<img src="../images/product/파파야.png">', TO_DATE('2020-12-04', 'RRRR-MM-DD'), 465, 1, 11, 20, 'admin');	
+INSERT INTO product VALUES(96, '물', 660, '<img src="../images/product/water_1.png">', TO_DATE('2020-12-05', 'RRRR-MM-DD'), 314, 1, 12, 21, 'admin');	
+INSERT INTO product VALUES(97, '바나나', 1470, '<img src="../images/product/banana_1.png">', TO_DATE('2020-12-06', 'RRRR-MM-DD'), 25, 1, 12, 21, 'admin');	
+INSERT INTO product VALUES(98, '사과', 1280, '<img src="../images/product/apple_1.png">', TO_DATE('2020-12-07', 'RRRR-MM-DD'), 86, 1, 12, 21, 'admin');	
+INSERT INTO product VALUES(99, '코코넛', 1800, '<img src="../images/product/코코넛.png">', TO_DATE('2020-12-08', 'RRRR-MM-DD'), 246, 1, 12, 21, 'admin');	
+INSERT INTO product VALUES(100, '라면', 950, '<img src="../images/product/라면.png">', TO_DATE('2020-12-09', 'RRRR-MM-DD'), 9, 1, 12, 21, 'admin');	
+INSERT INTO product VALUES(101, '물', 960, '<img src="../images/product/water_2.png">', TO_DATE('2020-12-01', 'RRRR-MM-DD'), 43, 1, 13, 22, 'admin');	
+INSERT INTO product VALUES(102, '물', 12500, '<img src="../images/product/water_1.png">', TO_DATE('2020-12-15', 'RRRR-MM-DD'), 0, 0, 13, 22, 'admin');	
+INSERT INTO product VALUES(103, '바나나', 1610, '<img src="../images/product/banana_1.png">', TO_DATE('2020-12-02', 'RRRR-MM-DD'), 56, 1, 13, 22, 'admin');	
+INSERT INTO product VALUES(104, '사과', 36000, '<img src="../images/product/apple_2.png">', TO_DATE('2020-12-13', 'RRRR-MM-DD'), 0, 0, 13, 22, 'admin');	
+INSERT INTO product VALUES(105, '사과', 970, '<img src="../images/product/apple_2.png">', TO_DATE('2020-12-03', 'RRRR-MM-DD'), 299, 1, 13, 22, 'admin');	
+INSERT INTO product VALUES(106, '칠리크랩', 52000, '<img src="../images/product/칠리크랩.png">', TO_DATE('2020-12-13', 'RRRR-MM-DD'), 1345, 1, 13, 22, 'admin');	
+INSERT INTO product VALUES(107, '코코넛', 2300, '<img src="../images/product/코코넛.png">', TO_DATE('2020-12-14', 'RRRR-MM-DD'), 412, 1, 13, 22, 'admin');	
+INSERT INTO product VALUES(108, '물', 1200, '<img src="../images/product/water_1.png">', TO_DATE('2020-12-15', 'RRRR-MM-DD'), 300, 1, 14, 23, 'admin');	
+INSERT INTO product VALUES(109, '바나나', 1530, '<img src="../images/product/banana_1.png">', TO_DATE('2020-12-16', 'RRRR-MM-DD'), 899, 1, 14, 23, 'admin');	
+INSERT INTO product VALUES(110, '사과', 770, '<img src="../images/product/apple_2.png">', TO_DATE('2020-12-17', 'RRRR-MM-DD'), 254, 1, 14, 23, 'admin');	
+INSERT INTO product VALUES(111, '애플망고', 5700, '<img src="../images/product/애플망고.png">', TO_DATE('2020-12-18', 'RRRR-MM-DD'), 645, 1, 14, 23, 'admin');	
+INSERT INTO product VALUES(112, '파인애플', 4900, '<img src="../images/product/pineapple.png">', TO_DATE('2020-12-01', 'RRRR-MM-DD'), 600, 1, 14, 23, 'admin');	
+INSERT INTO product VALUES(113, '물', 660, '<img src="../images/product/water_2.png">', TO_DATE('2020-12-02', 'RRRR-MM-DD'), 123, 1, 14, 24, 'admin');	
+INSERT INTO product VALUES(114, '바나나', 1720, '<img src="../images/product/banana_3.png">', TO_DATE('2020-12-03', 'RRRR-MM-DD'), 89, 1, 14, 24, 'admin');	
+INSERT INTO product VALUES(115, '사과', 1310, '<img src="../images/product/nodata.png">', TO_DATE('2020-12-04', 'RRRR-MM-DD'), 10, 1, 14, 24, 'admin');	
+INSERT INTO product VALUES(116, '슬리퍼', 2300, '<img src="../images/product/슬리퍼.png">', TO_DATE('2020-12-05', 'RRRR-MM-DD'), 689, 1, 14, 24, 'admin');	
+INSERT INTO product VALUES(117, '모자', 7000, '<img src="../images/product/모자.png">', TO_DATE('2020-12-06', 'RRRR-MM-DD'), 60, 1, 14, 24, 'admin');	
+INSERT INTO product VALUES(118, '물', 710, '<img src="../images/product/water_1.png">', TO_DATE('2020-12-07', 'RRRR-MM-DD'), 10, 1, 15, 25, 'admin');	
+INSERT INTO product VALUES(119, '바나나', 1590, '<img src="../images/product/nodata.png">', TO_DATE('2020-12-08', 'RRRR-MM-DD'), 5, 1, 15, 25, 'admin');	
+INSERT INTO product VALUES(120, '사과', 1000, '<img src="../images/product/apple_1.png">', TO_DATE('2020-12-09', 'RRRR-MM-DD'), 23, 1, 15, 25, 'admin');	
+INSERT INTO product VALUES(121, '콜라', 1800, '<img src="../images/product/콜라.png">', TO_DATE('2020-12-01', 'RRRR-MM-DD'), 871, 1, 15, 25, 'admin');	
+INSERT INTO product VALUES(122, '망고', 4200, '<img src="../images/product/mango.png">', TO_DATE('2020-12-02', 'RRRR-MM-DD'), 689, 1, 15, 25, 'admin');	

@@ -19,7 +19,7 @@ CREATE TABLE USERINFO
     user_password    VARCHAR2(45)    NOT NULL, 
     user_name        VARCHAR2(45)    NULL, 
     user_email       VARCHAR2(45)    NULL, 
-    user_point       NUMBER          NULL, 
+    user_point       NUMBER          default 0 NULL, 
     social_root      VARCHAR2(45)    NULL, 
     authority        CHAR(1)         default '0'  NOT NULL, 
     user_status      CHAR(1)         default '0'  NOT NULL, 
@@ -32,7 +32,7 @@ CREATE TABLE COUNTRY
     country_code        NUMBER(3)     NOT NULL,
     country_kr_name     VARCHAR2(45)    NOT NULL, 
     country_en_name     VARCHAR2(45)    NOT NULL, 
-    country_flag_img    BLOB        NULL, 
+    country_flag_img    VARCHAR2(100)        NULL, 
     CONSTRAINT COUNTRY_PK PRIMARY KEY (country_code)
 );
 
@@ -67,7 +67,7 @@ CREATE TABLE PRODUCT
     product_number    NUMBER(3)     NOT NULL,
     product_name      VARCHAR2(45)    NOT NULL, 
     product_price     NUMBER          NOT NULL, 
-    product_img       BLOB            NULL, 
+    product_img       VARCHAR2(100)   DEFAULT '<img src="../images/product/nodata.png">' NOT NULL, 
     product_date      DATE            NOT NULL, 
     sequence          NUMBER(15)      DEFAULT 0 NOT NULL, 
     check_status      CHAR(1)         DEFAULT '0' NOT NULL, 
@@ -79,6 +79,4 @@ CREATE TABLE PRODUCT
     CONSTRAINT product_city_number_fk FOREIGN KEY (city_number) REFERENCES city (city_number),
     CONSTRAINT product_market_number_kf FOREIGN KEY (market_number) REFERENCES market (market_number)      
 );
-
-
 

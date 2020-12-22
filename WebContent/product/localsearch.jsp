@@ -16,6 +16,7 @@
 <meta charset="UTF-8">
 <script src="../js/jquery-3.5.1.js"></script>
 <link rel="stylesheet" href="../css/bootstrap.css">
+
 <script>
 	var xhr = null;
 	$(document).ready(function(){
@@ -62,11 +63,12 @@
 
 </head>
 <body>
-
+	<div class="container-fluid" style="margin:0 0 0 0">
 	<form id="frmZip" name="frmZip">
+	
 	<div class="row">
 		<div class="col-sm-2 side_search">
-			<form class="ml-1">
+			<form>
 				<div class="form-group pd-5">
 				<label for="sel1" style="font-size:20px;">나라선택</label>
 					<select name="country_kr_name" id="selcountry_kr_name" class="form-control">
@@ -103,7 +105,7 @@
 	
 	
 	<div id="result"></div>
-
+</div>
 
 
 <jsp:include page="../main/footer.jsp" />
