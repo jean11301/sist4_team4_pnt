@@ -84,7 +84,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="../prices/product.jsp?page=1" class="nav-link">
               <i class="fas fa-coins nav-icon"></i>
               <p>물가 리스트</p>
             </a>

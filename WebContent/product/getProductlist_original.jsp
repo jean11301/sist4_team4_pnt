@@ -14,7 +14,7 @@
 <sql:setDataSource dataSource="jdbc/myoracle" var="conn"/>
 <c:if test="${empty country and empty city and empty market}">  <%--나라와 도시, 시장 모두 널일때 --%>
 	<sql:query var="rs" dataSource="${conn}">
-		SELECT country_kr_name, city_kr_name, market_kr_name, product_name, product_price, product_img, product_number
+		SELECT country_kr_name, city_kr_name, market_kr_name, product_name, product_price, product_img
 		FROM country, city, market, product
 		WHERE country.country_code = city.country_code AND city.city_number = market.city_number AND market.market_number = product.market_number
 		AND product_name LIKE CONCAT(CONCAT('%', ?), '%')
@@ -27,7 +27,7 @@
 </c:if>
 <c:if test="${not empty country and empty city and empty market}">  <%-- 나라는 널이 아니고 도시, 시장이 널일때 --%>
 	<sql:query var="rs" dataSource="${conn}">
-		SELECT country_kr_name, city_kr_name, market_kr_name, product_name,product_price, product_img, product_number
+		SELECT country_kr_name, city_kr_name, market_kr_name, product_name,product_price, product_img
 		FROM country, city, market, product
 		WHERE country.country_code = city.country_code AND city.city_number = market.city_number AND market.market_number = product.market_number
 		AND country_kr_name = ? AND product_name LIKE CONCAT(CONCAT('%', ?), '%')
@@ -41,7 +41,7 @@
 </c:if>
 <c:if test="${not empty country and not empty city and empty market}">  <%-- 나라, 도시 널이 아니고 시장이 널일때 --%>
 	<sql:query var="rs" dataSource="${conn}">
-		SELECT country_kr_name, city_kr_name, market_kr_name, product_name,product_price, product_img, product_number
+		SELECT country_kr_name, city_kr_name, market_kr_name, product_name,product_price, product_img
 		FROM country, city, market, product
 		WHERE country.country_code = city.country_code AND city.city_number = market.city_number AND market.market_number = product.market_number
 		AND country_kr_name = ? AND city_kr_name = ? AND product_name LIKE CONCAT(CONCAT('%', ?), '%')
@@ -56,7 +56,7 @@
 </c:if>
 <c:if test="${not empty country and not empty city and not empty market}"><%-- 나라, 도시, 시장 셋 다 널이 아닐 때 --%>
 	<sql:query var="rs" dataSource="${conn}">
-		SELECT country_kr_name, city_kr_name, market_kr_name, product_name,product_price, product_img, product_number
+		SELECT country_kr_name, city_kr_name, market_kr_name, product_name,product_price, product_img
 		FROM country, city, market, product
 		WHERE country.country_code = city.country_code AND city.city_number = market.city_number AND market.market_number = product.market_number
 		AND country_kr_name = ? AND city_kr_name = ? AND market_kr_name = ? AND product_name LIKE CONCAT(CONCAT('%', ?), '%')
@@ -76,12 +76,11 @@
 		
 		<c:forEach items="${rs.rows}" var="row"> 
 			<div class="col-sm-4 table-responsive" style="margin-right:0;">
-			<a href="productDetail.jsp?product_number=${row.product_number}" >
-				<table class="table-bordered" >
+				<table class="table-bordered">
 					<tr>
 						<td>${row.product_img}</td>
 					</tr>
-					<tr class="product">
+					<tr>
 						<td>${row.country_kr_name}>${row.city_kr_name}>${row.market_kr_name}</td>
 					</tr>
 					<tr>
@@ -91,7 +90,7 @@
 						<td align="right" style="color: red">${row.product_price}원</td>
 					</tr>
 				</table>
-				</a>
+				
 			</div>
 		
 		</c:forEach>

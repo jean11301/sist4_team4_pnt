@@ -4,14 +4,88 @@
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script src="../js/jquery-3.5.1.js"></script>
-
+<fmt:requestEncoding value="utf-8" />
 <jsp:useBean id="service" class="com.example.libs.service.MarketService" />
-<c:set var="marketList" value="${service.selectAllMarket()}" />
-<c:set var="count" value="${service.getTotalCount()}" />
+<c:set var="searchWith" value="${param.searchWith}" />
+<c:set var="keyword" value="${param.keyword}" />
 
+<!-- sql -->
+
+<c:set var="pageSize" value="10" />
+
+<sql:setDataSource dataSource="jdbc/myoracle" var="conn" />
+<c:if test="${searchWith == 'all'}">
+<sql:query dataSource="${conn}" var="rs" >
+	SELECT country.country_kr_name, city.city_kr_name, market_kr_name, market_en_name
+	FROM country INNER JOIN city ON(country.country_code = city.country_code)
+    	INNER JOIN market ON(city.city_number = market.city_number)
+	WHERE country.country_kr_name LIKE CONCAT(CONCAT('%', ?), '%') or 
+        city.city_kr_name LIKE CONCAT(CONCAT('%', ?), '%') or
+        market.market_kr_name LIKE CONCAT(CONCAT('%', ?), '%') or
+        market.market_en_name LIKE CONCAT(CONCAT('%', ?), '%')
+	ORDER BY country_kr_name, city_kr_name, market_kr_name;
+	<sql:param value="${keyword}"/>
+	<sql:param value="${keyword}"/>
+	<sql:param value="${keyword}"/>
+	<sql:param value="${keyword}"/>
+</sql:query>
+<c:set var="i" value="0" />
+</c:if>
+<c:if test="${searchWith == 'country_kr_name'}">
+<sql:query dataSource="${conn}" var="rs" >
+	SELECT country.country_kr_name, city.city_kr_name, market_kr_name, market_en_name
+	FROM country INNER JOIN city ON(country.country_code = city.country_code)
+    		INNER JOIN market ON(city.city_number = market.city_number)
+	WHERE country.country_kr_name LIKE CONCAT(CONCAT('%', ?), '%') 
+	ORDER BY country_kr_name, city_kr_name, market_kr_name
+	<sql:param value="${keyword}"/>
+</sql:query>
+<c:set var="i" value="1" />
+</c:if>
+<c:if test="${searchWith == 'city_kr_name'}">
+<sql:query dataSource="${conn}" var="rs" >
+	SELECT country.country_kr_name, city.city_kr_name, market_kr_name, market_en_name
+	FROM country INNER JOIN city ON(country.country_code = city.country_code)
+    		INNER JOIN market ON(city.city_number = market.city_number)
+	WHERE city.city_kr_name LIKE CONCAT(CONCAT('%', ?), '%') 
+	ORDER BY country_kr_name, city_kr_name, market_kr_name
+	<sql:param value="${keyword}"/>
+</sql:query>
+<c:set var="i" value="2" />
+</c:if>
+<c:if test="${searchWith == 'market_kr_name'}">
+<sql:query dataSource="${conn}" var="rs" >
+	SELECT country.country_kr_name, city.city_kr_name, market_kr_name, market_en_name
+	FROM country INNER JOIN city ON(country.country_code = city.country_code)
+    		INNER JOIN market ON(city.city_number = market.city_number)
+	WHERE market.market_kr_name LIKE CONCAT(CONCAT('%', ?), '%') 
+	ORDER BY country_kr_name, city_kr_name, market_kr_name
+	<sql:param value="${keyword}"/>
+</sql:query>
+<c:set var="i" value="3" />
+</c:if>
+<c:if test="${searchWith == 'market_en_name'}">
+<sql:query dataSource="${conn}" var="rs" >
+	SELECT country.country_kr_name, city.city_kr_name, market_kr_name, market_en_name
+	FROM country INNER JOIN city ON(country.country_code = city.country_code)
+    		INNER JOIN market ON(city.city_number = market.city_number)
+	WHERE market.market_en_name LIKE CONCAT(CONCAT('%', ?), '%') 
+	ORDER BY country_kr_name, city_kr_name, market_kr_name
+	<sql:param value="${keyword}"/>
+</sql:query>
+<c:set var="i" value="4" />
+</c:if>
+<c:set var="count" value="${service.getTotalCount(i, keyword)}" />
+<c:set var="totalPage" value="${service.getTotalPage(pageSize)}" />
 <c:set var="currentPage" value="${param.page}" />
 <c:set var="pageSize" value="10" />
-<c:set var="totalPage" value="${service.getTotalPage(pageSize)}" />
+<c:set var="totalPage" value="${service.getTotalPage(pageSize, i , keyword)}" />
+
+<!-- /sql -->
+
+
+
+
 
 <script>
 $(function($){
@@ -83,7 +157,7 @@ function updateMarket(){
 								<div class="row">
 									<div class="col-sm-12 col-md-6">
 										<div id="example1_filter" class="dataTables_filter">
-										<form action="marketSearchResult.jsp" method="POST" >
+										<form action="marketSearchResult.jsp?" method="POST" >
 											<select id="searchWith" name="searchWith">
 												<option value="all" selected>전체</option>
 												<option value="country_kr_name">국가명</option>
@@ -97,16 +171,15 @@ function updateMarket(){
 											</label>
 											<input type="text" name="page" value="1" hidden>
 											<button type="submit" id="searchMarket">검색</button>
-										</form>
+											</form>
 										</div>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-sm-12">
 									<div id="listDiv">
-										<table id="example2"
-											class="table tavle-bordered table-hover dataTable dtr-inline"
-											role="grid" aria-describedby="example2_info">
+										<table id="example2" class="table tavle-bordered table-hover dataTable dtr-inline"
+												role="grid" aria-describedby="example2_info">
 											<thead>
 												<tr role="row">
 													<th>전체</th>
@@ -118,27 +191,27 @@ function updateMarket(){
 												</tr>
 											</thead>
 											<tbody>
-											<c:if test="${marketList.size() == 0 }">
+											<c:if test="${count == 0 }"> 
 												<tr>
 													<td colspan="6" class="text-center">No Data</td>
 												</tr>
 											</c:if>
-											<c:if test="${marketList.size() > 0 }">
+											<c:if test="${count > 0 }" >
 												<c:set var="begin" value="${(currentPage - 1) * pageSize}" />
 												<c:set var="end" value="${begin + pageSize - 1}" />
-												<c:forEach items="${marketList}" var="market" begin="${begin}" end="${end}">
+												<c:forEach items="${rs.rows}" var="row" begin="${begin}" end="${end}">
 													<tr>
-														<td><input type="checkbox" class="selMarket" value="${market.market_number}"/></td>
-														<td>${market.country_kr_name}</td>
-														<td>${market.city_kr_name}</td>
-														<td>${market.market_kr_name}</td>
-														<td>${market.market_en_name}</td>
-														<td><a href="updateMarket.jsp?market_number=${market.market_number}" >수정하기</a></td>
+														<td><input type="checkbox" class="selMarket"></td>
+														<td>${row.country_kr_name}</td>
+														<td>${row.city_kr_name}</td>
+														<td>${row.market_kr_name}</td>
+														<td>${row.market_en_name}</td>
+														<td><a href="updateMarket.jsp?market_number=${market.market_number}">수정하기</a></td>
 													</tr>
 												</c:forEach>
-												</c:if> 
+											</c:if>
 											</tbody>
-										</table>
+											</table>
 										</div>
 									</div>
 								</div>
@@ -167,7 +240,7 @@ function updateMarket(){
 											
 										    	<c:if test="${currentPage ne 1}" >
 												<li class="paginate_button page-item previous" id="example2_previous">
-													<a href="market.jsp?page=${currentPage - 1}" aria-controls="example2" data-dt-idx="0" tabindex="0"
+													<a href="marketSearchResult.jsp?page=${currentPage - 1}" aria-controls="example2" data-dt-idx="0" tabindex="0"
 														class="page-link pre" >Previous</a></li>
 												</c:if>
 										    	<c:if test="${currentPage eq 1}" >
@@ -184,7 +257,7 @@ function updateMarket(){
 													</c:if>
 													<c:if test="${currentPage ne i}" >
 														<li id="eqPage" class="paginate_button page-item">
-											               <a href="market.jsp?page=${i}" aria-controls="example2" data-dt-idx="${i}"
+											               <a href="marketSearchResult.jsp?page=${i}" aria-controls="example2" data-dt-idx="${i}"
 																tabindex="0" class="page-link" >${i}</a></li>
 													</c:if>
 											    </c:forEach>
@@ -196,7 +269,7 @@ function updateMarket(){
 												</c:if>
 												<c:if test="${currentPage ne totalPage}">	
 												<li class="paginate_button page-item next" id="example2_next">
-													<a href="market.jsp?=${currentPage + 1}" aria-controls="example2" data-dt-idx="7" tabindex="0"
+													<a href="marketSearchResult.jsp?=${currentPage + 1}" aria-controls="example2" data-dt-idx="7" tabindex="0"
 														class="page-link next" >Next</a></li>
 												</c:if>
 											</ul>

@@ -11,6 +11,8 @@ public class ProductVO {
 	private String country_kr_name;
 	private String city_kr_name;
 	private String market_kr_name;
+	private int product_number;
+	private String product_img;
 
 	private String product_name2;
 	private double product_price_P1Data;
@@ -46,6 +48,42 @@ public class ProductVO {
 		this.product_price_P5Data = product_price_P5Data;
 	}
 	
+	public ProductVO(int product_number, String check_status, Date product_date, String country_kr_name, String city_kr_name, String market_kr_name, String product_name,
+			int product_price, String product_img, String user_id, int sequence) {
+		this.product_number = product_number;
+		this.check_status = check_status;
+		this.product_date = product_date;
+		this.country_kr_name = country_kr_name;
+		this.city_kr_name = city_kr_name;
+		this.market_kr_name = market_kr_name;
+		this.product_name = product_name;
+		this.product_price = product_price;
+		this.product_img = product_img;
+		this.user_id = user_id;
+		this.sequence = sequence;
+	}
+
+
+	public int getProduct_number() {
+		return product_number;
+	}
+
+
+	public void setProduct_number(int product_number) {
+		this.product_number = product_number;
+	}
+
+
+	public String getProduct_img() {
+		return product_img;
+	}
+
+
+	public void setProduct_img(String product_img) {
+		this.product_img = product_img;
+	}
+
+
 	public String getProduct_name() {
 		return product_name;
 	}
