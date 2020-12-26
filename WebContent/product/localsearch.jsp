@@ -36,10 +36,58 @@
 			            '&city=' + $('#selcity_kr_name').val().trim() +
 			            '&market=' + $('#selmarket_kr_name').val().trim() + 
 			            '&product=' + $('#txtProduct').val().trim();
-			console.log(param);
+			//console.log(param);
 			xhr.send(param);   //3. send()
+			//==========================
+			let product_name = $('#txtProduct').val().trim();
+			//console.log(product_name);
+			let marketname = $('#selmarket_kr_name').val().trim();
+			console.log(marketname);
+			if(product_name == ""){   //검색어 없이 검색을 눌렀을때 선택한 시장의 좌표에 마커 
+			    $.ajax({
+			      method : 'POST',
+			      contentType: 'application/x-www-form-urlencoded; charset=euc-kr',
+			      url : 'getlatlon.jsp',
+			      data : {
+			    	  marketname : marketname
+			      },
+			      success : function(data){
+			          drawMarkers(data);
+			      }
+			    });
+			}else if(marketname != "" && product_name != ""){  //지역선택까지 하고 검색을 눌렀을때 검색어가 있는 시장만
+				$.ajax({
+				      method : 'POST',
+				      contentType: 'application/x-www-form-urlencoded; charset=euc-kr',
+				      url : 'getlatlonifsearchwithcity.jsp',
+				      data : {
+				    	  marketname : marketname,
+				    	  product_name : product_name
+				      },
+				      success : function(data){
+				          drawMarkers(data);
+				      }
+				    });
+			}
+			else{   //검색어가 있을 경우 검색한 물품이 있는 시장에 마커
+				console.log(product_name);
+				$.ajax({
+				      method : 'POST',
+				      contentType: 'application/x-www-form-urlencoded; charset=euc-kr',
+				      url : 'getlatlonifsearchin.jsp',
+				      data : {
+				    	  product_name : product_name
+				      },
+				      success : function(data){
+				          drawMarkers(data);
+				      }
+				    });
+			}
 		});
-		
+		$('#btnMoredata').on('click',function(){
+			let product_name = $('#txtProduct').val().trim();
+			location.href = "exportExcel.jsp?product_name="+product_name;
+		});
 	});
 	
 	
@@ -103,7 +151,7 @@
 			
 	 	</form>
 	
-	
+			<div> <button id="btnMoredata" > 데이터더보기</button></div>
 	<div id="result"></div>
 </div>
 

@@ -20,8 +20,18 @@ public class ProductVO {
 	private double product_price_P5Data;
 	
 	public ProductVO() {}
-	
-	
+	//검색어 기준 리스트 뽑기
+	public ProductVO(int sequence, String country_kr_name, String city_kr_name, String market_kr_name,
+			String product_name, double product_price, Date product_date, String user_id) {
+		this.sequence = sequence;
+		this.country_kr_name = country_kr_name;
+		this.city_kr_name = city_kr_name;
+		this.market_kr_name = market_kr_name;
+		this.product_name = product_name;
+		this.product_price = product_price;
+		this.product_date = product_date;
+		this.user_id = user_id;
+	}
 	//인기 검색 종목 물가
 	public ProductVO(String country_kr_name, String city_kr_name, String market_kr_name, String product_name,
 			double product_price) {
@@ -195,9 +205,7 @@ public class ProductVO {
 	public void setProduct_price_P5Data(double product_price_P5Data) {
 		this.product_price_P5Data = product_price_P5Data;
 	}
-
 	
 
-	
-	
+
 }

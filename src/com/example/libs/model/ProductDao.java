@@ -1,9 +1,11 @@
 package com.example.libs.model;
 
-import java.sql.Statement;
 import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class ProductDao {
@@ -92,5 +94,45 @@ public class ProductDao {
 		}
 		DBClose.close(conn, stmt, rs);
 		return list2;
-	}	
+	}
+
+	public static ArrayList<ProductVO> selectProduct(String productname) throws SQLException {
+		// TODO Auto-generated method stub
+		Connection conn = DBConnection.getConnection();
+		String sql=	  "  SELECT   ROWNUM    AS    sequence ,   country_kr_name,   city_kr_name,    market_kr_name,    product_name,   product_price, product_date,    RPAD(SUBSTR(user_id,1,3), LENGTH(user_id),'*')   AS    user_id    "
+							+"  	FROM  product p  INNER JOIN   market  m ON p.market_number = m.market_number  INNER JOIN city  c  ON  m.city_number  =  c.city_number   INNER JOIN country  t  ON  c.country_code = t.country_code   "
+							+"     WHERE   product_name = ?  ";
+	    PreparedStatement  pstmt = conn.prepareStatement(sql);
+	    pstmt.setString(1, productname);
+	    ResultSet rs = pstmt.executeQuery(sql);
+	    ArrayList<ProductVO> list = new ArrayList<ProductVO>();
+	    System.out.println(rs);
+	    while(rs.next()) {
+	    	int sequence = rs.getInt("sequence");
+	    	String country_kr_name = rs.getString("country_kr_name");
+	    	String city_kr_name = rs.getString("city_kr_name");
+	    	String market_kr_name = rs.getString("market_kr_name");
+	    	String product_name = rs.getString("product_name");
+	    	double product_price = rs.getDouble("product_price");
+	    	Date product_date = rs.getDate("product_date");
+	    	String user_id = rs.getString("user_id");
+//	    	int sequence = rs.getInt(1);
+//	    	String country_kr_name = rs.getString(2);
+//	    	String city_kr_name = rs.getString(3);
+//	    	String market_kr_name = rs.getString(4);
+//	    	String product_name = rs.getString(5);
+//	    	double product_price = rs.getDouble(6);
+//	    	Date product_date = rs.getDate(7);
+//	    	String user_id = rs.getString(8);
+	        ProductVO product = new ProductVO(sequence, country_kr_name, city_kr_name,  market_kr_name,
+	    			product_name,  product_price, product_date, user_id);
+	    	list.add(product);
+	    	
+	    }
+	    DBClose.close(conn, pstmt);
+		return list;
+	}
+
+
+
 }

@@ -27,4 +27,16 @@ public class PopularService {
 		}
 		return list2;
 	}
+	//검색한 product의 리스트
+	public  ArrayList<ProductVO> selectOne(String productname){
+		ArrayList<ProductVO> list = null;
+		try {
+			list = ProductDao.selectProduct(productname);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
 }
