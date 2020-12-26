@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script src="../js/jquery-3.5.1.js"></script>
 
 <jsp:useBean id="service" class="com.example.libs.service.PopularService" />
@@ -207,10 +208,11 @@ function updateProduct(){
 														<td>${product.market_kr_name}</td>
 														<td>${product.product_name}</td>
 														<td>${product.product_price}</td>
-														<c:if test="${not empty product.product_img}">
+														<c:set var="str" value="<img src='../images/product/nodata.png'>" />
+														<c:if test="${product.product_img ne str}">
 															<td>o</td>
 														</c:if>
-														<c:if test="${empty product.product_img}">
+														<c:if test="${product.product_img eq str}">
 															<td>x</td>
 														</c:if>
 														
@@ -220,21 +222,21 @@ function updateProduct(){
 														
 														<c:if test="${product.check_status eq 0}">
 															<td>
-															<a href="updateMarket.jsp?market_number=${market.market_number}" >확인처리&nbsp;|&nbsp;</a>
-															<a href="updateMarket.jsp?market_number=${market.market_number}" >불가처리&nbsp;|&nbsp;</a>
-															<a href="updateMarket.jsp?market_number=${market.market_number}" >수정하기</a>
+															<a href="changeCheckStatus.jsp?product_number=${product.product_number}&check_status=1" >확인처리&nbsp;|&nbsp;</a>
+															<a href="changeCheckStatus.jsp?product_number=${product.product_number}&check_status=0" >불가처리&nbsp;|&nbsp;</a>
+															<a href="updateProduct.jsp?product_number=${product.product_number}" >수정하기</a>
 															</td>
 														</c:if>
 														<c:if test="${product.check_status eq 1}">
 															<td>
-															<a href="updateMarket.jsp?market_number=${market.market_number}" >불가처리&nbsp;|&nbsp;</a>
-															<a href="updateMarket.jsp?market_number=${market.market_number}" >수정하기</a>
+															<a href="changeCheckStatus.jsp?product_number=${market.market_number}&check_status=0" >불가처리&nbsp;|&nbsp;</a>
+															<a href="updateProduct.jsp?product_number=${product.product_number}" >수정하기</a>
 															</td>
 														</c:if>
 														<c:if test="${product.check_status eq -1}">
 															<td>
-															<a href="updateMarket.jsp?market_number=${market.market_number}" >확인처리&nbsp;|&nbsp;</a>
-															<a href="updateMarket.jsp?market_number=${market.market_number}" >수정하기</a>
+															<a href="changeCheckStatus.jsp?product_number=${market.market_number}&check_status=1" >확인처리&nbsp;|&nbsp;</a>
+															<a href="updateProduct.jsp?product_number=${product.product_number}" >수정하기</a>
 															</td>
 														</c:if>
 													</tr>

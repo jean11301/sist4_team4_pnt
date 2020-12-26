@@ -112,35 +112,18 @@
 		}
 		
 		$('#register').on('click', function(){
-			 if($('#country').val().trim() != ($('#selCountry:selected').val().trim())){
-				 console.log("1번째 if");
-				registerBtn();
-			} else if(($('#city').val().trim() != $('#selCity:selected').val().trim())){
-				 console.log("2번째 if");
-				registerBtn();
-			} else if(($('#market').val() ^= $('#selMarket:selected').val())){
-				 console.log("3번째 if");
-				registerBtn();
-			} else if(($('#product').val().trim() != $('#product_name').val().trim())) {
-				 console.log("4번째 if");
-				registerBtn(); 
-			}else{
-				if(confirm("가격 정보를 등록하시겠습니까?")) alert("가격정보가 등록되었습니다.");
-			}
+			 var country = $('#selCountry:selected').val();
+			 var city = $('#selCity:selected').val();
+			 var market = $('#selMarket:selected').val();
+			 var Pname = $('#product_name').val();
+			 var price = $('#KRW').val();
+			
+			 if(confirm("입력하신 정보가 [" + country + " , " + city + " , " + market + " , " + Pname + " , " + price +"]이 맞습니까?"){
+				alert("가격정보가 등록되었습니다.");
+			 }
 			
 		});
 			
-		function registerBtn(){
-			if(confirm("정보가 변경되어 기존 상품이 아닌 새 상품으로 등록됩니다. 계속하시겠습니까?")){
-					alert("!!!!관리자에게 정보 넘겨야함!!!!");
-			}else {
-				alert("기존값으로 변경되었습니다.");
-				$('#selCountry:selected').val($('#country').val());
-				$('#selCity:selected').val($('#city').val());
-				$('#selMarket:selected').val($('#market').val());
-				$('#product_name').val($('#product').val());
-			}
-		}
 	});
 	
 </script>

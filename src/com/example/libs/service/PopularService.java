@@ -30,7 +30,6 @@ public class PopularService {
 		}
 		return list2;
 	}
-<<<<<<< HEAD
 	//검색한 product의 리스트
 	public  ArrayList<ProductVO> selectOne(String productname){
 		ArrayList<ProductVO> list = null;
@@ -41,25 +40,35 @@ public class PopularService {
 			e.printStackTrace();
 		}
 		return list;
-=======
-	
+	}
 	//상품 리스트 모두 가져오기
 	public List<ProductVO> selectAllProduct() throws SQLException {
 		return ProductDao.selectAllProduct();
 	}
 	
-//	public ProductVO selectProduct(int product_number) throws SQLException {
-//		return ProductDao.selectProduct(product_number);
-//	}
-//	
-//	public int insertProduct(ProductVO product) throws SQLException{
-//		return ProductDao.insertProduct(market);
-//	}
-//	
-//	public int updateProduct(ProductVO product) throws SQLException{
-//		return ProductDao.updateProduct(product);
-//	}
-//	
+	//상품 번호로 상품 검색하기
+	public ProductVO selectProduct(int product_number) throws SQLException {
+		return ProductDao.selectProduct(product_number);
+	}
+	
+	public int insertProduct(ProductVO product) throws SQLException{
+		if(product.getProduct_img() == null) {
+			System.out.println("NULL입니다");
+		}else {
+			System.out.println("NULL이 아닙니다");
+		}
+		System.out.println(product.getProduct_img());
+		if(product.getProduct_img() == null) {
+			return ProductDao.insertProduct(product, 0);
+		}else {
+			return  ProductDao.insertProduct(product);
+		}
+	}
+	
+	public int updateProduct(ProductVO product) throws SQLException{
+		return ProductDao.updateProduct(product);
+	}
+	
 	public int getTotalCount() throws SQLException{
 		return ProductDao.getTotalCount();
 	}
@@ -91,7 +100,6 @@ public class PopularService {
 	
 	public int deleteProduct(int product_number) throws SQLException{
 		return ProductDao.deleteProduct(product_number);
->>>>>>> a1f99f44a7e6a863fad4a6389ad47248a72e988d
 	}
 	
 }
