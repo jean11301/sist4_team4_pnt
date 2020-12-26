@@ -220,7 +220,7 @@
 												<th>시장 설명</th>
 												<td colspan="2">
 												<label>
-												<textarea name="market_info" class="form-control" rows="5" value="${market.market_info}"></textarea>
+												<textarea name="market_info" class="form-control" rows="5" >${market.market_info}</textarea>
 												</label>
 												</td>
 											</tr>

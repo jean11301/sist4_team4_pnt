@@ -42,7 +42,7 @@ create or replace NONEDITIONABLE PROCEDURE sp_market_insert
 IS
 BEGIN
     INSERT INTO MARKET (MARKET_NUMBER, MARKET_KR_NAME, MARKET_EN_NAME, LATITUDE,LONGITUDE, market_info, city_number) 
-    VALUES ((SELECT (MAX(*) + 1) FROM market), v_market_kr_name, v_market_en_name, v_latitude, v_longitude, v_market_info, 
+    VALUES ((SELECT (MAX(market_number) + 1) FROM market), v_market_kr_name, v_market_en_name, v_latitude, v_longitude, v_market_info, 
     (SELECT MAX(city_number) FROM city INNER JOIN country ON (country.country_code = city.country_code) 
         WHERE country_kr_name= v_country_kr_name AND city_kr_name = v_city_kr_name));
     COMMIT;
@@ -83,4 +83,29 @@ BEGIN
     SELECT COUNT(market_number) AS selectCount INTO selectCount
     FROM market;
 END;
-    
+   
+
+--상품 리스트 전부 가져오기
+create or replace NONEDITIONABLE PROCEDURE sp_product_selectAll
+(
+    product_record    OUT   SYS_REFCURSOR
+)
+AS
+BEGIN
+    OPEN product_record FOR
+    SELECT check_status, country_kr_name, city_kr_name, market_kr_name, product_name, product_number, product_date,
+	product.product_price, product_img, sequence, user_id
+	FROM product NATURAL JOIN MARKET NATURAL JOIN city NATURAL JOIN country
+	ORDER BY product_date DESC;
+END;
+
+--전체 상품 수 불러오기
+create or replace NONEDITIONABLE PROCEDURE sp_product_selectCount
+(
+    selectCount    OUT   NUMBER
+)
+AS
+BEGIN
+    SELECT COUNT(product_number) AS selectCount INTO selectCount
+    FROM product;
+END;

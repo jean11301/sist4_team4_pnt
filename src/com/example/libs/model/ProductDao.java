@@ -1,12 +1,21 @@
 package com.example.libs.model;
 
+<<<<<<< HEAD
 import java.sql.Connection;
 import java.sql.Date;
+=======
+import java.sql.Statement;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+>>>>>>> a1f99f44a7e6a863fad4a6389ad47248a72e988d
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
+
+import oracle.jdbc.OracleTypes;
 
 public class ProductDao {
 
@@ -96,6 +105,7 @@ public class ProductDao {
 		return list2;
 	}
 
+<<<<<<< HEAD
 	public static ArrayList<ProductVO> selectProduct(String productname) throws SQLException {
 		// TODO Auto-generated method stub
 		Connection conn = DBConnection.getConnection();
@@ -135,4 +145,54 @@ public class ProductDao {
 
 
 
+=======
+	public static List<ProductVO> selectAllProduct() throws SQLException {
+		Connection conn = DBConnection.getConnection();
+		String sql = "{ call sp_product_selectAll(?) }";
+		CallableStatement cstmt = conn.prepareCall(sql);
+		cstmt.registerOutParameter(1, OracleTypes.CURSOR);
+		cstmt.execute();
+		ResultSet rs = (ResultSet) cstmt.getObject(1);
+		ArrayList<ProductVO> list = new ArrayList<ProductVO>();
+		if (rs.next()) {
+			do {
+				ProductVO product = new ProductVO(rs.getInt("product_number"), rs.getString("check_status"), rs.getDate("product_date"), rs.getString("country_kr_name"), rs.getString("city_kr_name"),
+						rs.getString("market_kr_name"), rs.getString("product_name"), rs.getInt("product_price"), rs.getString("product_img"), rs.getString("user_id"), rs.getInt("sequence"));
+				list.add(product);
+			} while (rs.next());
+		} else {
+			list = null;
+		}
+		DBClose.close(conn, cstmt, rs);
+		return list;
+	}
+
+	public static int getTotalCount() throws SQLException {
+		Connection conn = DBConnection.getConnection();
+		String sql = "{ call sp_product_selectCount(?) }"; 
+		CallableStatement cstmt = conn.prepareCall(sql); 
+		cstmt.registerOutParameter(1, OracleTypes.NUMBER);
+		cstmt.execute(); 
+		int count = cstmt.getInt(1);
+		 
+		DBClose.close(conn, cstmt);
+		return count;
+	}
+
+	
+//	public static int getTotalCount(int i, Date) {
+//		// TODO Auto-generated method stub
+//		return 0;
+//	}
+
+	public static int deleteProduct(int product_number) throws SQLException {
+		Connection conn = DBConnection.getConnection();
+		String sql = " DELETE FROM product WHERE product_number = ? ";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, product_number);
+		int row = pstmt.executeUpdate();                          //5
+		DBClose.close(conn, pstmt);   //6
+		return row;
+	}
+>>>>>>> a1f99f44a7e6a863fad4a6389ad47248a72e988d
 }

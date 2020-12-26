@@ -81,13 +81,69 @@ public class MarketDao {
 	}
 
 	public static int getTotalCount() throws SQLException {
+		
 		Connection conn = DBConnection.getConnection();
-		String sql = "{ call sp_market_selectCount(?) }";
-		CallableStatement cstmt = conn.prepareCall(sql);
-		cstmt.registerOutParameter(1, OracleTypes.NUMBER);
-		cstmt.execute();
-		int count =  cstmt.getInt(1);
+		String sql = "{ call sp_market_selectCount(?) }"; CallableStatement cstmt =
+		conn.prepareCall(sql); cstmt.registerOutParameter(1, OracleTypes.NUMBER);
+		cstmt.execute(); int count = cstmt.getInt(1);
+		 
 		DBClose.close(conn, cstmt);
+		return count;
+	}
+	public static int getTotalCount(int i, String keyword) throws SQLException {
+		int count = 0;
+		String sql =  null;
+		PreparedStatement pstmt = null;
+		Connection conn = DBConnection.getConnection();
+		switch(i) {
+			case 0:		//전체
+				sql = "SELECT COUNT(*) as selectCount FROM country INNER JOIN city ON(country.country_code = city.country_code)\r\n"
+						+ "  INNER JOIN market ON(city.city_number = market.city_number) "
+						+ "	WHERE country.country_kr_name LIKE CONCAT(CONCAT('%', ?), '%') or "
+						+ "        city.city_kr_name LIKE CONCAT(CONCAT('%', ?), '%') or "
+						+ "        market.market_kr_name LIKE CONCAT(CONCAT('%', ?), '%') or "
+						+ "        market.market_en_name LIKE CONCAT(CONCAT('%', ?), '%');";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, keyword);
+				pstmt.setString(2, keyword);
+				pstmt.setString(3, keyword);
+				pstmt.setString(4, keyword);
+				break;
+			case 1:		//국가명
+				sql = "SELECT COUNT(*) as selectCount FROM country INNER JOIN city ON(country.country_code = city.country_code) "
+						+ "    		INNER JOIN market ON(city.city_number = market.city_number) "
+						+ "	WHERE country.country_kr_name LIKE CONCAT(CONCAT('%', ?), '%')";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, keyword);
+				break;
+			case 2:		//도시명
+				sql = "SELECT COUNT(*) as selectCount FROM country INNER JOIN city ON(country.country_code = city.country_code) "
+						+ "    		INNER JOIN market ON(city.city_number = market.city_number) "
+						+ "	WHERE city.city_kr_name LIKE CONCAT(CONCAT('%', ?), '%')";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, keyword);
+				break;
+			case 3:		//시장명(한글)
+				sql = "SELECT COUNT(*) as selectCount FROM country INNER JOIN city ON(country.country_code = city.country_code) "
+						+ "    		INNER JOIN market ON(city.city_number = market.city_number) "
+						+ "	WHERE market.market_kr_name LIKE CONCAT(CONCAT('%', ?), '%')";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, keyword);
+				break;
+			case 4:		//시장명(영어)
+				sql = "SELECT COUNT(*) as selectCount FROM country INNER JOIN city ON(country.country_code = city.country_code) "
+						+ "    		INNER JOIN market ON(city.city_number = market.city_number) "
+						+ "	WHERE market.market_en_name LIKE CONCAT(CONCAT('%', ?), '%') ";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, keyword);
+				break;
+			
+		}
+		ResultSet rs = pstmt.executeQuery();
+		while(rs.next()) {
+			count = rs.getInt("selectCount");
+		}
+		DBClose.close(conn);
 		return count;
 	}
 

@@ -4,6 +4,8 @@
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<c:set var="product_number" value="${param.product_number}" />
+
 <link rel="stylesheet" href="../css/bootstrap.css" />
 <script type="text/javascript"
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -14,50 +16,52 @@
 <sql:query dataSource="${conn}" var="countries">
 	SELECT country_kr_name FROM country ORDER BY country_kr_name
 </sql:query>
+<sql:query dataSource="${conn}" var="products">
+	SELECT country_kr_name, city_kr_name, market_kr_name, product_name, product_img
+	FROM product NATURAL JOIN MARKET NATURAL JOIN city NATURAL JOIN country 
+	WHERE product_number = ?
+	<sql:param value="${product_number}"/>
+</sql:query>
+<c:forEach items="${products.rows}" var="product" begin="0" end="1">
+	<c:set var="country" value="${product.country_kr_name }" />
+	<c:set var="city" value="${product.city_kr_name }" />
+	<c:set var="market" value="${product.market_kr_name }" />
+	<c:set var="product_name" value="${product.product_name }" />
+	<c:set var="product_image" value="${product.product_img }" />
+</c:forEach>
 
-
-<%-- <jsp:useBean id="service" class="com.example.libs.service.MarketService" />
-<sql:query dataSource="${conn}" var="cities">
-	SELECT city_kr_name 
-	FROM COUNTRY NATURAL JOIN city
-	WHERE country_kr_name = ?
-	ORDER BY city_kr_name
-	<sql:param value="${}" />
-</sql:query> --%>	
-	
 <script>
 	var xhr = null;
 	$(document).ready(function() {
 		xhr = new XMLHttpRequest();
+		
 		$("#selCountry").val($('#country').val()).prop("selected", true);
 		selCity();
-		//selMarket();
+		
 		$('.openModal').on('click', function() {
 			$("#selCity").val($('#city').val()).prop("selected", true);
 			selMarket();
-			//$("#selMarket").val($("#market").val()).prop("selected", true)
 			$("#product_name").val($("#product").val()).prop("selected", true);
 			
 			$('.modal').css({ "display" : "block"});
 			$('.modalBehind').css({"display" : "block"});
 			
 		});
+		
 		$('.modalBehind').on('click', function() {
 			$('.modal').css({"display" : "none"});
 			$('.modalBehind').css({"display" : "none"});
 		});
+		
 		$('.closeModal').on('click', function() {
 			$('.modal').css({"display" : "none"});
 		});
-		$('.btn').on('click', function() {
-			$('.modal').css({"display" : "none"});
-		});
-		
 		
 		$('#selCountry').on('change', function() {
 			selCity();
+			/* selCurrencyType(); */
 		});
-		
+
 		function selCity(){
 			var selectedCountry = $('#selCountry:selected').val();
 			if(selectedCountry == "국가명"){
@@ -72,6 +76,22 @@
 		function getCity() {
 			if (xhr.readyState == 4 && xhr.status == 200) {
 				$('#citySpan').html(xhr.responseText.trim());
+			}
+		}
+		function selCurrencyType(){
+			var selectedCountry = $('#selCountry:selected').val();
+			if(selectedCountry == "국가명"){
+				$('#currencySpan').html("<td><input type='number' disabled='true'/></td><td></td>");
+			}else{
+				xhr.onreadystatechange = getCity;     //4
+				xhr.open('POST', 'getCurrencyType_registerProduct.jsp', true);  //2. open()
+				xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=utf-8");
+				xhr.send('country=' + selectedCountry);     //3.
+			}
+		}
+		function getCurrencyType() {
+			if (xhr.readyState == 4 && xhr.status == 200) {
+				$('#currencySpan').html(xhr.responseText.trim());
 			}
 		}
 		function selMarket(){
@@ -92,24 +112,35 @@
 		}
 		
 		$('#register').on('click', function(){
-			if(!(($('#selCountry:selected').val() != $('#country').val()) || ($('#selCity:selected').val() != $('#city').val()) ||
-					($('#selMarket:selected').val() != $('#market').val()) || ($('#product_name').val() != $('#product').val()) )){
-				if(confirm("정보가 변경되어 기존 상품이 아닌 새 상품으로 등록됩니다. 계속하시겠습니까?")){
-					alert("!!!!관리자에게 정보 넘겨야함!!!!");
-				}else {
-					alert("기존값으로 변경되었습니다.")
-					$('#selCountry:selected').val($('#country').val());
-					$('#selCity:selected').val($('#city').val());
-					$('#selMarket:selected').val($('#market').val());
-					$('#product_name').val($('#product').val());
-				}
-			}else if (($('#selCountry:selected').val() == "국가명") || ($('#selCity:selected').val() =="도시명") || ($('#selMarket:selected').val() == "시장명") || 
-						($('#product_name').val() = null) || ($('.exchange').val() == ull) ){
-				alert("정보를 모두 입력해주세요.");
+			 if($('#country').val().trim() != ($('#selCountry:selected').val().trim())){
+				 console.log("1번째 if");
+				registerBtn();
+			} else if(($('#city').val().trim() != $('#selCity:selected').val().trim())){
+				 console.log("2번째 if");
+				registerBtn();
+			} else if(($('#market').val() ^= $('#selMarket:selected').val())){
+				 console.log("3번째 if");
+				registerBtn();
+			} else if(($('#product').val().trim() != $('#product_name').val().trim())) {
+				 console.log("4번째 if");
+				registerBtn(); 
 			}else{
-				alert("!!!!관리자에게 정보 넘겨야함!!!!");
+				if(confirm("가격 정보를 등록하시겠습니까?")) alert("가격정보가 등록되었습니다.");
 			}
-		})
+			
+		});
+			
+		function registerBtn(){
+			if(confirm("정보가 변경되어 기존 상품이 아닌 새 상품으로 등록됩니다. 계속하시겠습니까?")){
+					alert("!!!!관리자에게 정보 넘겨야함!!!!");
+			}else {
+				alert("기존값으로 변경되었습니다.");
+				$('#selCountry:selected').val($('#country').val());
+				$('#selCity:selected').val($('#city').val());
+				$('#selMarket:selected').val($('#market').val());
+				$('#product_name').val($('#product').val());
+			}
+		}
 	});
 	
 </script>
@@ -162,19 +193,22 @@ table {
 }
 </style>
 
+${product_image }
+국가<input type="text" id="country" value="${country}"><br>
+도시<input type="text" id="city" value="${city}"><br>
+시장<input type="text" id="market" value="${market}"><br>
+상품명 <input type="text" id="product" value="${product_name }"><br>
 
-국가<input type="text" id="country" value="베트남"><br>
-도시<input type="text" id="city" value="달랏"><br>
-시장<input type="text" id="market" value="달랏"><br>
-상품명 <input type="text" id="product" value="바나나"><br>
 
-<button type="button" class="openModal">modal</button>
+<button type="button" class="openModal">가격 올리기</button>
+
+
 <div class="modalBehind"></div>
 <div class="modal">
 	<div class="row"></div>
 	<div class="row">
 		<div class="col-sm-10">
-			<p class="product">상품 등록</p>
+			<p class="product">가격 정보 등록</p>
 		</div>
 		<div class="col-sm-2">
 			<h4 class="closeModal">X</h4>
@@ -184,7 +218,7 @@ table {
 		<table class="table tavle-bordered">
 			<tr>
 				<th>국가(한글)</th>
-				<td><select id="selCountry" name="country_kr_name">
+				<td><select id="selCountry" name="country_kr_name" required="required">
 						<option>국가명</option>
 						<c:forEach items="${countries.rows}" var="country">
 							<option value="${country.country_kr_name}">${country.country_kr_name}</option>
@@ -193,7 +227,7 @@ table {
 				<th>도시(한글)</th>
 				<td>
 					<span id="citySpan">
-						<select id="selCity" name="city_kr_name">
+						<select id="selCity" name="city_kr_name" required="required">
 							<option value="">도시명</option>
 							<c:forEach items="${cities.rows}" var="city">
 								<option value="${city.city_kr_name}">${city.city_kr_name}</option>
@@ -213,7 +247,7 @@ table {
 			<tr>
 				<th>상품명</th>
 				<td colspan="5">
-					<input type="text" id="product_name">
+					<input type="text" id="product_name" required="required">
 				</td>
 			</tr>
 			<tr>
@@ -224,9 +258,10 @@ table {
 			</tr>
 			<tr>
 				<th>상품가격</th>
-				<td><input type="number" style="width: 8vw;" class="exchange" id="KRW" onkeyup="convert('KRW');"></td>
+				<td><input type="number" style="width: 8vw;" class="exchange" id="KRW" onkeyup="convert('KRW');" required></td>
 				<th>원(한화)</th>
-				<td><input type="number" style="width: 8vw;" class="exchange" id="THB" onkeyup="convert('THB');"></td>
+				<span class="currencySpan">
+				<td><input type="number" style="width: 8vw;" class="exchange" id="THB" onkeyup="convert('THB');" required></td>
 				
 				<script type="text/javascript">
 				function convert(currency_type){
@@ -283,19 +318,17 @@ table {
 				}
 				</script>
 				
-				
-				
-				<th>
-					<c:forEach items="${countries.rows}" var="country">
-						<c:if test="${country_kr_name eq country.country_kr_name }">
-						
-						</c:if>
-					</c:forEach>
-				</th>
-				<td></td>
+				<td colspan="2">
+					<c:if test="${country eq '태국' }">바트</c:if>
+					<c:if test="${country eq '베트남' }">동</c:if>
+					<c:if test="${country eq '라오스' }">킵</c:if>
+					<c:if test="${country eq '싱가포르' }">싱가포르 달러</c:if>
+					<c:if test="${country eq '말레이시아' }">링깃</c:if>
+				</td>
+				</span>
 			</tr>
 			<tr rowspan="4">
-				<td colspan="6"><textarea class="description" rows="5">
+				<td colspan="6"><textarea class="description" rows="5" required="required">
 	!포인트 > 올리면 100원
 	이미지를 올리면 추가로 100원
 	그럼 이미지랑 같이 올리게 되면 = 200원 을 적립해드려요.
@@ -313,6 +346,6 @@ table {
 		</table>
 	</div>
 	<div class="row text-center" >
-		<button id="register" class="btn">완료</button>
+		<button type="submit" id="register" class="btn">완료</button>
 	</div>
 </div>

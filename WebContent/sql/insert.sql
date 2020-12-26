@@ -178,3 +178,8 @@ INSERT INTO product VALUES(119, '바나나', 1590, '<img src="../images/product/
 INSERT INTO product VALUES(120, '사과', 1000, '<img src="../images/product/apple_1.png">', TO_DATE('2020-12-09', 'RRRR-MM-DD'), 23, 1, 15, 25, 'admin');	
 INSERT INTO product VALUES(121, '콜라', 1800, '<img src="../images/product/콜라.png">', TO_DATE('2020-12-01', 'RRRR-MM-DD'), 871, 1, 15, 25, 'admin');	
 INSERT INTO product VALUES(122, '망고', 4200, '<img src="../images/product/mango.png">', TO_DATE('2020-12-02', 'RRRR-MM-DD'), 689, 1, 15, 25, 'admin');	
+
+
+
+
+COMMIT;

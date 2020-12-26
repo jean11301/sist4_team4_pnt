@@ -3,10 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="krw" value="null" />
-<c:set var="thb" value="null" />
-<c:set var="krw" value="${param.priceKr}" />
-<c:set var="thb" value="${param.priceViet }" />
 
 <!DOCTYPE html>
 <html>
@@ -68,6 +64,3 @@
 </script>
 </body>
 </html>
-
-<c:set var="krw" value="${}" />
-<c:set var="thb" value="${}" />

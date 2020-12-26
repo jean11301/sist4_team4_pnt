@@ -28,6 +28,9 @@ public class MarketService {
 	public int getTotalCount() throws SQLException{
 		return MarketDao.getTotalCount();
 	}
+	public int getTotalCount(int i, String keyword) throws SQLException{
+		return MarketDao.getTotalCount(i, keyword);
+	}
 	
 	public int getTotalPage(int pageSize) throws SQLException {
 		
@@ -35,6 +38,17 @@ public class MarketService {
 		int totalPage = 0;
 		if(count % pageSize == 0)
 				totalPage = count / pageSize;
+		else totalPage = count / pageSize + 1;
+		
+		return totalPage;
+	}
+	
+	public int getTotalPage(int pageSize, int i, String keyword) throws SQLException {
+		
+		int count = MarketDao.getTotalCount(i, keyword);
+		int totalPage = 0;
+		if(count % pageSize == 0)
+			totalPage = count / pageSize;
 		else totalPage = count / pageSize + 1;
 		
 		return totalPage;
