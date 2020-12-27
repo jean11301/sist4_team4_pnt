@@ -7,12 +7,13 @@ public class CountryVO {
 		private int country_code;
 		private String country_kr_name;
 		private String country_en_name;
-		private String country_flag_img = null;
-		public CountryVO(int country_code, String country_kr_name, String country_en_name) {
+		private String country_flag_img;
+		public CountryVO(int country_code, String country_kr_name, String country_en_name, String country_flag_img) {
 			super();
 			this.country_code = country_code;
 			this.country_kr_name = country_kr_name;
 			this.country_en_name = country_en_name;
+			this.country_flag_img = country_flag_img;
 		}
 		public int getCountry_code() {
 			return country_code;

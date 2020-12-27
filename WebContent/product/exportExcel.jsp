@@ -1,27 +1,62 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="java.util.ArrayList, com.example.libs.model.ProductVO" %>
+	
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jsp:useBean id="service"
 	class="com.example.libs.service.PopularService" />
 <!--전달받은 검색어 가져오기  -->
 <fmt:requestEncoding value="utf-8" />
-<c:set var="productname" value="${param.product_name}" />
-<c:set var="rs" value="${service.selectOne(productname)}" />
 <!--product DB에서 검색어 기준 내용 가져오기-->
-<style>
-table {
-	width:400px; height:400px;
-}
-thead {
-	background-color: dodgerblue;
-}
+<%
+	String productname = request.getParameter("product_name");
+	String marketname = request.getParameter("marketname");
+	
+	ArrayList<ProductVO> list = service.selectOne(productname, marketname);
+	ProductVO pro = new ProductVO();		
+%>
 
-tbody {
-	background-color: lightcyan;
-}
-</style>
+<script>
+	var xhr = null;
+	$(document).ready(function(){
+
+		xhr = new XMLHttpRequest();  //1. 객체 생성
+		$('#selcountry_kr_name').on('change', function(){
+			xhr.onreadystatechange = getCity;     //4
+			xhr.open('POST', 'getlocallist.jsp', true);  //2. open()
+			xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=utf-8");
+			xhr.send('country_kr_name=' + $(this).val());     //3.
+		});
+		
+		$('#btnSearch').on('click', function(){
+			xhr.onreadystatechange = getProduct;    //4.
+			xhr.open('POST', 'getProductlist.jsp', true);   //2. open()
+			xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=utf-8");
+			let param = 'country=' + $('#selcountry_kr_name').val().trim() + 
+			            '&city=' + $('#selcity_kr_name').val().trim() +
+			            '&market=' + $('#selmarket_kr_name').val().trim() + 
+			            '&product=' + $('#txtProduct').val().trim();
+		});
+	});
+	function getCity(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			$('#city_kr_nameDiv').html(xhr.responseText.trim());
+		}
+	}
+	function getMarket(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			$('#market_kr_nameDiv').html(xhr.responseText.trim());
+		}
+	}
+	function getProduct(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			$('#result').html(xhr.responseText.trim());
+		}
+	}
+	
+</script>
 <jsp:include page="../main/header.jsp" />
+
 <div class="container-fluid" style="margin: 0 0 0 0">
 	<form id="frmZip" name="frmZip">
 
@@ -67,9 +102,15 @@ tbody {
 					</div>
 				</form>
 			</div>
-			<div class="container" style="width:500px;height:500px; margin-top: 15%;">
+			<div class="container"
+				style="width:50%; margin-top: 10%;">
 				<div class="row">
-					<table>
+				<h3><%=marketname%>시장</h3>
+				<br>
+				<h1>'<%=productname%>' 데이터</h1>
+				<br>
+				<br>
+					<table class="table table-bordered" style="width:100%" id="tblExport">
 						<thead>
 							<th>No</th>
 							<th>나라</th>
@@ -81,28 +122,45 @@ tbody {
 							<th>등록자</th>
 						</thead>
 						<tbody>
-							<c:if test="${rs eq null}">
+							<%if(list==null){ 
+							%>
 								<tr>
 									<td colspan="8" class="text-center">No Data</td>
 								</tr>
 
-							</c:if>
-							<c:if test="${rs ne null}">
-								<c:forEach var="row" items="${rs.rows}">
+							<% }else{ 
+								for(int i = 0; i<list.size();i++){
+									int count = i+1;
+									pro = list.get(i);
+									%>
 									<tr>
-										<td>${row.sequence}</td>
-										<td>${row.country_kr_name}</td>
-										<td>${row.city_kr_name}</td>
-										<td>${row.market_kr_name}</td>
-										<td>${row.product_name}</td>
-										<td>${row.product_price}</td>
-										<td>${row.product_date}</td>
-										<td>${row.user_id}</td>
+										<td><%=pro.getSequence() %></td>
+										<td><%=pro.getCountry_kr_name()%></td>
+										<td><%=pro.getCity_kr_name()%></td>
+										<td><%=pro.getMarket_kr_name()%></td>
+										<td><%=pro.getProduct_name()%></td>
+										<td><%=pro.getProduct_price()%></td>
+										<td><%=pro.getProduct_date()%></td>
+										<td><%=pro.getUser_id()%></td>
 									</tr>
-								</c:forEach>
-							</c:if>
+							<%	 }
+							   }
+							%>
 						</tbody>
 					</table>
+					<button id='btnExport' type='button' >Export</button>
+					<script> //-------------------------------------------------------임시
+					$(document).ready(function(){ 
+						$('#btnExport').click(function(){ 
+							var link = document.createElement('a'); 
+							link.download = "productList.xls"; 
+							link.href = 'data:,' + $('#tblExport').text(); 
+							link.click(); 
+						});
+					}); 
+					</script>
+
+
 				</div>
 			</div>
 		</div>
@@ -112,4 +170,6 @@ tbody {
 
 
 
+
+		
 <jsp:include page="../main/footer.jsp" />

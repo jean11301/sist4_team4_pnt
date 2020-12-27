@@ -37,6 +37,10 @@
 				<label>영어도시명</label> <input type="text" class="form-control"
 					name="country_en_name">
 			</div>
+			<div class="form-group">
+				<label>국기 이미지</label> <input type="text" class="form-control"
+					name="country_flag_img">
+			</div>
 
 			<button type="submit" class="btn btn-primary">등록</button>
 
