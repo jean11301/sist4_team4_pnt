@@ -56,7 +56,7 @@
 	
 </script>
 <jsp:include page="../main/header.jsp" />
-
+<script type="text/javascript" src="../js/jquery.table2excel.js"></script>
 <div class="container-fluid" style="margin: 0 0 0 0">
 	<form id="frmZip" name="frmZip">
 
@@ -148,14 +148,31 @@
 							%>
 						</tbody>
 					</table>
-					<button id='btnExport' type='button' >Export</button>
+					<button id='btnExport' type='button'>Export</button>
+
 					<script> //-------------------------------------------------------임시
+
 					$(document).ready(function(){ 
 						$('#btnExport').click(function(){ 
-							var link = document.createElement('a'); 
-							link.download = "productList.xls"; 
-							link.href = 'data:,' + $('#tblExport').text(); 
-							link.click(); 
+							$("#tblExport").table2excel({
+							    exclude: ".excludeThisClass",
+							    name: "Worksheet Name",
+							    filename: "productList.xls", // do include extension
+							    preserveColors: false // set to true if you want background colors and font colors preserved
+							});
+							
+							
+							
+							
+							//var a = document.createElement('a');
+					        //var data_type = 'data:application/vnd.ms-excel';
+					        //var table_html = encodeURIComponent($("#tblExport").text());
+					        //a.href = data_type + ', ' + table_html;
+					        //a.download = 'productList.txt';
+					       
+					       // a.click();
+					        //e.preventDefault();
+
 						});
 					}); 
 					</script>

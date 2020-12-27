@@ -1,9 +1,7 @@
 package com.example.libs.model;
 
-<<<<<<< HEAD
 import java.sql.Connection;
-=======
->>>>>>> origin/master
+
 import java.sql.Date;
 import java.sql.Statement;
 import java.sql.CallableStatement;
@@ -105,11 +103,8 @@ public class ProductDao {
 		return list2;
 	}
 
-<<<<<<< HEAD
+
 	public static ArrayList<ProductVO> selectProduct(String productname, String marketname) throws SQLException {
-=======
-	public static ArrayList<ProductVO> selectProduct(String productname) throws SQLException {
->>>>>>> origin/master
 		// TODO Auto-generated method stub
 		Connection conn = DBConnection.getConnection();
 		String sql=	  "   SELECT   ROWNUM    AS    sequence ,   country_kr_name,   city_kr_name,    market_kr_name,    product_name,   product_price, product_date,    RPAD(SUBSTR(user_id,1,3), LENGTH(user_id),'*')   AS    user_id   "
@@ -152,12 +147,6 @@ public class ProductDao {
 		return list;
 	}
 
-
-
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
 	public static List<ProductVO> selectAllProduct() throws SQLException {
 		Connection conn = DBConnection.getConnection();
 		String sql = "{ call sp_product_selectAll(?) }";
@@ -279,9 +268,4 @@ public class ProductDao {
 		DBClose.close(conn, pstmt);   //6
 		return row;
 	}
-
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
 }
