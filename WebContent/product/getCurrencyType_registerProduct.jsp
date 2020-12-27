@@ -319,3 +319,62 @@
 				</script>
 	<td>싱가포르 달러</td>
 </c:if>
+<c:if test="${country eq '말레이시아' }">
+	<td><input type="number" style="width: 8vw;" class="exchange" id="MYR" onkeyup="convert('MYR');" required></td>
+				
+				<script type="text/javascript">
+				function convert(currency_type){
+					//태국 : USD/THB, 베트남 : USD/VND, 라오스 : USD/LAK, 싱가포르 : USD/SGD, 말레이시아 : USD/MYR
+					var kr_e = 0;
+					var other_e = 0;
+					if (currency_type == 'MYR') {
+						var str = "USD/" + currency_type;
+				        var val = $("#MYR").val();
+				        if (val) {
+							$.ajax({
+								url: 'https://api.manana.kr/exchange.json',
+								type: 'GET',
+							}).done((data, textStatus, jqXHR) => {
+										        
+					        //한개씩 뽑는 테스트
+							var kkk = data.filter(function (item) { return item.name == str });
+							var kkk2 = kkk[0].price;
+							var e =  Math.round(kkk2 * 100) / 100; 
+							console.log(e);
+					        $('#KRW').val(( val / e ).toFixed(2));
+							}), (jqXHR, textStatus, errorThrown) => {
+								console.log('실패')
+							};   
+				        } else{
+				        	$('#KRW').val("");
+	
+				        }
+					}
+					if (currency_type == 'KRW') {
+						var str = "USD/" + currency_type;
+				        var val = $("#KRW").val();
+				        if (val) {
+							$.ajax({
+								url: 'https://api.manana.kr/exchange.json',
+								type: 'GET',
+							}).done((data, textStatus, jqXHR) => {
+										        
+					        //한개씩 뽑는 테스트
+							var kkk = data.filter(function (item) { return item.name == str });
+							var kkk2 = kkk[0].price;
+							var e =  Math.round(kkk2 * 100) / 100; 
+							console.log(e);
+					        $('#MYR').val((val / e).toFixed(2));
+							}), (jqXHR, textStatus, errorThrown) => {
+								console.log('실패')
+							};   
+				        } else{
+				        	$('#MYR').val("");
+	
+				        }
+					}
+				
+				}
+				</script>
+	<td>링깃</td>
+</c:if>

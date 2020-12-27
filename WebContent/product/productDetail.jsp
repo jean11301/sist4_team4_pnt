@@ -37,7 +37,6 @@
 		
 		$("#selCountry").val($('#country').val()).prop("selected", true);
 		selCity();
-		
 		$('.openModal').on('click', function() {
 			$("#selCity").val($('#city').val()).prop("selected", true);
 			selMarket();
@@ -112,14 +111,23 @@
 		}
 		
 		$('#register').on('click', function(){
+			
+			
+			
+			
 			 var country = $('#selCountry:selected').val();
 			 var city = $('#selCity:selected').val();
+			 if(city == $('#selCity').find(':selected').val()) {city = $('#city').val();
+			 } else {city = $('#selCity').find(':selected').val();}
 			 var market = $('#selMarket:selected').val();
+			 if(market == $('#selMarket').find(':selected').val()) {market = $('#market').val();
+			 } else {market = $('#selMarket').find(':selected').val();}
 			 var Pname = $('#product_name').val();
 			 var price = $('#KRW').val();
 			
-			 if(confirm("입력하신 정보가 [" + country + " , " + city + " , " + market + " , " + Pname + " , " + price +"]이 맞습니까?"){
-				alert("가격정보가 등록되었습니다.");
+			 if(confirm("입력하신 정보가 [" + country + " , " + city + " , " + market + " , " + Pname + " , " + price +"]이 맞습니까?")){
+				$(this).submit();
+				 alert("가격정보가 등록되었습니다.");
 			 }
 			
 		});
@@ -197,6 +205,7 @@ ${product_image }
 			<h4 class="closeModal">X</h4>
 		</div>
 	</div>
+	<form action="registerProductPrice.jsp" method="POST">
 	<div class="row">
 		<table class="table tavle-bordered">
 			<tr>
@@ -301,13 +310,15 @@ ${product_image }
 				}
 				</script>
 				
-				<td colspan="2">
+				<th colspan="2">
+				<span id="currency"></span>
+				 왜 <c:out value="${country }" />
 					<c:if test="${country eq '태국' }">바트</c:if>
 					<c:if test="${country eq '베트남' }">동</c:if>
 					<c:if test="${country eq '라오스' }">킵</c:if>
 					<c:if test="${country eq '싱가포르' }">싱가포르 달러</c:if>
 					<c:if test="${country eq '말레이시아' }">링깃</c:if>
-				</td>
+				</th>
 				</span>
 			</tr>
 			<tr rowspan="4">
@@ -331,4 +342,5 @@ ${product_image }
 	<div class="row text-center" >
 		<button type="submit" id="register" class="btn">완료</button>
 	</div>
+	</form>
 </div>

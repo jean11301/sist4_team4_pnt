@@ -14,6 +14,30 @@
 	<sql:param value="${country}" />
 </sql:query>
 
+<script>
+$(document).ready(function() {
+	$('#selCity').on('change',function() {
+		var selectedCountry = $('#selCountry:selected').val();
+		var selectedCity = $(this).val();
+		if(selectedCity == "도시명"){
+			$('#selMarket').html("<option>시장명</option>");
+		}else{
+			xhr.onreadystatechange = getMarket;     //4
+			xhr.open('POST', 'getMarketlist_registerProduct.jsp', true);  //2. open()
+			xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=utf-8");
+			xhr.send('country=' + selectedCountry + '&city=' + selectedCity);     //3.
+		}
+		console.log(selectedCity);
+	});
+	function getMarket() {
+		if (xhr.readyState == 4 && xhr.status == 200) {
+			$('#marketSpan').html(xhr.responseText.trim());
+		}
+	}
+	});
+	
+</script>
+
 
 <select id="selCity" name="city_kr_name">
 	<option value="">도시명</option>
