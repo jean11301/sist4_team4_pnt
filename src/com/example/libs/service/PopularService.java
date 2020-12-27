@@ -44,18 +44,29 @@ public class PopularService {
 		return ProductDao.selectAllProduct();
 	}
 	
-//	public ProductVO selectProduct(int product_number) throws SQLException {
-//		return ProductDao.selectProduct(product_number);
-//	}
-//	
-//	public int insertProduct(ProductVO product) throws SQLException{
-//		return ProductDao.insertProduct(market);
-//	}
-//	
-//	public int updateProduct(ProductVO product) throws SQLException{
-//		return ProductDao.updateProduct(product);
-//	}
-//	
+	//상품 번호로 상품 검색하기
+	public ProductVO selectProduct(int product_number) throws SQLException {
+		return ProductDao.selectProduct(product_number);
+	}
+	
+	public int insertProduct(ProductVO product) throws SQLException{
+		if(product.getProduct_img() == null) {
+			System.out.println("NULL입니다");
+		}else {
+			System.out.println("NULL이 아닙니다");
+		}
+		System.out.println(product.getProduct_img());
+		if(product.getProduct_img() == null) {
+			return ProductDao.insertProduct(product, 0);
+		}else {
+			return  ProductDao.insertProduct(product);
+		}
+	}
+	
+	public int updateProduct(ProductVO product) throws SQLException{
+		return ProductDao.updateProduct(product);
+	}
+	
 	public int getTotalCount() throws SQLException{
 		return ProductDao.getTotalCount();
 	}

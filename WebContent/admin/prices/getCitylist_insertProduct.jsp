@@ -23,7 +23,7 @@ $(document).ready(function() {
 			$('#selMarket').html("<option>시장명</option>");
 		}else{
 			xhr.onreadystatechange = getMarket;     //4
-			xhr.open('POST', 'getMarketlist_registerProduct.jsp', true);  //2. open()
+			xhr.open('POST', 'getMarketlist.jsp', true);  //2. open()
 			xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=utf-8");
 			xhr.send('country=' + selectedCountry + '&city=' + selectedCity);     //3.
 		}
@@ -38,10 +38,9 @@ $(document).ready(function() {
 	
 </script>
 
-
 <select id="selCity" name="city_kr_name">
 	<option value="">도시명</option>
 	<c:forEach items="${cities.rows}" var="city">
-		<option value="${city.city_kr_name}"   >${city.city_kr_name}</option>
+		<option value="${city.city_kr_name}" >${city.city_kr_name}</option>
 	</c:forEach>
 </select>

@@ -1,6 +1,9 @@
 package com.example.libs.model;
 
+<<<<<<< HEAD
 import java.sql.Connection;
+=======
+>>>>>>> origin/master
 import java.sql.Date;
 import java.sql.Statement;
 import java.sql.CallableStatement;
@@ -102,7 +105,11 @@ public class ProductDao {
 		return list2;
 	}
 
+<<<<<<< HEAD
 	public static ArrayList<ProductVO> selectProduct(String productname, String marketname) throws SQLException {
+=======
+	public static ArrayList<ProductVO> selectProduct(String productname) throws SQLException {
+>>>>>>> origin/master
 		// TODO Auto-generated method stub
 		Connection conn = DBConnection.getConnection();
 		String sql=	  "   SELECT   ROWNUM    AS    sequence ,   country_kr_name,   city_kr_name,    market_kr_name,    product_name,   product_price, product_date,    RPAD(SUBSTR(user_id,1,3), LENGTH(user_id),'*')   AS    user_id   "
@@ -147,7 +154,10 @@ public class ProductDao {
 
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
 	public static List<ProductVO> selectAllProduct() throws SQLException {
 		Connection conn = DBConnection.getConnection();
 		String sql = "{ call sp_product_selectAll(?) }";
@@ -169,6 +179,79 @@ public class ProductDao {
 		return list;
 	}
 
+	public static int insertProduct(ProductVO product) throws SQLException {
+		Connection conn = DBConnection.getConnection();
+		String sql = "{ call sp_product_insert(?, ?, ?, ?, ?, ?, ?, ?) }";
+		CallableStatement cstmt = conn.prepareCall(sql);      //4
+		cstmt.setString(1, product.getProduct_name());
+		cstmt.setDouble(2, product.getProduct_price());
+//		String product_img = "";
+//		if(product.getProduct_img() == null) {
+//			product_img ="";
+//			cstmt.setString(3, product_img);
+//		}else {
+			cstmt.setString(3, product.getProduct_img());
+//		}
+		cstmt.setInt(4, product.getSequence());
+		cstmt.setString(5, product.getCheck_status());
+		cstmt.setString(6, product.getCity_kr_name());
+		cstmt.setString(7, product.getMarket_kr_name());
+		cstmt.setString(8, product.getUser_id());
+		int row = cstmt.executeUpdate();                          //5
+		DBClose.close(conn, cstmt);   //6
+		return row;
+	}
+	public static int insertProduct(ProductVO product, int image) throws SQLException {
+		Connection conn = DBConnection.getConnection();
+		String sql = "{ call sp_product_insert_noimage(?, ?, ?, ?, ?, ?, ?) }";
+		CallableStatement cstmt = conn.prepareCall(sql);      //4
+		cstmt.setString(1, product.getProduct_name());
+		cstmt.setDouble(2, product.getProduct_price());
+		cstmt.setInt(3, product.getSequence());
+		cstmt.setString(4, product.getCheck_status());
+		cstmt.setString(5, product.getCity_kr_name());
+		cstmt.setString(6, product.getMarket_kr_name());
+		cstmt.setString(7, product.getUser_id());
+		int row = cstmt.executeUpdate();                          //5
+		DBClose.close(conn, cstmt);   //6
+		return row;
+	}
+	
+	public static ProductVO selectProduct(int product_number) throws SQLException {
+		Connection conn = DBConnection.getConnection();
+		String sql = "{ call sp_product_select(?, ?) }";
+		CallableStatement cstmt = conn.prepareCall(sql);
+		cstmt.setInt(1, product_number);
+		cstmt.registerOutParameter(2, OracleTypes.CURSOR);
+		cstmt.execute();
+		ResultSet rs = (ResultSet) cstmt.getObject(2);
+		rs.next();
+		ProductVO product = new ProductVO(rs.getInt("product_number"), rs.getString("check_status"), rs.getDate("product_date"), rs.getString("country_kr_name"), 
+						rs.getString("city_kr_name"), rs.getString("market_kr_name"), rs.getString("product_name"), rs.getInt("product_price"), 
+						rs.getString("product_img"), rs.getString("user_id"), rs.getInt("sequence"));
+		DBClose.close(conn, cstmt, rs);
+		return product;
+	}
+	
+	public static int updateProduct(ProductVO product) throws SQLException {
+		Connection conn = DBConnection.getConnection();  //2,3
+		String sql = "{ call sp_product_update(?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }";
+		CallableStatement cstmt = conn.prepareCall(sql);    //4
+		cstmt.setInt(1, product.getProduct_number());
+		cstmt.setString(2, product.getCheck_status());
+		cstmt.setString(3, product.getUser_id());
+		cstmt.setInt(4, product.getSequence());
+		cstmt.setString(5, product.getCountry_kr_name());
+		cstmt.setString(6, product.getCity_kr_name());
+		cstmt.setString(7, product.getMarket_kr_name());
+		cstmt.setString(8, product.getProduct_name());
+		cstmt.setInt(9, (int) product.getProduct_price());
+		cstmt.setString(10, product.getProduct_img());
+		int row = cstmt.executeUpdate();
+		DBClose.close(conn, cstmt);   //6
+		return row;
+	}
+	
 	public static int getTotalCount() throws SQLException {
 		Connection conn = DBConnection.getConnection();
 		String sql = "{ call sp_product_selectCount(?) }"; 
@@ -197,4 +280,8 @@ public class ProductDao {
 		return row;
 	}
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 }

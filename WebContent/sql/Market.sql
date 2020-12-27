@@ -109,3 +109,92 @@ BEGIN
     SELECT COUNT(product_number) AS selectCount INTO selectCount
     FROM product;
 END;
+
+--새 상품 입력하기
+create or replace NONEDITIONABLE PROCEDURE sp_product_insert
+(
+	v_product_name           IN     product.product_name%TYPE,
+	v_product_price          IN     product.product_price%TYPE,
+	v_product_img            IN     product.product_img%TYPE,
+	v_sequence               IN     product.sequence%TYPE,
+	v_check_status           IN     product.check_status%TYPE,
+	v_city_kr_name           IN     city.city_kr_name%TYPE,
+	v_market_kr_name         IN     market.market_kr_name%TYPE,
+	v_user_id                IN     product.user_id%TYPE
+)
+IS
+BEGIN
+    INSERT INTO PRODUCT (product_number, product_name, product_price, product_img, product_date, sequence,
+                            check_status, city_number, market_number, user_id  ) 
+    VALUES ((SELECT (MAX(product_number) + 1) FROM product), v_product_name, v_product_price,v_product_img, (SELECT SYSDATE FROM DUAL), v_sequence, v_check_status, 
+        (SELECT city_number FROM city WHERE city_kr_name = v_city_kr_name), (SELECT market_number FROM market WHERE market_kr_name = v_market_kr_name), v_user_id);
+    COMMIT;
+END;
+
+--새 상품 입력하기(이미지 없음)
+create or replace NONEDITIONABLE PROCEDURE sp_product_insert_noimage
+(
+	v_product_name           IN     product.product_name%TYPE,
+	v_product_price          IN     product.product_price%TYPE,
+	v_sequence               IN     product.sequence%TYPE,
+	v_check_status           IN     product.check_status%TYPE,
+	v_city_kr_name           IN     city.city_kr_name%TYPE,
+	v_market_kr_name         IN     market.market_kr_name%TYPE,
+	v_user_id                IN     product.user_id%TYPE
+)
+IS
+    
+BEGIN
+    
+    INSERT INTO PRODUCT (product_number, product_name, product_price, product_date, sequence,
+                            check_status, city_number, market_number, user_id  ) 
+    VALUES ((SELECT (MAX(product_number) + 1) FROM product), v_product_name, v_product_price, (SELECT SYSDATE FROM DUAL), v_sequence, v_check_status, 
+        (SELECT city_number FROM city WHERE city_kr_name = v_city_kr_name), (SELECT market_number FROM market WHERE market_kr_name = v_market_kr_name), v_user_id);
+    COMMIT;
+END;
+
+--상품 번호로 상품 정보 가져오기
+create or replace NONEDITIONABLE PROCEDURE sp_product_select
+(
+    v_product_number  IN    product.product_number%TYPE,
+    product_record    OUT   SYS_REFCURSOR
+)
+AS
+BEGIN
+    OPEN product_record FOR
+    SELECT  product.product_number, product.check_status, product.product_date, country.country_kr_name, city.city_kr_name, market.market_kr_name, 
+            product.product_name, product.product_price, product.product_img, product.user_id, product.sequence
+    FROM product NATURAL JOIN market NATURAL JOIN city NATURAL JOIN country
+    WHERE product.product_number = v_product_number;
+END;
+
+--상품 수정하기
+create or replace NONEDITIONABLE PROCEDURE sp_product_update
+(   
+    v_product_number      IN      product.product_number%TYPE,
+    v_check_status        IN      product.check_status%TYPE,
+    v_user_id              IN     product.user_id%TYPE,
+    v_sequence             IN     product.sequence%TYPE,
+    v_country_kr_name       IN      country.country_kr_name%TYPE,
+    v_city_kr_name          IN      city.city_kr_name%TYPE,
+    v_market_kr_name       IN      market.market_kr_name%TYPE,
+    v_product_name         IN      product.product_name%TYPE,
+    v_product_price        IN      product.product_price%TYPE,
+    v_product_img             IN      product.product_img%TYPE
+)
+IS
+BEGIN
+    UPDATE PRODUCT 
+    SET 
+    check_status = v_check_status,
+    user_id = v_user_id,
+    sequence = v_sequence,
+    city_number = (SELECT city_number FROM city INNER JOIN country ON (country.country_code = city.country_code) 
+        WHERE country_kr_name= v_country_kr_name AND city_kr_name = v_city_kr_name),
+    market_number = (SELECT market_number FROM market NATURAL JOIN city WHERE city_kr_name = v_city_kr_name AND market_kr_name = v_market_kr_name),
+    product_name = v_product_name,
+    product_price = v_product_price,
+    product_img = v_product_img
+    WHERE product_number = v_product_number;
+
+END;

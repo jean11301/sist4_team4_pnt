@@ -36,7 +36,13 @@
 		<sql:param value="${product}"/>
 	</sql:query>
 	<div class="container">
-		<p>${country}의 '${product}' 검색결과는 0개 입니다.</p>
+	<c:set var="co" value="0" />
+	<c:if test="${product eq ''}">
+		<p>${country}의 검색결과는 <c:forEach var="countt" items="${rs.rowsByIndex}"> <c:set var="co" value="${co + 1}" /> </c:forEach><c:out value="${co}"/>개 입니다.</p>
+	</c:if>
+	<c:if test="${product ne ''}">
+		<p>${country}의 '${product}' 검색결과는 <c:forEach var="countt" items="${rs.rowsByIndex}"> <c:set var="co" value="${co + 1}" /> </c:forEach><c:out value="${co}"/>개 입니다.</p>
+	</c:if>
 	</div>
 </c:if>
 <c:if test="${not empty country and not empty city and empty market}">  <%-- 나라, 도시 널이 아니고 시장이 널일때 --%>
@@ -51,7 +57,13 @@
 		<sql:param value="${product}"/>
 	</sql:query>
 	<div class="container">
-		<p>${country} > ${city}의 '${product}' 검색결과는 0개 입니다.</p>
+	<c:set var="co" value="0" />
+		<c:if test="${product eq ''}">
+		<p>${country} > ${city}의 검색결과는 <c:forEach var="countt" items="${rs.rowsByIndex}"> <c:set var="co" value="${co + 1}" /> </c:forEach><c:out value="${co}"/>개 입니다.</p>
+	</c:if>
+	<c:if test="${product ne ''}">
+		<p>${country} > ${city}의 '${product}' 검색결과는 <c:forEach var="countt" items="${rs.rowsByIndex}"> <c:set var="co" value="${co + 1}" /> </c:forEach><c:out value="${co}"/>개 입니다.</p>
+	</c:if>
 	</div>
 </c:if>
 <c:if test="${not empty country and not empty city and not empty market}"><%-- 나라, 도시, 시장 셋 다 널이 아닐 때 --%>
@@ -67,7 +79,13 @@
 		<sql:param value="${product}"/>
 	</sql:query>
 	<div class="container">
-		<p>${country} > ${city} > ${market}의 '${product}' 검색결과는 개 입니다.</p>
+	<c:set var="co" value="0" />
+	<c:if test="${product eq ''}">
+		<p>${country} > ${city} > ${market}의 검색결과는 <c:forEach var="countt" items="${rs.rowsByIndex}"> <c:set var="co" value="${co + 1}" /> </c:forEach><c:out value="${co}"/>개 입니다.</p>
+	</c:if>
+	<c:if test="${product ne ''}">
+		<p>${country} > ${city} > ${market}의 '${product}' 검색결과는 <c:forEach var="countt" items="${rs.rowsByIndex}"> <c:set var="co" value="${co + 1}" /> </c:forEach><c:out value="${co}"/>개 입니다.</p>
+	</c:if>
 	</div>
 </c:if>
 	
@@ -77,7 +95,7 @@
 		<c:forEach items="${rs.rows}" var="row"> 
 			<div class="col-sm-4 table-responsive" style="margin-right:0;">
 			<a href="productDetail.jsp?product_number=${row.product_number}" >
-				<table class="table-bordered" >
+				<table class="table-bordered">
 					<tr>
 						<td>${row.product_img}</td>
 					</tr>

@@ -18,6 +18,8 @@
 <link rel="stylesheet" href="../css/bootstrap.css">
 
 <script>
+
+
 	var xhr = null;
 	$(document).ready(function(){
 		xhr = new XMLHttpRequest();  //1. 객체 생성
@@ -55,6 +57,7 @@
 			          drawMarkers(data);
 			      }
 			    });
+			    
 			}else if(marketname != "" && product_name != ""){  //지역선택까지 하고 검색을 눌렀을때 검색어가 있는 시장만
 				$.ajax({
 				      method : 'POST',
@@ -90,6 +93,7 @@
 			let marketname = $('#selmarket_kr_name').val().trim();
 			location.href = "exportExcel.jsp?product_name="+product_name+"&marketname="+marketname;
 		});
+	$('#btnSearch').trigger('click'); 
 	});
 	
 	
@@ -113,7 +117,8 @@
 
 </head>
 <body>
-	<div class="container-fluid" style="margin:0 0 0 0">
+
+	<div class="container-fluid" style="margin:25px 0px 0px 0px">
 	<form id="frmZip" name="frmZip">
 	
 	<div class="row">

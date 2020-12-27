@@ -17,7 +17,7 @@
 <c:if test="${row eq 1}">
 	<script>
 		alert("상품이 삭제되었습니다.");
-		location.href="market.jsp?page=1";
+		location.href="product.jsp?page=1";
 	</script>
 </c:if>
 <c:if test="${row ne 1}">

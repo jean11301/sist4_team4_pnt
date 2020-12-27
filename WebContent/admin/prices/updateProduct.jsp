@@ -9,6 +9,25 @@
 	SELECT country_kr_name FROM country ORDER BY country_kr_name
 </sql:query>
 
+<c:set var="product_number" value="${param.product_number}"	/>
+
+<jsp:useBean id="service" class="com.example.libs.service.PopularService" />
+<c:set var="product" value="${service.selectProduct(product_number)}" />
+<sql:query dataSource="${conn}" var="cities">
+	SELECT city_kr_name 
+	FROM COUNTRY NATURAL JOIN city
+	WHERE country_kr_name = ?
+	ORDER BY city_kr_name
+	<sql:param value="${product.country_kr_name}" />
+</sql:query>
+<sql:query dataSource="${conn}" var="markets">
+	SELECT market_kr_name 
+	FROM city NATURAL JOIN market
+	WHERE city_kr_name = ?
+	ORDER BY market_kr_name
+	<sql:param value="${product.city_kr_name}" />
+</sql:query>
+
 <script>
 	var xhr = null;
 	$(document).ready(function() {
@@ -49,7 +68,7 @@
 			}
 		}
 		
-		$('#insertProduct').on('click', function(){
+		$('#updateProduct').on('click', function(){
 			if($('#selCountry:selected').val() == "국가명" || $('#selCity:selected').val() == "도시명" || $('#selMarket:selected').val() == "시장명" || 
 					$('#txtProductName').val() == "" || $('#txtProductPrice').val() == ""){
 				alert("정보를 모두 입력해주세요.");
@@ -74,7 +93,7 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1 class="m-0">물가 리스트 > 신규 상품 등록</h1>
+					<h1 class="m-0">물가 리스트 > 상품 수정</h1>
 				</div>
 			</div>
 		</div>
@@ -88,7 +107,7 @@
 						<div class="card-body">
 							<div id="example2_wrapper"
 								class="dataTables_wrapper dt-bootstrap4">
-								<form action="newProduct.jsp" method="POST">
+								<form action="changeProduct.jsp" method="POST">
 								<div class="row">
 									<div class="col-sm-12">
 										<!-- 상태 정보 입력 테이블 -->
@@ -99,9 +118,9 @@
 												<th>상태</th>
 												<td>
 													<select id="check_status" name="check_status">
-														<option value="0" selected>미확인</option>
-														<option value="1">확인</option>
-														<option value="-1">불가</option>
+														<option value="0" <c:if test="${product.check_status eq 0 }">selected</c:if>>미확인</option>
+														<option value="1" <c:if test="${product.check_status eq 1 }">selected</c:if>>확인</option>
+														<option value="-1" <c:if test="${product.check_status eq 2 }">selected</c:if>>불가</option>
 													</select>
 												</td>
 											</tr>
@@ -109,14 +128,14 @@
 												<th>등록 날짜</th>
 												<td><label>
 												<input type="date" class="form-control form-control-sm" id="txtProductDate" name="product_date"
-														aria-controls="example1" disabled="true" />
+														aria-controls="example1" disabled="true" ${product.product_date }/>
 												</label></td>
 											</tr>
 											<tr>
 												<th>올린이</th>
 												<td><label>
 												<input type="text" class="form-control form-control-sm" id="txtUserId" 
-														aria-controls="example1" disabled="true" value="admin" >
+														aria-controls="example1" disabled="true" value="${product.user_id }" >
 												</label></td>
 												<input type="text" id="txtUserId2" name="user_id" value="" hidden="true" />
 											</tr>
@@ -125,7 +144,7 @@
 												<td>
 												<label>
 												<input type="number" class="form-control form-control-sm" id="txtSequence" 
-														aria-controls="example1" disabled="true" name="sequence" value="0">
+														aria-controls="example1" disabled="true" name="sequence" value="${product.sequence }">
 												</label>
 												</td>
 											</tr>
@@ -143,7 +162,8 @@
 												<td><select id="selCountry" name="country_kr_name" required="required">
 														<option>국가명</option>
 														<c:forEach items="${countries.rows}" var="country">
-															<option value="${country.country_kr_name}">${country.country_kr_name}</option>
+															<option value="${country.country_kr_name}" <c:if test="${product.country_kr_name eq country.country_kr_name}">selected</c:if>>
+																${country.country_kr_name}</option>
 														</c:forEach>
 												</select></td>
 											</tr>
@@ -154,7 +174,8 @@
 														<select id="selCity" name="city_kr_name" required="required">
 															<option value="">도시명</option>
 															<c:forEach items="${cities.rows}" var="city">
-																<option value="${city.city_kr_name}">${city.city_kr_name}</option>
+																<option value="${city.city_kr_name}" <c:if test="${product.city_kr_name eq city.city_kr_name}">selected</c:if>>
+															${city.city_kr_name}</option>
 															</c:forEach>
 														</select>
 													</span>
@@ -166,6 +187,10 @@
 													<span id="marketSpan">
 														<select id="selMarket" name="market_kr_name">
 															<option value="">시장명</option>
+															<c:forEach items="${markets.rows}" var="market">
+																<option value="${market.market_kr_name}" <c:if test="${product.market_kr_name eq market.market_kr_name}">selected</c:if>>
+															${market.market_kr_name}</option>
+															</c:forEach>
 														</select>
 													</span>
 												</td>
@@ -184,7 +209,7 @@
 												<td>
 												<label>
 												<input type="text" class="form-control form-control-sm" id="txtProductName" 
-														aria-controls="example1" name="product_name"/>
+														aria-controls="example1" name="product_name" value="${product.product_name}"/>
 												</label>
 												</td>
 											</tr>
@@ -193,7 +218,7 @@
 												<td>
 												<label>
 												<input type="text" class="form-control form-control-sm" id="txtProductPrice" name="product_price"
-														aria-controls="example1" />
+														aria-controls="example1" value="${product.product_price }"/>
 												</label>
 												</td>
 											</tr>
@@ -201,7 +226,7 @@
 												<th>사진</th>
 												<td>
 												<label>
-												<input type="file" name="product_img" >
+												<input type="file" name="product_img" value="${product.product_img}">
 												</label>
 												</td>
 											</tr>
@@ -211,7 +236,7 @@
 								<!-- /.table -->
 								<div class="row">
 									<div class="col-sm-12 col-md-5">
-										<button type="submit" id="insertProduct" class="btn btn-success">등록</button>
+										<button type="submit" id="changeProduct" class="btn btn-success">수정</button>
 										<button type="button" id="cancel" class="btn btn-danger">취소</button>
 									</div>
 									<div class="col-sm-12 col-md-7"></div>
