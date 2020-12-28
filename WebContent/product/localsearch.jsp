@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<jsp:include page="../main/header.jsp" />
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
@@ -9,17 +8,10 @@
 	SELECT country_kr_name FROM country ORDER BY country_kr_name
 </sql:query>
 
-
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<script src="../js/jquery-3.5.1.js"></script>
-<link rel="stylesheet" href="../css/bootstrap.css">
+<jsp:include page="../main/header.jsp" />
+<div id="titletext">물가 정보</div>
 
 <script>
-
-
 	var xhr = null;
 	$(document).ready(function(){
 		xhr = new XMLHttpRequest();  //1. 객체 생성
@@ -113,14 +105,13 @@
 	
 </script>
 
-</head>
-<body>
 
-	<div class="container-fluid" style="margin:25px 0px 0px 0px">
+<div class="container-fluid">
+	<div class="row">
 	<form id="frmZip" name="frmZip">
 	
-	<div class="row">
-		<div class="col-sm-2 side_search">
+
+		<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 side_search">
 			<form>
 				<div class="form-group pd-5">
 				<label for="sel1" style="font-size:20px;">나라선택</label>
@@ -142,7 +133,7 @@
 					</div><br><br><br>
 					
 				<div>
-				상품명 : &nbsp;&nbsp;<input type="text" name="product" id="txtProduct" style="color:black; width:220px; height:35px;" placeholder="상품명을 입력하세요." />
+				상품명 : &nbsp;&nbsp;<input type="text" name="product" id="txtProduct" style="color:black; width:100%; height:35px;" placeholder="상품명을 입력하세요." />
 				</div><br>
 				<div align="right">
 					<input class="btn btn-primary"type="button" value="상품검색" id="btnSearch" />
@@ -152,11 +143,11 @@
 			</form>
 			</div>
 			<c:import url="product.jsp"></c:import>
-			</div>
+			
 			
 	 	</form>
-	
-			<div> <button id="btnMoredata" > 데이터더보기</button></div>
+	</div><!-- End row --> 
+			<!-- <div> <button id="btnMoredata" > 데이터더보기</button></div> -->
 	<div id="result"></div>
 </div>
 

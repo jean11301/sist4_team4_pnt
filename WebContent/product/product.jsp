@@ -8,11 +8,11 @@
 	ArrayList<ProductVO> list2 = popular.variancelist();
 %>
 
-<div class="col-sm-5 pnt_map pd-5" >
+<div class="col-xs-12 col-sm-12 col-md-9 col-lg-4 pnt_map pd-5" >
 	<jsp:include page="map_ex.html" />
 </div>
 <!--  인기 검색 종목 물가, 급변동 물가 -->
-		<div class="col-sm-5">
+		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
 			<h4>
 					<strong>인기 검색 종목 물가</strong>
 				</h4>
@@ -56,7 +56,7 @@
 		</div><!--ENd 인기 검색-->
 
 		<!--  급변동 -->
-		<div class="col-sm-5">
+		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
 			<h4>
 				<strong>급변동 물가</strong>
 			</h4>

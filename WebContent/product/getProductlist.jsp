@@ -88,22 +88,32 @@
 	</c:if>
 	</div>
 </c:if>
-	
-		<div class="container" style="margin-right:0; margin-left:300px;">
-		<div class="row" style="margin-right:0;">
-		
+	<style>
+	.imgcontrol{}
+	.imgcontrol img{width:100%;overflow: hidden;}
+	.listbox{ overflow: hidden;    min-height: 215px; margin: 0 0 1% 0;padding: 0 0.5vw;}
+	.product{overflow: hidden;display: grid;}
+	.productlist{display: block;text-overflow:ellipsis;overflow: hidden;white-space: nowrap; width:95%; padding:2%}
+	.productname{color:#091a3c;     font-size: 1.8rem; font-weight: bold; padding: 0 0 0 3%;}
+	.stylebox{border:1px solid #CCC; overflow: hidden; border-radius: 5px;}
+	</style>
+	<!-- 	<div class="container" style="margin-right:0; margin-left:300px;"> -->
+		<!-- <div class="row" style="margin-right:0;"> -->
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-2" style="margin:0; padding:0"></div>
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-8" style="margin:0; padding:0">
 		<c:forEach items="${rs.rows}" var="row"> 
-			<div class="col-sm-4 table-responsive" style="margin-right:0;">
+			<div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 listbox">
+			<div class="stylebox">
 			<a href="productDetail.jsp?product_number=${row.product_number}" >
-				<table class="table-bordered">
+				<table class="table-responsive">
 					<tr>
-						<td>${row.product_img}</td>
+						<td class="imgcontrol">${row.product_img}</td>
 					</tr>
 					<tr class="product">
-						<td>${row.country_kr_name}>${row.city_kr_name}>${row.market_kr_name}</td>
+						<td class="productlist">${row.country_kr_name} > ${row.city_kr_name} > ${row.market_kr_name}</td>
 					</tr>
 					<tr>
-						<td>${row.product_name}</td>
+						<td class="productname">${row.product_name}</td>
 					</tr>
 					<tr>
 						<td align="right" style="color: red">${row.product_price}원</td>
@@ -111,8 +121,9 @@
 				</table>
 				</a>
 			</div>
-		
+		</div>
 		</c:forEach>
 		
-		</div>
-</div>
+		</div><!-- END col-sm-8 -->
+<!-- 		</div>
+</div> -->
