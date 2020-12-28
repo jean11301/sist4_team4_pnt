@@ -44,7 +44,7 @@ CREATE TABLE CITY
     city_en_name    VARCHAR2(45)    NOT NULL, 
     country_code    NUMBER(3)      NOT NULL, 
     CONSTRAINT CITY_PK PRIMARY KEY (city_number),
-    CONSTRAINT FK_city_country_code_country_c FOREIGN KEY (country_code) REFERENCES country (country_code)
+    CONSTRAINT FK_city_country_code_country_c FOREIGN KEY (country_code) REFERENCES country (country_code)ON DELETE CASCADE
 );
 
 -- 2-4. 시장 테이블 생성하기
@@ -58,7 +58,7 @@ CREATE TABLE MARKET
     market_info       LONG              NOT NULL, 
     city_number       NUMBER            NOT NULL, 
     CONSTRAINT MARKET_market_number_PK PRIMARY KEY (market_number),
-    CONSTRAINT market_city_number_fk FOREIGN KEY (city_number) REFERENCES city (city_number)
+    CONSTRAINT market_city_number_fk FOREIGN KEY (city_number) REFERENCES city (city_number)ON DELETE CASCADE
 )
 
 -- 2-5. 물품 테이블 생성하기
@@ -75,8 +75,8 @@ CREATE TABLE PRODUCT
     market_number     NUMBER          NOT NULL, 
     user_id           VARCHAR2(45)    NOT NULL, 
     CONSTRAINT PRODUCT_product_number_PK PRIMARY KEY (product_number),
-    CONSTRAINT product_user_id_fk FOREIGN KEY (user_id) REFERENCES userinfo (user_id),
-    CONSTRAINT product_city_number_fk FOREIGN KEY (city_number) REFERENCES city (city_number),
-    CONSTRAINT product_market_number_kf FOREIGN KEY (market_number) REFERENCES market (market_number)      
+    CONSTRAINT product_user_id_fk FOREIGN KEY (user_id) REFERENCES userinfo (user_id)ON DELETE CASCADE,
+    CONSTRAINT product_city_number_fk FOREIGN KEY (city_number) REFERENCES city (city_number)ON DELETE CASCADE,
+    CONSTRAINT product_market_number_fk FOREIGN KEY (market_number) REFERENCES market (market_number)  ON DELETE CASCADE    
 );
 

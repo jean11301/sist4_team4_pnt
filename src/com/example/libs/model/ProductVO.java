@@ -21,6 +21,7 @@ public class ProductVO {
 	private double product_price_P4Data;
 	private double product_price_P5Data;
 	
+	
 	public ProductVO() {}
 	//검색어 기준 리스트 뽑기
 	public ProductVO(int sequence, String country_kr_name, String city_kr_name, String market_kr_name,

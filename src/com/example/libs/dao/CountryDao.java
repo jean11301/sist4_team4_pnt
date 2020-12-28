@@ -28,7 +28,8 @@ public class CountryDao {
 				int country_code = rs.getInt("country_code");
 				String country_kr_name = rs.getString("country_kr_name");
 				String country_en_name =  rs.getString("country_en_name");
-				CountryVO country = new CountryVO(country_code, country_kr_name ,country_en_name);
+				String country_flag_img = rs.getString("country_flag_img");
+				CountryVO country = new CountryVO(country_code, country_kr_name ,country_en_name,country_flag_img);
 				list.add(country);
 			}while(rs.next());
 		} else  {
@@ -52,7 +53,8 @@ public class CountryDao {
 				int country_number = rs.getInt("country_code");
 				String country_kr_name = rs.getString("country_kr_name");
 				String country_en_name = rs.getString("country_en_name");
-				country = new CountryVO(country_number,country_kr_name,country_en_name);
+				String country_flag_img = rs.getString("country_flag_img");
+				country = new CountryVO(country_number,country_kr_name,country_en_name,country_flag_img);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -67,12 +69,13 @@ public class CountryDao {
 		// TODO Auto-generated method stub
 		Connection conn =  DBConnection.getConnection();
 		String sql = "  UPDATE  country  " +
-							"  SET  country_kr_name = ? , country_en_name = ? "
+							"  SET  country_kr_name = ? , country_en_name = ?,country_flag_img = ? "
 							+ "   WHERE country_code = ? ";
 		PreparedStatement  pstmt = conn.prepareStatement(sql);
-		pstmt.setInt(3, countryVO.getCountry_code());
+		pstmt.setInt(4, countryVO.getCountry_code());
 		pstmt.setString(1, countryVO.getCountry_kr_name());
 		pstmt.setString(2, countryVO.getCountry_en_name());
+		pstmt.setString(3, countryVO.getCountry_flag_img());
 
 		int row = pstmt.executeUpdate();
 		DBClose.close(conn,pstmt);
@@ -97,11 +100,12 @@ public class CountryDao {
 		// TODO Auto-generated method stub
 		Connection conn = DBConnection.getConnection();
 		String sql= " 	INSERT   INTO  country( country_code,country_kr_name,country_en_name,country_flag_img)"
-							+    "  VALUES(?,?,?,null)  ";
+							+    "  VALUES(?,?,?,?)  ";
 		PreparedStatement  pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, countryVO.getCountry_code());
 		pstmt.setString(2, countryVO.getCountry_kr_name());
 		pstmt.setString(3, countryVO.getCountry_en_name());
+		pstmt.setString(4, countryVO.getCountry_flag_img());
 
 		int row = pstmt.executeUpdate();
 		DBClose.close(conn,pstmt);

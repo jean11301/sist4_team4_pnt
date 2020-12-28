@@ -78,10 +78,12 @@
 				      }
 				    });
 			}
-		});
+		});   
+		//검색어 더보기 눌렀을때
 		$('#btnMoredata').on('click',function(){
 			let product_name = $('#txtProduct').val().trim();
-			location.href = "exportExcel.jsp?product_name="+product_name;
+			let marketname = $('#selmarket_kr_name').val().trim();
+			location.href = "exportExcel.jsp?product_name="+product_name+"&marketname="+marketname;
 		});
 	$('#btnSearch').trigger('click'); 
 	});
