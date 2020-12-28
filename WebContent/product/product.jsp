@@ -12,7 +12,7 @@
 	<jsp:include page="map_ex.html" />
 </div>
 <!--  인기 검색 종목 물가, 급변동 물가 -->
-		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-5">
 			<h4>
 					<strong>인기 검색 종목 물가</strong>
 				</h4>
@@ -56,7 +56,7 @@
 		</div><!--ENd 인기 검색-->
 
 		<!--  급변동 -->
-		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-5">
 			<h4>
 				<strong>급변동 물가</strong>
 			</h4>

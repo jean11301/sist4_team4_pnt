@@ -147,7 +147,7 @@
 			
 	 	</form>
 	</div><!-- End row --> 
-			<!-- <div> <button id="btnMoredata" > 데이터더보기</button></div> -->
+			<div> <button id="btnMoredata" > 데이터더보기</button></div>
 	<div id="result"></div>
 </div>
 
