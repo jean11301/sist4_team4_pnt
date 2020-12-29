@@ -217,18 +217,16 @@ public class ProductDao {
 	
 	public static int updateProduct(ProductVO product) throws SQLException {
 		Connection conn = DBConnection.getConnection();  //2,3
-		String sql = "{ call sp_product_update(?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }";
+		String sql = "{ call sp_product_update(?, ?, ?, ?, ?, ?, ?, ?) }";
 		CallableStatement cstmt = conn.prepareCall(sql);    //4
 		cstmt.setInt(1, product.getProduct_number());
 		cstmt.setString(2, product.getCheck_status());
-		cstmt.setString(3, product.getUser_id());
-		cstmt.setInt(4, product.getSequence());
-		cstmt.setString(5, product.getCountry_kr_name());
-		cstmt.setString(6, product.getCity_kr_name());
-		cstmt.setString(7, product.getMarket_kr_name());
-		cstmt.setString(8, product.getProduct_name());
-		cstmt.setInt(9, (int) product.getProduct_price());
-		cstmt.setString(10, product.getProduct_img());
+		cstmt.setString(3, product.getCountry_kr_name());
+		cstmt.setString(4, product.getCity_kr_name());
+		cstmt.setString(5, product.getMarket_kr_name());
+		cstmt.setString(6, product.getProduct_name());
+		cstmt.setInt(7, (int) product.getProduct_price());
+		cstmt.setString(8, product.getProduct_img());
 		int row = cstmt.executeUpdate();
 		DBClose.close(conn, cstmt);   //6
 		return row;

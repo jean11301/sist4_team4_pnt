@@ -38,6 +38,19 @@
 		$("#selCountry").val($('#country').val()).prop("selected", true);
 		selCity();
 		$('.openModal').on('click', function() {
+			var country = $('#country').val();
+			if(country == '라오스'){
+				$('#currency').html("킵");
+			}else if(country == '말레이시아'){
+				$('#currency').html("링깃");
+			}else if(country == '베트남'){
+				$('#currency').html("동");
+			}else if(country == '싱가폴'){
+				$('#currency').html("싱가포르 달러");
+			}else if(country == '태국'){
+				$('#currency').html("바트");
+			}
+			
 			$("#selCity").val($('#city').val()).prop("selected", true);
 			selMarket();
 			$("#product_name").val($("#product").val()).prop("selected", true);
@@ -58,7 +71,18 @@
 		
 		$('#selCountry').on('change', function() {
 			selCity();
-			/* selCurrencyType(); */
+			var country = $(this).val();
+			if(country == '라오스'){
+				$('#currency').html("킵");
+			}else if(country == '말레이시아'){
+				$('#currency').html("링깃");
+			}else if(country == '베트남'){
+				$('#currency').html("동");
+			}else if(country == '싱가폴'){
+				$('#currency').html("싱가포르 달러");
+			}else if(country == '태국'){
+				$('#currency').html("바트");
+			}
 		});
 
 		function selCity(){
@@ -111,10 +135,6 @@
 		}
 		
 		$('#register').on('click', function(){
-			
-			
-			
-			
 			 var country = $('#selCountry:selected').val();
 			 var city = $('#selCity:selected').val();
 			 if(city == $('#selCity').find(':selected').val()) {city = $('#city').val();
@@ -126,8 +146,15 @@
 			 var price = $('#KRW').val();
 			
 			 if(confirm("입력하신 정보가 [" + country + " , " + city + " , " + market + " , " + Pname + " , " + price +"]이 맞습니까?")){
-				$(this).submit();
-				 alert("가격정보가 등록되었습니다.");
+				//$(this).submit();
+				xhr.onreadystatechange = function(){
+						alert("가격정보가 등록되었습니다.");    //4
+						history.back();
+				}
+				xhr.open('POST', 'registerProductPrice.jsp', true);  //2. open()
+				xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=utf-8");
+				xhr.send('country=' + + country + "&city=" + city + "&market=" + market + "&productName=" + Pname + "&productPrice=" + price + "&userid=admin");     //3.
+				 
 			 }
 			
 		});
@@ -205,7 +232,7 @@ ${product_image }
 			<h4 class="closeModal">X</h4>
 		</div>
 	</div>
-	<form action="registerProductPrice.jsp" method="POST">
+	<!-- <form action="registerProductPrice.jsp" method="POST"> -->
 	<div class="row">
 		<table class="table tavle-bordered">
 			<tr>
@@ -245,15 +272,15 @@ ${product_image }
 			<tr>
 				<th>이미지</th>
 				<td colspan="6">
-					<input type="file" name="FileName" >
+					<input type="file" name="product_img" >
 				</td>
 			</tr>
 			<tr>
 				<th>상품가격</th>
-				<td><input type="number" style="width: 8vw;" class="exchange" id="KRW" onkeyup="convert('KRW');" required></td>
+				<td><input type="number" style="width: 8vw;" step="0.0001" class="exchange" id="KRW" onkeyup="convert('KRW');"  name="product_price" required></td>
 				<th>원(한화)</th>
 				<span class="currencySpan">
-				<td><input type="number" style="width: 8vw;" class="exchange" id="THB" onkeyup="convert('THB');" required></td>
+				<td><input type="number" style="width: 8vw;" step="0.0001" class="exchange" id="THB" onkeyup="convert('THB');" required></td>
 				
 				<script type="text/javascript">
 				function convert(currency_type){
@@ -310,15 +337,7 @@ ${product_image }
 				}
 				</script>
 				
-				<th colspan="2">
-				<span id="currency"></span>
-				 왜 <c:out value="${country }" />
-					<c:if test="${country eq '태국' }">바트</c:if>
-					<c:if test="${country eq '베트남' }">동</c:if>
-					<c:if test="${country eq '라오스' }">킵</c:if>
-					<c:if test="${country eq '싱가포르' }">싱가포르 달러</c:if>
-					<c:if test="${country eq '말레이시아' }">링깃</c:if>
-				</th>
+				<th colspan="2"><span id="currency"></span></th>
 				</span>
 			</tr>
 			<tr rowspan="4">
@@ -340,7 +359,7 @@ ${product_image }
 		</table>
 	</div>
 	<div class="row text-center" >
-		<button type="submit" id="register" class="btn">완료</button>
+		<button type="button" id="register" class="btn">완료</button>
 	</div>
-	</form>
+	<!-- </form> -->
 </div>

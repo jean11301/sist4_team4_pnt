@@ -198,7 +198,7 @@ function updateProduct(){
 														<c:if test="${product.check_status eq 1}">
 															<td style="{font-color:lime;}">확인</td>
 														</c:if>
-														<c:if test="${product.check_status eq -1}">
+														<c:if test="${product.check_status eq 2}">
 															<td>불가</td>
 														</c:if>
 														
@@ -223,19 +223,19 @@ function updateProduct(){
 														<c:if test="${product.check_status eq 0}">
 															<td>
 															<a href="changeCheckStatus.jsp?product_number=${product.product_number}&check_status=1" >확인처리&nbsp;|&nbsp;</a>
-															<a href="changeCheckStatus.jsp?product_number=${product.product_number}&check_status=0" >불가처리&nbsp;|&nbsp;</a>
+															<a href="changeCheckStatus.jsp?product_number=${product.product_number}&check_status=2" >불가처리&nbsp;|&nbsp;</a>
 															<a href="updateProduct.jsp?product_number=${product.product_number}" >수정하기</a>
 															</td>
 														</c:if>
 														<c:if test="${product.check_status eq 1}">
 															<td>
-															<a href="changeCheckStatus.jsp?product_number=${market.market_number}&check_status=0" >불가처리&nbsp;|&nbsp;</a>
+															<a href="changeCheckStatus.jsp?product_number=${product.product_number}&check_status=2" >불가처리&nbsp;|&nbsp;</a>
 															<a href="updateProduct.jsp?product_number=${product.product_number}" >수정하기</a>
 															</td>
 														</c:if>
-														<c:if test="${product.check_status eq -1}">
+														<c:if test="${product.check_status eq 2}">
 															<td>
-															<a href="changeCheckStatus.jsp?product_number=${market.market_number}&check_status=1" >확인처리&nbsp;|&nbsp;</a>
+															<a href="changeCheckStatus.jsp?product_number=${product.product_number}&check_status=1" >확인처리&nbsp;|&nbsp;</a>
 															<a href="updateProduct.jsp?product_number=${product.product_number}" >수정하기</a>
 															</td>
 														</c:if>
