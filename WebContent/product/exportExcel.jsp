@@ -36,6 +36,7 @@
 			            '&city=' + $('#selcity_kr_name').val().trim() +
 			            '&market=' + $('#selmarket_kr_name').val().trim() + 
 			            '&product=' + $('#txtProduct').val().trim();
+			location.href = "localsearch.jsp";
 		});
 	});
 	function getCity(){
@@ -148,7 +149,7 @@
 							%>
 						</tbody>
 					</table>
-					<button id='btnExport' type='button'>Export</button>
+					<button id='btnExport' type='button' style="float: right;">내려받기</button>
 
 					<script> //-------------------------------------------------------임시
 

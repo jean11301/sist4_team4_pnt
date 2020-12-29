@@ -131,9 +131,15 @@
 			 }
 			
 		});
-			
+		
+		//검색어 더보기 눌렀을때------------------------------------------
+		$('#btnMoredata').on('click',function(){
+			let product_name = $('#product').val().trim();
+			let marketname = $('#market').val().trim();
+			location.href = "exportExcel.jsp?product_name="+product_name+"&marketname="+marketname;
+		});
 	});
-	
+
 </script>
 <style>
 
@@ -192,7 +198,7 @@ ${product_image }
 
 
 <button type="button" class="openModal">가격 올리기</button>
-
+<button id="btnMoredata" > 데이터더보기</button> <!--     ===================================데이터 더보기 버튼 ================================== -->
 
 <div class="modalBehind"></div>
 <div class="modal">

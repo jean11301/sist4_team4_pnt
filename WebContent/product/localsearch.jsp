@@ -87,12 +87,7 @@
 				    });
 			}
 		});   
-		//검색어 더보기 눌렀을때
-		$('#btnMoredata').on('click',function(){
-			let product_name = $('#txtProduct').val().trim();
-			let marketname = $('#selmarket_kr_name').val().trim();
-			location.href = "exportExcel.jsp?product_name="+product_name+"&marketname="+marketname;
-		});
+
 	$('#btnSearch').trigger('click'); 
 	});
 	
@@ -158,7 +153,7 @@
 			
 	 	</form>
 	
-			<div> <button id="btnMoredata" > 데이터더보기</button></div>
+			
 	<div id="result"></div>
 </div>
 
