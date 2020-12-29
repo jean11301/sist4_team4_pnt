@@ -12,7 +12,7 @@ public class ProductVO {
 	private String city_kr_name;
 	private String market_kr_name;
 	private int product_number;
-	private String product_img;
+	private String product_img; 
 
 	private String product_name2;
 	private double product_price_P1Data;

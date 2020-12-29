@@ -61,7 +61,7 @@ public class ProductDao {
 				+ " P2 AS ( "
 				+ "    select CO.COUNTRY_KR_NAME, P2.product_name, AVG(P2.product_price) as P2Data "
 				+ "    from product P2, city CI, country CO "
-				+ "    WHERE P2.product_date>=TO_CHAR(SYSDATE-7, 'YYYYMMDD') "
+				+ "    WHERE P2.product_date>=TO_CHAR((SELECT MAX(product_date) FROM product)-14, 'YYYYMMDD') "
 				+ "    AND P2.CHECK_STATUS = '1' "
 				+ "    AND p2.city_number = ci.city_number AND ci.COUNTRY_CODE = CO.COUNTRY_CODE "
 				+ "    group by CO.COUNTRY_KR_NAME, P2.product_name "
@@ -101,7 +101,7 @@ public class ProductDao {
 		}
 		DBClose.close(conn, stmt, rs);
 		return list2;
-	}
+	} 
 
 
 	public static ArrayList<ProductVO> selectProduct(String productname, String marketname) throws SQLException {
