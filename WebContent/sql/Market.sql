@@ -198,3 +198,27 @@ BEGIN
     WHERE product_number = v_product_number;
 
 END;
+
+--상품 수정하기(이미지 없음)
+create or replace NONEDITIONABLE PROCEDURE sp_product_update_noimage
+(   
+    v_product_number      IN      product.product_number%TYPE,
+    v_check_status        IN      product.check_status%TYPE,
+    v_country_kr_name       IN      country.country_kr_name%TYPE,
+    v_city_kr_name          IN      city.city_kr_name%TYPE,
+    v_market_kr_name       IN      market.market_kr_name%TYPE,
+    v_product_name         IN      product.product_name%TYPE,
+    v_product_price        IN      product.product_price%TYPE
+)
+IS
+BEGIN
+    UPDATE PRODUCT 
+    SET 
+    check_status = v_check_status,
+    city_number = (SELECT city_number FROM city INNER JOIN country ON (country.country_code = city.country_code) WHERE country_kr_name= v_country_kr_name AND city_kr_name = v_city_kr_name),
+    market_number = (SELECT market_number FROM market NATURAL JOIN city WHERE city_kr_name = v_city_kr_name AND market_kr_name = v_market_kr_name),
+    product_name = v_product_name,
+    product_price = v_product_price
+    WHERE product_number = v_product_number;
+    COMMIT;
+END;

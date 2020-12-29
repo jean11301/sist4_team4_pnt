@@ -7,12 +7,106 @@
 <script src="../js/jquery-3.5.1.js"></script>
 
 <jsp:useBean id="service" class="com.example.libs.service.PopularService" />
-<c:set var="productList" value="${service.selectAllProduct()}" />
-<c:set var="count" value="${service.getTotalCount()}" />
+<c:set var="beginDate" value="${param.beginDate}" />
+<c:set var="endDate" value="${param.endDate}" />
+<fmt:formatDate value="${beginDate}"  pattern="yyyy-MM-dd" />
+<fmt:formatDate value="${endDate}" pattern="yyyy-MM-dd" />
+<c:set var="searchWithRegion" value="${param.searchWithRegion}" />
+<c:if test="${empty searchWithRegion}" ><c:set var="searchWithRegion" value=" " /></c:if>
+<c:set var="regionKeyword" value="${param.regionKeyword}" />
+<c:if test="${empty regionKeyword}" ><c:set var="regionKeyword" value=" " /></c:if>
+<c:set var="searchWithProduct" value="${param.searchWithProduct}" />
+<c:if test="${empty searchWithProduct}" ><c:set var="searchWithProduct" value=" " /></c:if>
+<c:set var="productKeyword" value="${param.productKeyword}" />
+<c:if test="${empty productKeyword}" ><c:set var="productKeyword" value=" " /></c:if>
+
+<c:set var="productList" value="${service.productSearchResult(beginDate, endDate, searchWithRegion, regionKeyword, searchWithProduct, productKeyword)}" />
+<%-- <c:set var="count"  value="0"/>
+<c:forEach items="${productList}">
+	<c:set var="count"
+</c:forEach>--%>
+<c:set var="count" value="${fn:length(productList)}" /> 
 
 <c:set var="currentPage" value="${param.page}" />
 <c:set var="pageSize" value="10" />
 <c:set var="totalPage" value="${service.getTotalPage(pageSize)}" />
+
+<sql:setDataSource dataSource="jdbc/myoracle" var="conn" />
+
+
+<!-- sql 
+
+
+<c:if test="${searchWithRegion == 'all'}">
+<sql:query dataSource="${conn}" var="rs" >
+	SELECT check_status, country_kr_name, city_kr_name, market_kr_name, product_name, product_number, product_date,
+	product.product_price, product_img, sequence, user_id
+	FROM product NATURAL JOIN MARKET NATURAL JOIN city NATURAL JOIN country
+	WHERE country.country_kr_name LIKE CONCAT(CONCAT('%', ?), '%') or 
+        city.city_kr_name LIKE CONCAT(CONCAT('%', ?), '%') or
+        market.market_kr_name LIKE CONCAT(CONCAT('%', ?), '%') or
+        market.market_en_name LIKE CONCAT(CONCAT('%', ?), '%')
+	ORDER BY country_kr_name, city_kr_name, market_kr_name;
+	<sql:param value="${keyword}"/>
+	<sql:param value="${keyword}"/>
+	<sql:param value="${keyword}"/>
+	<sql:param value="${keyword}"/>
+</sql:query>
+<c:set var="i" value="0" />
+</c:if>
+<c:if test="${searchWith == 'country_kr_name'}">
+<sql:query dataSource="${conn}" var="rs" >
+	SELECT check_status, country_kr_name, city_kr_name, market_kr_name, product_name, product_number, product_date,
+	product.product_price, product_img, sequence, user_id
+	FROM product NATURAL JOIN MARKET NATURAL JOIN city NATURAL JOIN country
+	WHERE country.country_kr_name LIKE CONCAT(CONCAT('%', ?), '%') 
+	ORDER BY country_kr_name, city_kr_name, market_kr_name
+	<sql:param value="${keyword}"/>
+</sql:query>
+<c:set var="i" value="1" />
+</c:if>
+<c:if test="${searchWith == 'city_kr_name'}">
+<sql:query dataSource="${conn}" var="rs" >
+	SELECT check_status, country_kr_name, city_kr_name, market_kr_name, product_name, product_number, product_date,
+	product.product_price, product_img, sequence, user_id
+	FROM product NATURAL JOIN MARKET NATURAL JOIN city NATURAL JOIN country
+	WHERE city.city_kr_name LIKE CONCAT(CONCAT('%', ?), '%') 
+	ORDER BY country_kr_name, city_kr_name, market_kr_name
+	<sql:param value="${keyword}"/>
+</sql:query>
+<c:set var="i" value="2" />
+</c:if>
+<c:if test="${searchWith == 'market_kr_name'}">
+<sql:query dataSource="${conn}" var="rs" >
+	SELECT check_status, country_kr_name, city_kr_name, market_kr_name, product_name, product_number, product_date,
+	product.product_price, product_img, sequence, user_id
+	FROM product NATURAL JOIN MARKET NATURAL JOIN city NATURAL JOIN country
+	WHERE market.market_kr_name LIKE CONCAT(CONCAT('%', ?), '%') 
+	ORDER BY country_kr_name, city_kr_name, market_kr_name
+	<sql:param value="${keyword}"/>
+</sql:query>
+<c:set var="i" value="3" />
+</c:if>
+<c:if test="${searchWith == 'market_en_name'}">
+<sql:query dataSource="${conn}" var="rs" >
+	SELECT check_status, country_kr_name, city_kr_name, market_kr_name, product_name, product_number, product_date,
+	product.product_price, product_img, sequence, user_id
+	FROM product NATURAL JOIN MARKET NATURAL JOIN city NATURAL JOIN country
+	WHERE market.market_en_name LIKE CONCAT(CONCAT('%', ?), '%') 
+	ORDER BY country_kr_name, city_kr_name, market_kr_name
+	<sql:param value="${keyword}"/>
+</sql:query>
+<c:set var="i" value="4" />
+</c:if>
+<c:set var="count" value="${service.getTotalCount(i, keyword)}" />
+<c:set var="totalPage" value="${service.getTotalPage(pageSize)}" />
+<c:set var="currentPage" value="${param.page}" />
+<c:set var="pageSize" value="10" />
+<c:set var="totalPage" value="${service.getTotalPage(pageSize, i , keyword)}" />
+
+<!-- /sql -->
+
+
 
 <script>
 $(function($){
@@ -100,7 +194,7 @@ function updateProduct(){
 					<div class="card">
 						<div class="card-header">
 							<div id="example1_filter" class="dataTables_filter">
-								<form action="productSearchResult.jsp?" method="POST" id="searchFilter">
+								<form action="productSearchResult.jsp" method="POST" id="searchFilter">
 								<h3 class="card-title">상세검색</h3><br>
 								<div class="row" >
 									<div class="col-sm-12 col-md-6">
