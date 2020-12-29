@@ -22,7 +22,7 @@ public class ProductDao {
 		Connection conn = DBConnection.getConnection(); // 2,3
 		String sql = " SELECT country_kr_name, city_kr_name, market_kr_name, product_name,product_price  "
 				+ " FROM country, city, market, product  "
-				+ " WHERE country.country_code = city.country_code AND city.city_number = market.city_number AND market.market_number = product.market_number "
+				+ " WHERE country.country_code = city.country_code AND city.city_number = market.city_number AND market.market_number = product.market_number AND check_status = 1  "
 				+ " ORDER BY sequence DESC ";
 		Statement stmt = conn.createStatement(); // 4
 
