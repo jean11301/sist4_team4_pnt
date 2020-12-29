@@ -88,8 +88,8 @@ public class CityDao  {
 	public static int delete(int city_number) throws SQLException {
 		// TODO Auto-generated method stub
 		Connection conn = DBConnection.getConnection();
-		String sql = "DELETE   FROM    city" +
-							"   WHERE   city_number = ?";
+		String sql =	"   DELETE   FROM    city" 
+							+ "   WHERE   city_number = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, city_number);
 		

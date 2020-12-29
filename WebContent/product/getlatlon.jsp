@@ -8,7 +8,7 @@
 <c:set var="marketname" value="${param.marketname}" />
 <c:if test="${marketname ne null}">
 	<sql:query dataSource="${conn}" var="rs">
-		SELECT latitude,longitude 
+		SELECT market_kr_name, latitude,longitude, market_info 
 		FROM market  
 		WHERE  market_kr_name = ?
 		<sql:param value="${marketname}" />
@@ -19,9 +19,12 @@
 	"data" : [
 				<c:forEach items = "${rs.rows}" var="row">
 				{
+				"market_kr_name" : "${row.market_kr_name}",
 				"latitude" : ${row.latitude},
-				"longitude" : ${row.longitude}
+				"longitude" : ${row.longitude},
+				"market_info" : "${row.market_info}"
 				},
 				</c:forEach>
 	]
 }	
+   

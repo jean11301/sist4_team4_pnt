@@ -70,13 +70,14 @@ tbody {
 							<th>국가코드</th>
 							<th>한글 국가명</th>
 							<th>영어 국가명</th>
+							<th>국기</th>
 							<th>관리</th>
 						</thead>
 						<tbody>
 							<%
 								if (list == null) {
 							%><tr>
-								<td colspan="5" class="text-center">NO DATA</td>
+								<td colspan="6" class="text-center">NO DATA</td>
 							</tr>
 							<%
 								} else {
@@ -84,10 +85,11 @@ tbody {
 								CountryVO country = list.get(i);
 							%>
 							<tr>
-								<td><input type="checkbox" value="<%=country.getCountry_code()%>" id="checkedbox"></td>
+								<td><input type="checkbox" id="checkedBox" value="<%=country.getCountry_code()%>" ></td>
 								<td><%=country.getCountry_code()%></td>
 								<td><%=country.getCountry_kr_name()%></td>
 								<td><%=country.getCountry_en_name()%></td>
+								<td><%=country.getCountry_flag_img()%></td>
 								<td><a onclick="countryupdate()">수정</a></td>
 							</tr>
 							<%

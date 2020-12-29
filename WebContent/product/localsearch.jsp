@@ -86,11 +86,8 @@
 				      }
 				    });
 			}
-		});
-		$('#btnMoredata').on('click',function(){
-			let product_name = $('#txtProduct').val().trim();
-			location.href = "exportExcel.jsp?product_name="+product_name;
-		});
+		});   
+
 	$('#btnSearch').trigger('click'); 
 	});
 	
@@ -156,7 +153,7 @@
 			
 	 	</form>
 	
-			<div> <button id="btnMoredata" > 데이터더보기</button></div>
+			
 	<div id="result"></div>
 </div>
 

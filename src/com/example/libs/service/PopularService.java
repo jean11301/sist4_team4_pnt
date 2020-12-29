@@ -4,8 +4,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.libs.model.MarketDao;
-import com.example.libs.model.MarketVO;
 import com.example.libs.model.ProductDao;
 import com.example.libs.model.ProductVO;
 
@@ -31,10 +29,10 @@ public class PopularService {
 		return list2;
 	}
 	//검색한 product의 리스트
-	public  ArrayList<ProductVO> selectOne(String productname){
+	public  ArrayList<ProductVO> selectOne(String productname, String marketname){
 		ArrayList<ProductVO> list = null;
 		try {
-			list = ProductDao.selectProduct(productname);
+			list = ProductDao.selectProduct(productname, marketname);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

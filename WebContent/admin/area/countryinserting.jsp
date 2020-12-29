@@ -7,8 +7,9 @@
 	int fr = Integer.parseInt(request.getParameter("country_code"));
 	String se = request.getParameter("country_kr_name");
 	String th = request.getParameter("country_kr_name");
+	String fo = request.getParameter("country_flag_img");
 
-	CountryVO country = new CountryVO(fr,se,th);
+	CountryVO country = new CountryVO(fr,se,th,fo);
 %>
 <jsp:useBean id="service" class="com.example.libs.service.CountryServiceImpl"/>
 <c:set var="row" value="<%=service.create(country)%>" />
