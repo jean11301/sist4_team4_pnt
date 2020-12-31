@@ -38,19 +38,6 @@
 		$("#selCountry").val($('#country').val()).prop("selected", true);
 		selCity();
 		$('.openModal').on('click', function() {
-			var country = $('#country').val();
-			if(country == '라오스'){
-				$('#currency').html("킵");
-			}else if(country == '말레이시아'){
-				$('#currency').html("링깃");
-			}else if(country == '베트남'){
-				$('#currency').html("동");
-			}else if(country == '싱가폴'){
-				$('#currency').html("싱가포르 달러");
-			}else if(country == '태국'){
-				$('#currency').html("바트");
-			}
-			
 			$("#selCity").val($('#city').val()).prop("selected", true);
 			selMarket();
 			$("#product_name").val($("#product").val()).prop("selected", true);
@@ -71,18 +58,7 @@
 		
 		$('#selCountry').on('change', function() {
 			selCity();
-			var country = $(this).val();
-			if(country == '라오스'){
-				$('#currency').html("킵");
-			}else if(country == '말레이시아'){
-				$('#currency').html("링깃");
-			}else if(country == '베트남'){
-				$('#currency').html("동");
-			}else if(country == '싱가폴'){
-				$('#currency').html("싱가포르 달러");
-			}else if(country == '태국'){
-				$('#currency').html("바트");
-			}
+			/* selCurrencyType(); */
 		});
 
 		function selCity(){
@@ -135,6 +111,10 @@
 		}
 		
 		$('#register').on('click', function(){
+			
+			
+			
+			
 			 var country = $('#selCountry:selected').val();
 			 var city = $('#selCity:selected').val();
 			 if(city == $('#selCity').find(':selected').val()) {city = $('#city').val();
@@ -146,27 +126,97 @@
 			 var price = $('#KRW').val();
 			
 			 if(confirm("입력하신 정보가 [" + country + " , " + city + " , " + market + " , " + Pname + " , " + price +"]이 맞습니까?")){
-				//$(this).submit();
-				xhr.onreadystatechange = function(){
-						alert("가격정보가 등록되었습니다.");    //4
-						history.back();
-				}
-				xhr.open('POST', 'registerProductPrice.jsp', true);  //2. open()
-				xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=utf-8");
-				xhr.send('country=' + + country + "&city=" + city + "&market=" + market + "&productName=" + Pname + "&productPrice=" + price + "&userid=admin");     //3.
-				 
+				$(this).submit();
+				 alert("가격정보가 등록되었습니다.");
 			 }
 			
 		});
-		
-		//검색어 더보기 눌렀을때------------------------------------------
+		//======================================================데이터 더보기
 		$('#btnMoredata').on('click',function(){
 			let product_name = $('#product').val().trim();
 			let marketname = $('#market').val().trim();
 			location.href = "exportExcel.jsp?product_name="+product_name+"&marketname="+marketname;
 		});
-	});
+			
 
+	//======================================== 차트
+		var options1 = {
+	animationEnabled: true,
+	theme: "light2",
+	title:{
+		text: "가격대별 구매자 분포도"
+	},
+	axisY2:{
+		prefix: "$",
+		lineThickness: 0				
+	},
+	toolTip: {
+		shared: true
+	},
+	legend:{
+		verticalAlign: "top",
+		horizontalAlign: "center"
+	},
+	data: [
+	{     
+		type: "stackedBar",
+		showInLegend: true,
+		name: "Butter (500gms)",
+		axisYType: "secondary",
+		color: "#7E8F74",
+		dataPoints: [   //세로축
+			{ y: 3, label: "India" },
+			{ y: 5, label: "US" },
+			{ y: 3, label: "Germany" },
+			{ y: 6, label: "Brazil" },
+			{ y: 7, label: "China" },
+			{ y: 5, label: "Australia" },
+			{ y: 5, label: "France" },
+			{ y: 7, label: "Italy" },
+			{ y: 9, label: "Singapore" },
+			{ y: 8, label: "Switzerland" },
+			{ y: 12, label: "Japan" }
+		]
+	}
+	]
+};
+
+		var options2 = {
+				animationEnabled: true,  
+				title:{
+					text: "가격 변동 추이"
+				},
+				axisX: {
+					valueFormatString: "MMM"
+				},
+				axisY: {
+					title: "Sales (in USD)",
+					prefix: "$"
+				},
+				data: [{
+					yValueFormatString: "$#",
+					xValueFormatString: "MMMM",
+					type: "spline",
+					dataPoints: [
+						{ x: new Date(2017, 0), y: 25060 },
+						{ x: new Date(2017, 1), y: 27980 },
+						{ x: new Date(2017, 2), y: 33800 },
+						{ x: new Date(2017, 3), y: 49400 },
+						{ x: new Date(2017, 4), y: 40260 },
+						{ x: new Date(2017, 5), y: 33900 },
+						{ x: new Date(2017, 6), y: 48000 },
+						{ x: new Date(2017, 7), y: 31500 },
+						{ x: new Date(2017, 8), y: 32300 },
+						{ x: new Date(2017, 9), y: 42000 },
+						{ x: new Date(2017, 10), y: 52160 },
+						{ x: new Date(2017, 11), y: 49400 }
+					]
+				}]
+			};
+$("#chartContainer1").CanvasJSChart(options1);
+$("#chartContainer2").CanvasJSChart(options2);
+
+	});
 </script>
 <style>
 
@@ -225,7 +275,13 @@ ${product_image }
 
 
 <button type="button" class="openModal">가격 올리기</button>
-<button id="btnMoredata" > 데이터더보기</button> <!--     ===================================데이터 더보기 버튼 ================================== -->
+<button id="btnMoredata" > 데이터더보기</button><!-- ============================================= 데이터 더보기 =============================================== -->
+<div>
+<div id="chartContainer1" style="height: 370px; width: 50%;"></div>
+<div id="chartContainer2" style="height: 370px; width: 50%;"></div>
+</div>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
 
 <div class="modalBehind"></div>
 <div class="modal">
@@ -238,7 +294,7 @@ ${product_image }
 			<h4 class="closeModal">X</h4>
 		</div>
 	</div>
-	<!-- <form action="registerProductPrice.jsp" method="POST"> -->
+	<form action="registerProductPrice.jsp" method="POST">
 	<div class="row">
 		<table class="table tavle-bordered">
 			<tr>
@@ -278,15 +334,15 @@ ${product_image }
 			<tr>
 				<th>이미지</th>
 				<td colspan="6">
-					<input type="file" name="product_img" >
+					<input type="file" name="FileName" >
 				</td>
 			</tr>
 			<tr>
 				<th>상품가격</th>
-				<td><input type="number" style="width: 8vw;" step="0.0001" class="exchange" id="KRW" onkeyup="convert('KRW');"  name="product_price" required></td>
+				<td><input type="number" style="width: 8vw;" class="exchange" id="KRW" onkeyup="convert('KRW');" required></td>
 				<th>원(한화)</th>
 				<span class="currencySpan">
-				<td><input type="number" style="width: 8vw;" step="0.0001" class="exchange" id="THB" onkeyup="convert('THB');" required></td>
+				<td><input type="number" style="width: 8vw;" class="exchange" id="THB" onkeyup="convert('THB');" required></td>
 				
 				<script type="text/javascript">
 				function convert(currency_type){
@@ -343,7 +399,15 @@ ${product_image }
 				}
 				</script>
 				
-				<th colspan="2"><span id="currency"></span></th>
+				<th colspan="2">
+				<span id="currency"></span>
+				 왜 <c:out value="${country }" />
+					<c:if test="${country eq '태국' }">바트</c:if>
+					<c:if test="${country eq '베트남' }">동</c:if>
+					<c:if test="${country eq '라오스' }">킵</c:if>
+					<c:if test="${country eq '싱가포르' }">싱가포르 달러</c:if>
+					<c:if test="${country eq '말레이시아' }">링깃</c:if>
+				</th>
 				</span>
 			</tr>
 			<tr rowspan="4">
@@ -365,7 +429,7 @@ ${product_image }
 		</table>
 	</div>
 	<div class="row text-center" >
-		<button type="button" id="register" class="btn">완료</button>
+		<button type="submit" id="register" class="btn">완료</button>
 	</div>
-	<!-- </form> -->
+	</form>
 </div>
