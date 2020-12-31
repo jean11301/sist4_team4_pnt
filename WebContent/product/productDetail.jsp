@@ -131,9 +131,92 @@
 			 }
 			
 		});
+		//======================================================데이터 더보기
+		$('#btnMoredata').on('click',function(){
+			let product_name = $('#product').val().trim();
+			let marketname = $('#market').val().trim();
+			location.href = "exportExcel.jsp?product_name="+product_name+"&marketname="+marketname;
+		});
 			
+
+	//======================================== 차트
+		var options1 = {
+	animationEnabled: true,
+	theme: "light2",
+	title:{
+		text: "가격대별 구매자 분포도"
+	},
+	axisY2:{
+		prefix: "$",
+		lineThickness: 0				
+	},
+	toolTip: {
+		shared: true
+	},
+	legend:{
+		verticalAlign: "top",
+		horizontalAlign: "center"
+	},
+	data: [
+	{     
+		type: "stackedBar",
+		showInLegend: true,
+		name: "Butter (500gms)",
+		axisYType: "secondary",
+		color: "#7E8F74",
+		dataPoints: [   //세로축
+			{ y: 3, label: "India" },
+			{ y: 5, label: "US" },
+			{ y: 3, label: "Germany" },
+			{ y: 6, label: "Brazil" },
+			{ y: 7, label: "China" },
+			{ y: 5, label: "Australia" },
+			{ y: 5, label: "France" },
+			{ y: 7, label: "Italy" },
+			{ y: 9, label: "Singapore" },
+			{ y: 8, label: "Switzerland" },
+			{ y: 12, label: "Japan" }
+		]
+	}
+	]
+};
+
+		var options2 = {
+				animationEnabled: true,  
+				title:{
+					text: "가격 변동 추이"
+				},
+				axisX: {
+					valueFormatString: "MMM"
+				},
+				axisY: {
+					title: "Sales (in USD)",
+					prefix: "$"
+				},
+				data: [{
+					yValueFormatString: "$#",
+					xValueFormatString: "MMMM",
+					type: "spline",
+					dataPoints: [
+						{ x: new Date(2017, 0), y: 25060 },
+						{ x: new Date(2017, 1), y: 27980 },
+						{ x: new Date(2017, 2), y: 33800 },
+						{ x: new Date(2017, 3), y: 49400 },
+						{ x: new Date(2017, 4), y: 40260 },
+						{ x: new Date(2017, 5), y: 33900 },
+						{ x: new Date(2017, 6), y: 48000 },
+						{ x: new Date(2017, 7), y: 31500 },
+						{ x: new Date(2017, 8), y: 32300 },
+						{ x: new Date(2017, 9), y: 42000 },
+						{ x: new Date(2017, 10), y: 52160 },
+						{ x: new Date(2017, 11), y: 49400 }
+					]
+				}]
+			};
+$("#chartContainer1").CanvasJSChart(options1);
+$("#chartContainer2").CanvasJSChart(options2);
+
 	});
-	
 </script>
 <style>
 
@@ -192,7 +275,13 @@ ${product_image }
 
 
 <button type="button" class="openModal">가격 올리기</button>
-
+<button id="btnMoredata" > 데이터더보기</button><!-- ============================================= 데이터 더보기 =============================================== -->
+<div>
+<div id="chartContainer1" style="height: 370px; width: 50%;"></div>
+<div id="chartContainer2" style="height: 370px; width: 50%;"></div>
+</div>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
 
 <div class="modalBehind"></div>
 <div class="modal">
