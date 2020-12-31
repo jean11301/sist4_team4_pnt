@@ -205,7 +205,7 @@
 										<table id="example2" class="table table-bordered dataTable dtr-inline" 
 												role="grid" aria-describedby="example2_info">
 											<tr role="row">
-												<th>상품명</th>
+												<th>상품명</th><input type="text" value="${product.product_number}" name="product_number" hidden="true" >
 												<td>
 												<label>
 												<input type="text" class="form-control form-control-sm" id="txtProductName" 

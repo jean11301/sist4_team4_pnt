@@ -1,5 +1,6 @@
 package com.example.libs.service;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +65,22 @@ public class PopularService {
 	}
 	
 	public int updateProduct(ProductVO product) throws SQLException{
-		return ProductDao.updateProduct(product);
+		if(product.getProduct_img() == null) {
+			System.out.println("NULL입니다");
+		}else {
+			System.out.println("NULL이 아닙니다");
+		}
+		System.out.println(product.getProduct_img());
+		if(product.getProduct_img() == null) {
+			return ProductDao.updateProduct(product, 0);
+		}else {
+			return ProductDao.updateProduct(product);
+		}
+		
+	}
+	
+	public List<ProductVO> productSearchResult(Date beginDate, Date endDate, String searchWithRegion, String regionKeyword, String searchWithProduct, String productKeyword) throws SQLException{
+		return ProductDao.productSearchResult(beginDate, endDate, searchWithRegion, regionKeyword, searchWithProduct, productKeyword);
 	}
 	
 	public int getTotalCount() throws SQLException{

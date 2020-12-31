@@ -9,10 +9,10 @@
 
 <jsp:useBean id="service" class="com.example.libs.service.PopularService" />
 <sql:setDataSource dataSource="jdbc/myoracle" var="conn" />
-<c:if test="${check_status eq 0}" >
+<c:if test="${check_status eq 2}" >
 <sql:update dataSource="${conn}" >
 	UPDATE product
-	SET check_status = '0'
+	SET check_status = 2
 	WHERE product_number = ?
 	<sql:param value="${product_number}"/>
 </sql:update>
@@ -20,7 +20,7 @@
 <c:if test="${check_status eq 1}" >
 <sql:update dataSource="${conn}" >
 	UPDATE product
-	SET check_status = '1'
+	SET check_status = 1
 	WHERE product_number = ?
 	<sql:param value="${product_number}"/>
 </sql:update>

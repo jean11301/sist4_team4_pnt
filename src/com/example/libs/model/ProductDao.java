@@ -61,7 +61,7 @@ public class ProductDao {
 				+ " P2 AS ( "
 				+ "    select CO.COUNTRY_KR_NAME, P2.product_name, AVG(P2.product_price) as P2Data "
 				+ "    from product P2, city CI, country CO "
-				+ "    WHERE P2.product_date>=TO_CHAR(SYSDATE-7, 'YYYYMMDD') "
+				+ "    WHERE P2.product_date>=TO_CHAR((SELECT MAX(product_date) FROM product)-14, 'YYYYMMDD') "
 				+ "    AND P2.CHECK_STATUS = '1' "
 				+ "    AND p2.city_number = ci.city_number AND ci.COUNTRY_CODE = CO.COUNTRY_CODE "
 				+ "    group by CO.COUNTRY_KR_NAME, P2.product_name "
@@ -101,7 +101,7 @@ public class ProductDao {
 		}
 		DBClose.close(conn, stmt, rs);
 		return list2;
-	}
+	} 
 
 
 	public static ArrayList<ProductVO> selectProduct(String productname, String marketname) throws SQLException {
@@ -167,20 +167,14 @@ public class ProductDao {
 		DBClose.close(conn, cstmt, rs);
 		return list;
 	}
-
+	//이미지가 있을 경우 이미지 코드까지 삽입
 	public static int insertProduct(ProductVO product) throws SQLException {
 		Connection conn = DBConnection.getConnection();
 		String sql = "{ call sp_product_insert(?, ?, ?, ?, ?, ?, ?, ?) }";
 		CallableStatement cstmt = conn.prepareCall(sql);      //4
 		cstmt.setString(1, product.getProduct_name());
 		cstmt.setDouble(2, product.getProduct_price());
-//		String product_img = "";
-//		if(product.getProduct_img() == null) {
-//			product_img ="";
-//			cstmt.setString(3, product_img);
-//		}else {
-			cstmt.setString(3, product.getProduct_img());
-//		}
+		cstmt.setString(3, product.getProduct_img());
 		cstmt.setInt(4, product.getSequence());
 		cstmt.setString(5, product.getCheck_status());
 		cstmt.setString(6, product.getCity_kr_name());
@@ -190,6 +184,7 @@ public class ProductDao {
 		DBClose.close(conn, cstmt);   //6
 		return row;
 	}
+	//이미작 없을 경우 이미지 코드를 삽입하지 않아서 SQL에서 자동으로 default값이 삽입
 	public static int insertProduct(ProductVO product, int image) throws SQLException {
 		Connection conn = DBConnection.getConnection();
 		String sql = "{ call sp_product_insert_noimage(?, ?, ?, ?, ?, ?, ?) }";
@@ -224,22 +219,52 @@ public class ProductDao {
 	
 	public static int updateProduct(ProductVO product) throws SQLException {
 		Connection conn = DBConnection.getConnection();  //2,3
-		String sql = "{ call sp_product_update(?, ?, ?, ?, ?, ?, ?, ?, ?, ?) }";
+		System.out.println("이미지 있음\n" + product.getProduct_number());
+		System.out.println(product.getCheck_status());
+		System.out.println(product.getCountry_kr_name());
+		System.out.println(product.getCity_kr_name());
+		System.out.println(product.getMarket_kr_name());
+		System.out.println(product.getProduct_name());
+		System.out.println(product.getProduct_price());
+		String sql = "{ call sp_product_update(?, ?, ?, ?, ?, ?, ?, ?) }";
 		CallableStatement cstmt = conn.prepareCall(sql);    //4
 		cstmt.setInt(1, product.getProduct_number());
 		cstmt.setString(2, product.getCheck_status());
-		cstmt.setString(3, product.getUser_id());
-		cstmt.setInt(4, product.getSequence());
-		cstmt.setString(5, product.getCountry_kr_name());
-		cstmt.setString(6, product.getCity_kr_name());
-		cstmt.setString(7, product.getMarket_kr_name());
-		cstmt.setString(8, product.getProduct_name());
-		cstmt.setInt(9, (int) product.getProduct_price());
-		cstmt.setString(10, product.getProduct_img());
+		cstmt.setString(3, product.getCountry_kr_name());
+		cstmt.setString(4, product.getCity_kr_name());
+		cstmt.setString(5, product.getMarket_kr_name());
+		cstmt.setString(6, product.getProduct_name());
+		cstmt.setInt(7, (int) product.getProduct_price());
+		cstmt.setString(8, product.getProduct_img());
 		int row = cstmt.executeUpdate();
 		DBClose.close(conn, cstmt);   //6
 		return row;
 	}
+	
+	public static int updateProduct(ProductVO product, int image) throws SQLException {
+		Connection conn = DBConnection.getConnection();  //2,3
+		System.out.println("이미지 없음\n" + product.getProduct_number());
+		System.out.println(product.getCheck_status());
+		System.out.println(product.getCountry_kr_name());
+		System.out.println(product.getCity_kr_name());
+		System.out.println(product.getMarket_kr_name());
+		System.out.println(product.getProduct_name());
+		System.out.println(product.getProduct_price());
+		String sql = "{ call sp_product_update_noimage(?, ?, ?, ?, ?, ?, ?) }";
+		CallableStatement cstmt = conn.prepareCall(sql);    //4
+		cstmt.setInt(1, product.getProduct_number());
+		cstmt.setString(2, product.getCheck_status());
+		cstmt.setString(3, product.getCountry_kr_name());
+		cstmt.setString(4, product.getCity_kr_name());
+		cstmt.setString(5, product.getMarket_kr_name());
+		cstmt.setString(6, product.getProduct_name());
+		cstmt.setInt(7, (int) product.getProduct_price());
+		int row = cstmt.executeUpdate();
+		DBClose.close(conn, cstmt);   //6
+		return row;
+	}
+	
+	
 	
 	public static int getTotalCount() throws SQLException {
 		Connection conn = DBConnection.getConnection();
@@ -254,11 +279,6 @@ public class ProductDao {
 	}
 
 	
-//	public static int getTotalCount(int i, Date) {
-//		// TODO Auto-generated method stub
-//		return 0;
-//	}
-
 	public static int deleteProduct(int product_number) throws SQLException {
 		Connection conn = DBConnection.getConnection();
 		String sql = " DELETE FROM product WHERE product_number = ? ";
@@ -267,5 +287,81 @@ public class ProductDao {
 		int row = pstmt.executeUpdate();                          //5
 		DBClose.close(conn, pstmt);   //6
 		return row;
+	}
+	
+	//물가리스트 검색 결과
+	public static List<ProductVO> productSearchResult(Date beginDate, Date endDate, String searchWithRegion,
+			String regionKeyword, String searchWithProduct, String productKeyword) throws SQLException {
+		Connection conn = DBConnection.getConnection();
+		String where = "";
+		if(beginDate == null && endDate == null) {
+			where = " ";
+		}else if(beginDate == null && endDate != null) {
+			where = "product_date < " + endDate + " ";
+		}else if(beginDate != null && endDate == null) {
+			where = "product_date > " + beginDate + " ";
+		}else {
+			where = "product_date BETWEEN " + beginDate + " AND " + endDate + " ";
+		}
+		
+		String where2 = "";
+		switch (searchWithRegion) {
+			case "all": {
+				where2 = " ";
+				}
+			case "country_kr_name": {
+				if(regionKeyword == null) where2 = " "; 
+				else where2 = "country.country_kr_name LIKE CONCAT(CONCAT('%', " + regionKeyword + "), '%')  ";
+				}
+			case "city_kr_name": {
+				if(regionKeyword == null) where2 = " "; 
+				else where2 = "city.city_kr_name LIKE CONCAT(CONCAT('%', " + regionKeyword + "), '%')  ";
+				}
+			case "market_kr_name": {
+				if(regionKeyword == null) where2 = " "; 
+				else where2 = "market.market_kr_name LIKE CONCAT(CONCAT('%', " + regionKeyword + "), '%')  ";
+				}
+			}
+		
+		String where3 = "";
+		switch (searchWithProduct) {
+		case "all": {
+			where3 = " ";
+		}
+		case "status_check": {
+			if(productKeyword == null) where3 = " "; 
+			else where3 = "product.status_check LIKE CONCAT(CONCAT('%', " + productKeyword + "), '%') ";
+		}
+		case "product_name": {
+			if(productKeyword == null) where3 = " "; 
+			else where3 = "product.product_name LIKE CONCAT(CONCAT('%', " + productKeyword + "), '%') ";
+		}
+		case "user_id": {
+			if(productKeyword == null) where3 = " "; 
+			else where3 = "product.user_id LIKE CONCAT(CONCAT('%', " + productKeyword + "), '%') ";
+		}
+		}
+		
+		
+		String sql=	  "   SELECT check_status, country_kr_name, city_kr_name, market_kr_name, product_name, product_number, product_date, "
+				+ "	product.product_price, product_img, sequence, user_id "
+				+ "	FROM product NATURAL JOIN MARKET NATURAL JOIN city NATURAL JOIN country "
+				+ where + where2 + where3;
+		
+		Statement stmt = conn.createStatement(); // 4
+
+		ResultSet rs = stmt.executeQuery(sql);
+		ArrayList<ProductVO> list = new ArrayList<ProductVO>();
+		if (rs.next()) {
+			do {
+				ProductVO product = new ProductVO(rs.getInt("product_number"), rs.getString("check_status"), rs.getDate("product_date"), rs.getString("country_kr_name"), rs.getString("city_kr_name"),
+						rs.getString("market_kr_name"), rs.getString("product_name"), rs.getInt("product_price"), rs.getString("product_img"), rs.getString("user_id"), rs.getInt("sequence"));
+				list.add(product);
+			} while (rs.next());
+		} else {
+			list = null;
+		}
+		DBClose.close(conn, stmt, rs);
+		return list;
 	}
 }

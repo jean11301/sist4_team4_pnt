@@ -3,8 +3,8 @@
 
 function initMap() {
 	map = new google.maps.Map(document.getElementById("map"), {
-		center: { lat: 7.24873, lng: 104.85541 },
-		zoom: 5,
+		center: { lat: 11.5595113, lng: 111.4168575 },
+		zoom: 4,
 	 });
 }
 function drawMarkers(serverdata){
@@ -17,22 +17,32 @@ function drawMarkers(serverdata){
 	let obj = JSON.parse(location);
 	let array = obj.data;  
 	for(let i = 0 ; i < array.length ; i++){
+		console.log(array[i]);
 		const marker = new google.maps.Marker({
         /*position: {latitude: array[i].latitude,
     	  longitude: array[i].longitude},*/
         position: new google.maps.LatLng(array[i].latitude, array[i].longitude),		   
         map: map,
       	});	
-		map.addListener("center_changed", () => {
-			    // 3 seconds after the center of the map has changed, pan back to the
-			    // marker.
-			    window.setTimeout(() => {
-			      map.panTo(marker.getPosition());
-			    }, 3000);
-			  });
+//		map.addListener("center_changed", () => {
+//			    // 3 seconds after the center of the map has changed, pan back to the
+//			    // marker.
+//			    window.setTimeout(() => {
+//			      map.panTo(marker.getPosition());
+//			    }, 3000);
+//			  });
+
+		const contentString = '<div id='+array[i].market_kr_name+'>' +
+	    '<div id="siteNotice">' +"</div>" +'<h1 id="firstHeading" class="firstHeading">'+array[i].market_kr_name+'</h1>' +
+	    '<div id="bodyContent">' + '<p>' + array[i].market_info
+	    +'</p>' + "</div>" +"</div>";
 		marker.addListener("click", () => {
-		    map.setZoom(15);
+		    map.setZoom(8);
 		    map.setCenter(marker.getPosition());
+		    infowindow.open(map, marker);
+		  });
+	    const infowindow = new google.maps.InfoWindow({
+			content: contentString,
 		  });
 	}
 }
