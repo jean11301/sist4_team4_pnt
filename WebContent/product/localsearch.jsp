@@ -116,7 +116,8 @@
 	<div class="container-fluid" style="margin:25px 0px 0px 0px">
 	<form id="frmZip" name="frmZip">
 	
-	<div class="row">
+<!-- 	<div class="row"> -->
+		<div>
 		<div class="col-sm-2 side_search">
 			<form>
 				<div class="form-group pd-5">
@@ -139,7 +140,7 @@
 					</div><br><br><br>
 					
 				<div>
-				상품명 : &nbsp;&nbsp;<input type="text" name="product" id="txtProduct" style="color:black; width:220px; height:35px;" placeholder="상품명을 입력하세요." />
+				상품명 : &nbsp;&nbsp;<input type="text" name="product" id="txtProduct" style="color:black; width:100%; height:35px;" placeholder="상품명을 입력하세요." />
 				</div><br>
 				<div align="right">
 					<input class="btn btn-primary"type="button" value="상품검색" id="btnSearch" />

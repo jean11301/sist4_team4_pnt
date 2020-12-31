@@ -90,7 +90,8 @@ ArrayList<ProductVO> list2 = popular.variancelist();
 							<td><%=pop2.getProduct_name()%></td>
 							<td><%=pop2.getProduct_price_P1Data()%>원</td>
 							<%
-								double p3 = pop2.getProduct_price_P3Data() * 100;
+								/* double p3 = pop2.getProduct_price_P3Data() * 100; */
+								double p3 = pop2.getProduct_price_P3Data();
 							int p31 = (int) Math.abs(p3);
 							int p4 = (int) pop2.getProduct_price_P4Data() * 10;
 							int p5 = (int) pop2.getProduct_price_P5Data() * 100;
