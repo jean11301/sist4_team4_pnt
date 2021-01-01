@@ -104,7 +104,7 @@
 		<c:forEach items="${rs.rows}" var="row"> 
 			<div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 listbox" id="count">
 			<div class="stylebox">
-			<a href="productDetail.jsp?product_number=${row.product_number}" >
+			<a href="productDetail2.jsp?product_number=${row.product_number}" >
 				<table class="table-responsive" >
 					<tr>
 						<td class="imgcontrol">${row.product_img}</td>

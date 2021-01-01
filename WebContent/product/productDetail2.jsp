@@ -299,7 +299,7 @@ ${product_image }
 		<table class="table tavle-bordered">
 			<tr>
 				<th>국가(한글)</th>
-				<td><select id="selCountry" name="country_kr_name" required="required">
+				<td><select id="selCountry" name="country" required="required">
 						<option>국가명</option>
 						<c:forEach items="${countries.rows}" var="country">
 							<option value="${country.country_kr_name}">${country.country_kr_name}</option>
@@ -308,7 +308,7 @@ ${product_image }
 				<th>도시(한글)</th>
 				<td>
 					<span id="citySpan">
-						<select id="selCity" name="city_kr_name" required="required">
+						<select id="selCity" name="city" required="required">
 							<option value="">도시명</option>
 							<c:forEach items="${cities.rows}" var="city">
 								<option value="${city.city_kr_name}">${city.city_kr_name}</option>
@@ -319,7 +319,7 @@ ${product_image }
 				<th>시장</th>
 				<td>
 					<span id="marketSpan">
-						<select id="selMarket" name="market_kr_name">
+						<select id="selMarket" name="market">
 							<option value="">시장명</option>
 						</select>
 					</span>
@@ -328,7 +328,7 @@ ${product_image }
 			<tr>
 				<th>상품명</th>
 				<td colspan="5">
-					<input type="text" id="product_name" required="required">
+					<input type="text" id="product_name" required="required" name="productName">
 				</td>
 			</tr>
 			<tr>
@@ -339,182 +339,62 @@ ${product_image }
 			</tr>
 			<tr>
 				<th>상품가격</th>
-				<td><input type="number" style="width: 8vw;" class="exchange" id="KRW" onkeyup="convert('KRW');" required></td>
+				<td><input type="number" style="width: 8vw;" class="exchange" id="KRW" onkeyup="convert('KRW');" required step="0.000001" name="productPrice"></td>
 				<th>원(한화)</th>
-				<td>
-				
-					<c:if test="${row.country_kr_name eq '태국' }">
-						<div id="test"><input type="number" style="width: 8vw;" class="exchange" id="THB" onkeyup="convert('THB');" required></div>
-					</c:if>
-					<c:if test="${row.country_kr_name eq '라오스'}">
-						<div id="test1"><input type="number" style="width: 8vw;" class="exchange" id="LAK" onkeyup="convert('LAK');" required></div>
-					</c:if>
-					<c:if test="${row.country_kr_name eq '말레이시아'}">
-						<div id="test2"><input type="number" style="width: 8vw;" class="exchange" id="MYR" onkeyup="convert('MYR');" required></div>
-					</c:if>
-					<c:if test="${row.country_kr_name eq '베트남'}">
-						<div id="test3"><input type="number" style="width: 8vw;" class="exchange" id="VND" onkeyup="convert('VND');" required></div>
-					</c:if>
-					<c:if test="${row.country_kr_name eq '싱가폴'}">
-						<div id="test4"><input type="number" style="width: 8vw;" class="exchange" id="SGD" onkeyup="convert('SGD');" required></div>
-					</c:if>
-				</td>
-				
+				<span class="currencySpan">
+				<td><input type="number" style="width: 8vw;" class="exchange" id="THB" onkeyup="convert('THB');" required step="0.000001" ></td>
 				
 				<script type="text/javascript">
 				function convert(currency_type){
-					var val = $("#THB").val();
-			        if (val) {
-						$.ajax({
-							url: 'https://api.manana.kr/exchange.json',
-							type: 'GET',
-						}).done((data, textStatus, jqXHR) => {
-							//태국 : USD/THB, 베트남 : USD/VND, 라오스 : USD/LAK, 싱가포르 : USD/SGD, 말레이시아 : USD/MYR
-					
-							//한개씩 뽑는 테스트
-						     var kkk = data.filter(function (item) { return item.name == "USD/THB" });
-							 var kkk2 = kkk[0].price;
-							 var e =  Math.round(kkk2 * 100) / 100;
-							 
-							 var kkk11 = data.filter(function (item) { return item.name == "USD/LAK" });
-							 var kkk12 = kkk11[0].price;
-							 var e11 =  Math.round(kkk12 * 100) / 100; 
-							 
-							 var kkk21 = data.filter(function (item) { return item.name == "USD/MYR" });
-							 var kkk22 = kkk21[0].price;
-							 var e21 =  Math.round(kkk22 * 100) / 100; 
-							 
-							 var kkk31 = data.filter(function (item) { return item.name == "USD/VND" });
-							 var kkk32 = kkk31[0].price;
-							 var e31 =  Math.round(kkk32 * 100) / 100; 
-							 
-							 var kkk41 = data.filter(function (item) { return item.name == "USD/SGD" });
-							 var kkk42 = kkk41[0].price;
-							 var e41 =  Math.round(kkk42 * 100) / 100; 
-							 
-							
-							 
-							 var mmm = data.filter(function (item) { return item.name == "USD/KRW" });
-							 var mmm2 = mmm[0].price;      // 1096
-							//var mmm3 = $( 'div#count table #test' ).text();
-							//var mmm3 = $('#test').text();  //4890 
-							 var count = $( 'div#count' ).length;
-							 
-							
-							
-						/* 	 // 체크박스 배열 Loop
-						       $("div#count").each(function(idx){   
-						          
-						         // 해당 체크박스의 Value 가져오기
-						         var value = $(this).text();
-						        //  var eqValue = $("#count:eq(" + idx + ")").text() ;
-						         console.log(value) ;
-						          
-						       }); */
-							
-							
-						       $("div#test").each(function(idx){   
-						           
-						           // 해당 체크박스의 Value 가져오기
-						           // var value = $(this).find($('#test')).text();
-						            var eqValue = $("div#test:eq(" + idx + ")").text();
-						            var test11 = Math.round((eqValue/mmm2*e)* 100) / 100;
-						            $("div#test:eq(" + idx + ")").after(test11);;
-						           console.log(eqValue) ;
-						           $('#THB').val(test11);
-						           // $('#change1').append(eqValue);                                        
-						        });
-						       
-	 							$("div#test1").each(function(idx){   
-						           
-						           // 해당 체크박스의 Value 가져오기
-						           // var value = $(this).find($('#test')).text();
-						            var eqValue = $("div#test1:eq(" + idx + ")").text() ;
-						            var test11 = Math.round((eqValue/mmm2*e11)* 100) / 100;
-						            $("div#test1:eq(" + idx + ")").after(test11);;
-						           console.log(eqValue) ;
-						           $('#LAK').val(test11);
-						           // $('#change1').append(eqValue);                                        
-						        });
-	 							
-	 							
-	 							$("div#test2").each(function(idx){   
-	 					           
-	 					           // 해당 체크박스의 Value 가져오기
-	 					           // var value = $(this).find($('#test')).text();
-	 					            var eqValue = $("div#test2:eq(" + idx + ")").text() ;
-	 					            var test11 = Math.round((eqValue/mmm2*e11)* 100) / 100;
-	 					            $("div#test2:eq(" + idx + ")").after(test11);;
-	 					           console.log(eqValue) ;
-						           $('#MYR').val(test11);
-	 					           // $('#change1').append(eqValue);                                        
-	 					        });
-	 							
-	 							$("div#test3").each(function(idx){   
-	 					           
-	 					           // 해당 체크박스의 Value 가져오기
-	 					           // var value = $(this).find($('#test')).text();
-	 					            var eqValue = $("div#test3:eq(" + idx + ")").text() ;
-	 					            var test11 = Math.round((eqValue/mmm2*e11)* 100) / 100;
-	 					            $("div#test3:eq(" + idx + ")").after(test11);;
-	 					           console.log(eqValue) ;
-						           $('#VND').val(test11);
-	 					           // $('#change1').append(eqValue);                                        
-	 					        });
-						       
-	 							$("div#test4").each(function(idx){   
-	  					           
-	  					           // 해당 체크박스의 Value 가져오기
-	  					           // var value = $(this).find($('#test')).text();
-	  					            var eqValue = $("div#test4:eq(" + idx + ")").text() ;
-	  					            var test11 = Math.round((eqValue/mmm2*e11)* 100) / 100;
-	  					            $("div#test4:eq(" + idx + ")").after(test11);;
-	  					           console.log(eqValue) ;
-						           $('#SGD').val(test11);
-	  					           // $('#change1').append(eqValue);                                        
-	  					        });
-	 							
-							 //console.log(mmm2); 
-							 /* var tai = Math.round((mmm3/mmm2*e)* 100) / 100; 
-							  $('#change1').append(tai);   */
-							 
-							 //console.log($( 'div#count' ).length);
-							 //console.log($( 'div#count table #test' ).text());
-							 
-							
-							/*   $( 'div#count table #test' ).ready(function(){
-							        console.log("javaScript의 this"+this);
-							    })  */
-							//적용▼
-							//원JSON대로 읽어와 array의 불러오는 순서영향을 받지 않음.
-							/* var array = ["USD/THB", "USD/LAK", "USD/MYR", "USD/VND", "USD/SGD"];
-							var array2 = [];
-							data.filter(function(item){
-									for(var i in array){
-										if(item.name === array[i]){
-											
-										 array2[i] = Math.round(item.price * 100) / 100;
-										// console.log(array2[i]);//순서 : 태국, 라오스, 말레이시아, 베트남, 싱가폴
-										}
-									}							
-							}); */
-							
-				
-							/* $('#chebox').append(); */
-							
-							 //if()
-							//$('#change1').append(${row.product_price}*array2[0]/1200 + "밧"); 
-								
-							/* $('#change1').append(${row.product_price}*array2[0]/1200 + "밧");
-							$('#change2').append(${row.product_price}*array2[1]/1200 + "킵");
-							$('#change3').append(${row.product_price}*array2[2]/1200 + "링깃");
-							$('#change4').append(${row.product_price}*array2[3]/1200 + "동");
-							$('#change5').append(${row.product_price}*array2[4]/1200 + "달러"); */
-					
+					//태국 : USD/THB, 베트남 : USD/VND, 라오스 : USD/LAK, 싱가포르 : USD/SGD, 말레이시아 : USD/MYR
+					var kr_e = 0;
+					var other_e = 0;
+					if (currency_type == 'THB') {
+						var str = "USD/" + currency_type;
+				        var val = $("#THB").val();
+				        if (val) {
+							$.ajax({
+								url: 'https://api.manana.kr/exchange.json',
+								type: 'GET',
+							}).done((data, textStatus, jqXHR) => {
+										        
+					        //한개씩 뽑는 테스트
+							var kkk = data.filter(function (item) { return item.name == str });
+							var kkk2 = kkk[0].price;
+							var e =  Math.round(kkk2 * 100) / 100; 
+							console.log(e);
+					        $('#KRW').val(( val / e ).toFixed(2));
 							}), (jqXHR, textStatus, errorThrown) => {
-							console.log('실패')
-						};
-			        }
+								console.log('실패')
+							};   
+				        } else{
+				        	$('#KRW').val("");
+	
+				        }
+					}
+					if (currency_type == 'KRW') {
+						var str = "USD/" + currency_type;
+				        var val = $("#KRW").val();
+				        if (val) {
+							$.ajax({
+								url: 'https://api.manana.kr/exchange.json',
+								type: 'GET',
+							}).done((data, textStatus, jqXHR) => {
+										        
+					        //한개씩 뽑는 테스트
+							var kkk = data.filter(function (item) { return item.name == str });
+							var kkk2 = kkk[0].price;
+							var e =  Math.round(kkk2 * 100) / 100; 
+							console.log(e);
+					        $('#THB').val((val / e).toFixed(2));
+							}), (jqXHR, textStatus, errorThrown) => {
+								console.log('실패')
+							};   
+				        } else{
+				        	$('#THB').val("");
+	
+				        }
+					}
 				
 				}
 				</script>
@@ -528,6 +408,7 @@ ${product_image }
 					<c:if test="${country eq '싱가포르' }">싱가포르 달러</c:if>
 					<c:if test="${country eq '말레이시아' }">링깃</c:if>
 				</th>
+				</span>
 			</tr>
 			<tr rowspan="4">
 				<td colspan="6"><textarea class="description" rows="5" required="required">

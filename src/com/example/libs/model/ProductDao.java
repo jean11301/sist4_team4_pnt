@@ -290,64 +290,97 @@ public class ProductDao {
 	}
 	
 	//물가리스트 검색 결과
-	public static List<ProductVO> productSearchResult(Date beginDate, Date endDate, String searchWithRegion,
+	public static List<ProductVO> productSearchResult(String beginDate, String endDate, String searchWithRegion,
 			String regionKeyword, String searchWithProduct, String productKeyword) throws SQLException {
 		Connection conn = DBConnection.getConnection();
-		String where = "";
-		if(beginDate == null && endDate == null) {
-			where = " ";
-		}else if(beginDate == null && endDate != null) {
-			where = "product_date < " + endDate + " ";
-		}else if(beginDate != null && endDate == null) {
-			where = "product_date > " + beginDate + " ";
-		}else {
-			where = "product_date BETWEEN " + beginDate + " AND " + endDate + " ";
-		}
+		System.out.println(beginDate);
+		System.out.println(endDate);
+		System.out.println(searchWithRegion);
+		System.out.println(regionKeyword);
+		System.out.println(searchWithProduct);
+		System.out.println(productKeyword);
+		String where1 = "";
 		
-		String where2 = "";
-		switch (searchWithRegion) {
-			case "all": {
-				where2 = " ";
+		if(beginDate == "" && endDate == "") {
+			where1 = " ";
+		}else if(beginDate == " " && endDate != " ") {
+			where1 = "(product_date < '" + endDate + "' ) ";
+		}else if(beginDate != " " && endDate == "") {
+			where1 = "(product_date > '" + beginDate + "' ) ";
+		}else {
+			where1 = "(product_date BETWEEN '" + beginDate + "' AND '" + endDate + "' ) ";
+		}
+		System.out.println(where1);
+		String where2 = " ";
+		if(searchWithRegion.equals("all")){
+				if(regionKeyword == " ") {where2 = " ";
+				}else {where2 = "(country.country_kr_name LIKE CONCAT(CONCAT('%', '" + regionKeyword + "'), '%') OR " + 
+						" city.city_kr_name LIKE CONCAT(CONCAT('%', '" + regionKeyword + "'), '%')  OR" + 
+						" market.market_kr_name LIKE CONCAT(CONCAT('%', '" + regionKeyword + "'), '%') ) ";
 				}
-			case "country_kr_name": {
-				if(regionKeyword == null) where2 = " "; 
-				else where2 = "country.country_kr_name LIKE CONCAT(CONCAT('%', " + regionKeyword + "), '%')  ";
-				}
-			case "city_kr_name": {
-				if(regionKeyword == null) where2 = " "; 
-				else where2 = "city.city_kr_name LIKE CONCAT(CONCAT('%', " + regionKeyword + "), '%')  ";
-				}
-			case "market_kr_name": {
-				if(regionKeyword == null) where2 = " "; 
-				else where2 = "market.market_kr_name LIKE CONCAT(CONCAT('%', " + regionKeyword + "), '%')  ";
-				}
+		}else if(searchWithRegion.equals("country_kr_name")) {
+				if(regionKeyword == " ") where2 = "country.country_kr_name LIKE CONCAT(CONCAT('%', ''), '%')  "; 
+				else where2 = "country.country_kr_name LIKE CONCAT(CONCAT('%', '" + regionKeyword + "'), '%')  ";
+		}else if(searchWithRegion.equals("city_kr_name")) {
+				if(regionKeyword == " ") where2 = "city.city_kr_name LIKE CONCAT(CONCAT('%', ''), '%')  ";
+				else where2 = "city.city_kr_name LIKE CONCAT(CONCAT('%', '" + regionKeyword + "'), '%')  ";
+		}else if(searchWithRegion.equals("market_kr_name")) {
+				if(regionKeyword == " ") where2 = "market.market_kr_name LIKE CONCAT(CONCAT('%', ''), '%')  ";
+				else where2 = "market.market_kr_name LIKE CONCAT(CONCAT('%', '" + regionKeyword + "'), '%')  ";
 			}
 		
-		String where3 = "";
+		System.out.println(where2);
+		String where3 = " ";
 		switch (searchWithProduct) {
 		case "all": {
-			where3 = " ";
-		}
+			if(productKeyword == " ") {
+				where3 = " ";
+			}else {where3 = "product.status_check LIKE CONCAT(CONCAT('%', '" + productKeyword + "'), '%') OR " + 
+						"product.product_name LIKE CONCAT(CONCAT('%', '" + productKeyword + "'), '%') OR " + 
+						"product.user_id LIKE CONCAT(CONCAT('%', '" + productKeyword + "'), '%') ";
+		}}
 		case "status_check": {
-			if(productKeyword == null) where3 = " "; 
-			else where3 = "product.status_check LIKE CONCAT(CONCAT('%', " + productKeyword + "), '%') ";
+			if(productKeyword == " ") where3 = "product.status_check LIKE CONCAT(CONCAT('%', ''), '%') ";
+			else where3 = "product.status_check LIKE CONCAT(CONCAT('%', '" + productKeyword + "'), '%') ";
 		}
 		case "product_name": {
-			if(productKeyword == null) where3 = " "; 
-			else where3 = "product.product_name LIKE CONCAT(CONCAT('%', " + productKeyword + "), '%') ";
+			if(productKeyword == " ") where3 = "product.product_name LIKE CONCAT(CONCAT('%', ''), '%') "; 
+			else where3 = "product.product_name LIKE CONCAT(CONCAT('%', '" + productKeyword + "'), '%') ";
 		}
 		case "user_id": {
-			if(productKeyword == null) where3 = " "; 
-			else where3 = "product.user_id LIKE CONCAT(CONCAT('%', " + productKeyword + "), '%') ";
+			if(productKeyword == " ") where3 = "product.user_id LIKE CONCAT(CONCAT('%', ''), '%') "; 
+			else where3 = "product.user_id LIKE CONCAT(CONCAT('%', '" + productKeyword + "'), '%') ";
 		}
 		}
+		System.out.println(where3);
+		
+		String where="";
+		if (where1 == " ") {
+			where = " WHERE " + where2 + " AND " + where3;
+			if(where2 == " ") 
+				where = " WHERE " + where3;
+			else if(where3 == " ")
+				where = " WHERE " + where2;
+		}else if(where2 == " ") {
+			where = " WHERE " + where1 + " AND " + where3;
+			if(where1 == " ") 
+				where = " WHERE " + where3;
+			else if(where3 == " ")
+				where = " WHERE " + where1;
+		}else if(where3 == " ") {
+			where = " WHERE " + where1 + " AND " + where2;
+			if(where1 == " ") 
+				where = " WHERE " + where2;
+			else if(where2 == " ")
+				where = " WHERE " + where1;
+		}else where="";
 		
 		
 		String sql=	  "   SELECT check_status, country_kr_name, city_kr_name, market_kr_name, product_name, product_number, product_date, "
 				+ "	product.product_price, product_img, sequence, user_id "
 				+ "	FROM product NATURAL JOIN MARKET NATURAL JOIN city NATURAL JOIN country "
-				+ where + where2 + where3;
-		
+				+ where;
+		System.out.println(sql);
 		Statement stmt = conn.createStatement(); // 4
 
 		ResultSet rs = stmt.executeQuery(sql);
