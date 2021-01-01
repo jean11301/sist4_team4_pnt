@@ -112,7 +112,7 @@
 		<div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 side_search">
 			<form>
 				<div class="form-group pd-5">
-				<label for="sel1" style="font-size:20px;">나라선택</label>
+				<label for="sel1" style="font-size:18px;">상세검색</label>
 					<select name="country_kr_name" id="selcountry_kr_name" class="form-control">
 						<option value="">나라 선택 </option>
 						<c:forEach items="${rs.rows}" var="row">
