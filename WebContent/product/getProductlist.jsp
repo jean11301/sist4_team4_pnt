@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 
+
 <fmt:requestEncoding value="utf-8" />
 <c:set var="count" />
 <c:set var="country" value="${param.country}" />

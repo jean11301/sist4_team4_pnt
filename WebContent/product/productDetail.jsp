@@ -3,9 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<script src="../js/script.js"></script>
 
 <c:set var="product_number" value="${param.product_number}" />
+<c:set var="product_number2" value="${param.product_number}" />
 
 <link rel="stylesheet" href="../css/bootstrap.css" />
 <script type="text/javascript"
@@ -29,6 +30,43 @@
 	<c:set var="market" value="${product.market_kr_name }" />
 	<c:set var="product_name" value="${product.product_name }" />
 	<c:set var="product_image" value="${product.product_img }" />
+</c:forEach>
+
+
+<!-- 시장가 -->
+<sql:query dataSource="${conn}" var="productview">
+select avg(PRODUCT_PRICE)  as product_price, max(PRODUCT_PRICE) as topprice
+from product NATURAL JOIN MARKET
+where MARKET_NUMBER = (SELECT MARKET_NUMBER
+	FROM product NATURAL JOIN MARKET NATURAL JOIN city NATURAL JOIN country 
+        WHERE product_number = ?)
+    AND product_name like (SELECT product_name
+        FROM product NATURAL JOIN MARKET NATURAL JOIN city NATURAL JOIN country 
+        WHERE product_number = ?) 
+	<sql:param value="${product_number}" />
+	<sql:param value="${product_number2}" />
+</sql:query>
+<c:forEach items="${productview.rows}" var="product">
+	<c:set var="product_price" value="${product.product_price }" />
+</c:forEach>
+
+<!-- 최근한달 최저가-최고가 MIN-MAX / 값이 하나일경우 MIN과 MAX가 같다 / 값이 없을경우 0 처리 -->
+<sql:query dataSource="${conn}" var="productprice">
+select NVL(max(PRODUCT_PRICE), 0)as topprice, NVL(min(PRODUCT_PRICE), 0) as rowprice
+from product NATURAL JOIN MARKET
+where MARKET_NUMBER = (SELECT MARKET_NUMBER
+	FROM product NATURAL JOIN MARKET NATURAL JOIN city NATURAL JOIN country 
+        WHERE product_number = ?)
+    AND product_name like (SELECT product_name
+        FROM product NATURAL JOIN MARKET NATURAL JOIN city NATURAL JOIN country 
+        WHERE product_number = ?)
+    AND product_date>=TO_CHAR((SELECT MAX(product_date) FROM product)-30, 'YYYYMMDD')
+    <sql:param value="${product_number}" />
+	<sql:param value="${product_number2}" />
+</sql:query>
+<c:forEach items="${productprice.rows}" var="product">
+	<c:set var="topprice" value="${product.topprice }" />
+	<c:set var="rowprice" value="${product.rowprice }" />
 </c:forEach>
 
 <jsp:include page="../main/header.jsp" />
@@ -282,8 +320,20 @@ table {
 	z-index: 999;
 	opacity: 0;
 }
+.rightbox{padding:2% 0;}
+.rightbox-img{overflow: hidden;}
+.rightbox-img img{width:100%;}
+.style1{font-weight:bold; font-size:2.2rem;}
+.style2{    text-align: right;}
+.style2-1{    font-weight: bold; color: #e23131; font-size: 2.2rem;}
+.style2-2{font-size:1.6rem; color:#666;}
+.style3{text-align:right; padding-right:16px;    font-size: 1.3rem;}
+.style4{text-align:right; margin:3% 0;}
+.style4-1{border:1px solid #CCC; text-align:center; line-height:40px; font-size:1.5rem;}
+.style4-2{border:1px solid #CCC; border-left: 0;}
+.btnbox{float:right;    }
 </style>
-
+<script src="https://kit.fontawesome.com/5fa9fbc7d7.js" crossorigin="anonymous"></script>
 <div class="container" style="margin-top: 30px;">
 	<!-- title -->
 	<title>${product_name }상세정보</title>
@@ -292,28 +342,71 @@ table {
 	</h5>
 	<h3 class="row">
 		<strong>${product_name } 상세보기</strong>
+		<hr>
 	</h3>
 
 	<div class="row">
 		<!-- 지도 -->
-		<div class="col-xs-12 col-sm-12 col-md-9 col-lg-5 pnt_map pd-5">
+		<div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 pnt_map pd-5">
 			<jsp:include page="map_ex.html" />
 		</div>
 
 		<!-- 상품정보 -->
-		<div class="col-xs-12 col-sm-12 col-md-9 col-lg-7 pnt_map pd-5">
-			${product_image } 국가<input type="text" id="country"
-				value="${country}"><br> 도시<input type="text" id="city"
-				value="${city}"><br> 시장<input type="text" id="market"
-				value="${market}"><br> 상품명 <input type="text"
-				id="product" value="${product_name }"><br>
-			<button type="button" class="openModal">가격 올리기</button>
-			<button id="btnMoredata">데이터더보기</button>
+		<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 rightbox">
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 rightbox-img">
+				${product_image }
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+			
+					<div style="display:none;">
+						  국가<input type="text" id="country"
+						value="${country}">
+						<br> 도시<input type="text" id="city"
+						value="${city}"><br> 시장<input type="text" id="market"
+						value="${market}"><br> 상품명 <input type="text"
+						id="product" value="${product_name }"><br>
+					</div>
+					
+					<div class="row">
+						<div class="col-xs-6 style1">시장가</div>
+						<div class="col-xs-6 style2">
+							<div class="style2-1" id="korwon" value="${product_price }">${product_price }원</div>
+							<div class="style2-2" id="exchange" value="${country}"></div>
+						</div>
+					</div>
+					
+					<hr>
+					
+					<div class="row style3"><i class="fas fa-exclamation-circle" style="padding:0 4px 0 0"></i>최근 한 달 간의 최고가와 최저가</div>
+					<div class="row style4">
+						<div class="col-xs-4"></div>
+						<div class="col-xs-4 style4-1">최고가</div>
+						<div class="col-xs-4 style4-2">
+							<div id="topprice" value="${topprice }">${topprice }원</div>
+							<div id="toppricechange">32.00바트</div>
+						</div>
+					</div>
+					<div class="row style4">
+						<div class="col-xs-4"></div>
+						<div class="col-xs-4 style4-1">최저가</div>
+						<div class="col-xs-4 style4-2">
+							<div id="rowprice" value="${rowprice }">${rowprice }원</div>
+							<div id="rowpricechange">32.00바트</div>
+						</div>
+					</div>
+				
+				<div class="btnbox">
+					<button type="button" class="openModal btn btn-primary" style="padding:6px 30px">가격 올리기</button>
+					<button id="btnMoredata" class="btn btn-success">데이터 더보기</button>
+				</div>
+				
+			</div>
 		</div>
 
 	</div>
 	<!-- End row -->
 
+<hr>
 
 
 <style>
@@ -387,11 +480,11 @@ table {
 					<tr>
 						<th>상품가격</th>
 						<td><input type="number" style="width: 8vw;" class="exchange"
-							id="KRW" onkeyup="convert('KRW');" required></td>
+							id="KRW" onkeyup="convert('KRW');" required step="0.0000001"></td>
 						<th>원(한화)</th>
 						<span class="currencySpan">
 							<td><input type="number" style="width: 8vw;"
-								class="exchange" id="THB" onkeyup="convert('THB');" required></td>
+								class="exchange" id="THB" onkeyup="convert('THB');" required step="0.0000001"></td>
 
 							<script type="text/javascript">
 					function convert(currency_type){
