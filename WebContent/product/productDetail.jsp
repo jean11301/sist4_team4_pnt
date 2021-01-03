@@ -140,83 +140,145 @@
 			
 
 	//======================================== 차트
-		var options1 = {
-	animationEnabled: true,
-	theme: "light2",
-	title:{
-		text: "가격대별 구매자 분포도"
-	},
-	axisY2:{
-		prefix: "$",
-		lineThickness: 0				
-	},
-	toolTip: {
-		shared: true
-	},
-	legend:{
-		verticalAlign: "top",
-		horizontalAlign: "center"
-	},
-	data: [
-	{     
-		type: "stackedBar",
-		showInLegend: true,
-		name: "Butter (500gms)",
-		axisYType: "secondary",
-		color: "#7E8F74",
-		dataPoints: [   //세로축
-			{ y: 3, label: "India" },
-			{ y: 5, label: "US" },
-			{ y: 3, label: "Germany" },
-			{ y: 6, label: "Brazil" },
-			{ y: 7, label: "China" },
-			{ y: 5, label: "Australia" },
-			{ y: 5, label: "France" },
-			{ y: 7, label: "Italy" },
-			{ y: 9, label: "Singapore" },
-			{ y: 8, label: "Switzerland" },
-			{ y: 12, label: "Japan" }
-		]
-	}
-	]
-};
+			
+	
+		getchart2();
+		getchart1();
+		//차트 1에 필요한 DB
+		function getchart1(){
+			let product_name = $('#product').val().trim();
+			let marketname = $('#market').val().trim()
+			$.ajax({
+			      method : 'POST',
+			      contentType: 'application/x-www-form-urlencoded; charset=euc-kr',
+			      url : 'getchart1.jsp',
+			      data : {
+			    	  marketname : marketname,
+			    	  product_name : product_name
+			      },
+			      success : function(data){
+			          chart1(data);}
+			    });
+		}
+		//차트 2에 필요한 DB
+		function getchart2(){
+			let product_name = $('#product').val().trim();
+			let marketname = $('#market').val().trim()
+			
+			$.ajax({
+			      method : 'POST',
+			      contentType: 'application/x-www-form-urlencoded; charset=euc-kr',
+			      url : 'getchart2.jsp',
+			      data : {
+			    	  marketname : marketname,
+			    	  product_name : product_name
+			      },
+			      success : function(data){
+			    	  //$("#chartContainer2").CanvasJSChart(data);
+			          chart2(data);}
+					//}
+			    });
+		}
+	
+		
+		function chart1(serverdata){
+			let idx = serverdata.lastIndexOf(",");
+			let location = null;
+			if(idx > -1) location = serverdata.substring(0, idx) + "] }"; 
+			else location = serverdata;
+			location = location.trim();		
+			//console.log(location);
+			var obj = JSON.parse(location);
+			var array = obj.data;
+			//불러온 데이터 json으로 변환 후 map형식으로 키 : 값으로 변환
+			const addData = array.map(item => ({
+		        y: item.count,
+			    label: item.price
+			    }));
+			//console.log(addData);
+			//canvas js에 변환한 map형식의 데이터를 넣기
+			
+			var chart = new CanvasJS.Chart("chartContainer1",
+					{
+						animationEnabled: true,
+						theme: "light2",
+						title:{
+							text: "6개월 간 가격대별 구매자 분포도"
+						},
+						axisY:{
+							valueFormatString: " "		
+						},
+						axisX:{
+							suffix: "KRW~"				
+						},
+						toolTip: {
+							shared: true
+						},
+						legend:{
+							verticalAlign: "top",
+							horizontalAlign: "center"
+						},
+						data: [
+						{     
+							type: "stackedBar",
+							showInLegend: true,
+							name: "구매인원",
+							axisYType: "secondary",
+							color: "#62C9C3",
+							dataPoints: addData
+						}
+						]
+					});
+			chart.render();
+		};
+		
+		
 
-		var options2 = {
-				animationEnabled: true,  
-				title:{
-					text: "가격 변동 추이"
-				},
-				axisX: {
-					valueFormatString: "MMM"
-				},
-				axisY: {
-					title: "Sales (in USD)",
-					prefix: "$"
-				},
-				data: [{
-					yValueFormatString: "$#",
-					xValueFormatString: "MMMM",
-					type: "spline",
-					dataPoints: [
-						{ x: new Date(2017, 0), y: 25060 },
-						{ x: new Date(2017, 1), y: 27980 },
-						{ x: new Date(2017, 2), y: 33800 },
-						{ x: new Date(2017, 3), y: 49400 },
-						{ x: new Date(2017, 4), y: 40260 },
-						{ x: new Date(2017, 5), y: 33900 },
-						{ x: new Date(2017, 6), y: 48000 },
-						{ x: new Date(2017, 7), y: 31500 },
-						{ x: new Date(2017, 8), y: 32300 },
-						{ x: new Date(2017, 9), y: 42000 },
-						{ x: new Date(2017, 10), y: 52160 },
-						{ x: new Date(2017, 11), y: 49400 }
-					]
-				}]
-			};
-$("#chartContainer1").CanvasJSChart(options1);
-$("#chartContainer2").CanvasJSChart(options2);
+		function chart2(serverdata){
+			
+			let idx = serverdata.lastIndexOf(",");
+			let location = null;
+			if(idx > -1) location = serverdata.substring(0, idx) + "] }"; 
+			else location = serverdata;
+			location = location.trim();		
+			//console.log(location);
+			var obj = JSON.parse(location);
+			var array = obj.data;
+			//불러온 데이터 json으로 변환 후 map형식으로 키 : 값으로 변환
+			const addData = array.map(item => ({
+		        x: new Date(item.product_date),
+			    y: item.product_price
+			    }));
+			//console.log(addData);
+			//canvas js에 변환한 map형식의 데이터를 넣기
+			var chart = new CanvasJS.Chart("chartContainer2",
+				    {
+			      	  title:{
+			          text:  "최근 6개월 간 가격 변동 추이"
+			          },
+				 	 axisX:{
+					 valueFormatString:  "YYYY MM DD"   // move comma to change formatting
+					 },
+					 axisY: {
+							suffix: "KRW"
+					 },
+				     data: [
+				     {
 
+						type: "spline",
+
+				        dataPoints: addData
+				      }
+				      ]
+				    });
+
+		    chart.render();
+		
+		}
 	});
+	
+	
+	
 </script>
 <style>
 
@@ -280,7 +342,6 @@ ${product_image }
 <div id="chartContainer1" style="height: 370px; width: 50%;"></div>
 <div id="chartContainer2" style="height: 370px; width: 50%;"></div>
 </div>
-<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
 
 <div class="modalBehind"></div>
