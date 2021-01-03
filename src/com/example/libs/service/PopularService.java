@@ -79,7 +79,7 @@ public class PopularService {
 		
 	}
 	
-	public List<ProductVO> productSearchResult(Date beginDate, Date endDate, String searchWithRegion, String regionKeyword, String searchWithProduct, String productKeyword) throws SQLException{
+	public List<ProductVO> productSearchResult(String beginDate, String endDate, String searchWithRegion, String regionKeyword, String searchWithProduct, String productKeyword) throws SQLException{
 		return ProductDao.productSearchResult(beginDate, endDate, searchWithRegion, regionKeyword, searchWithProduct, productKeyword);
 	}
 	

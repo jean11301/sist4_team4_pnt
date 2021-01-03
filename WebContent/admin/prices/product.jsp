@@ -133,7 +133,7 @@ function updateProduct(){
 								<div class="row">
 									<div class="col-sm-12 col-md-6">
 										<label>상품</label>
-										<select id="searchWithProduct" name="searchWith">
+										<select id="searchWithProduct" name="searchWithProduct">
 											<option value="all" selected>전체</option>
 											<option value="status_check">상태</option>
 											<option value="product_name">상품명</option>
