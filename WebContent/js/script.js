@@ -15,15 +15,35 @@ function setup(){
 
 function changeView(value) {
 
-	if (value == "0") // HOME 버튼 클릭시 첫화면으로 이동
+	if (value == "0") // 메인홈
 	{
 		location.href = "../index.html";
 	}
-	else if (value == "1") // go to 물가 정보
+	else if (value == "1") // 물가 정보
 	{
 		location.href = "../product/localsearch.jsp";
 	}
-}
+
+	else if (value == "2") // 로그인
+	{
+		location.href = "../user/login.jsp";
+	}
+		
+	else if (value == "3") // 로그아웃
+	{
+	    location.href = "../user/logout.jsp";
+	}
+	
+	else if (value == "4") // 관리자페이지
+	{
+	    location.href = "../admin/index.html";
+	}	
+	
+	else if (value == "5") // 마이페이지
+	{
+	    location.href = "../user/mypage.jsp";
+	}	
+}	
 	// else if (value == "1") // 로그인 버튼 클릭시 로그인 화면으로 이동
 	// {
 	// 	location.href = "../product/product.jsp";

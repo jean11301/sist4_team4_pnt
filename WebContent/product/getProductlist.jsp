@@ -171,7 +171,7 @@
 	<c:forEach items="${rs.rows}" var="row">
 		<div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 listbox" id="count">
 			<div class="stylebox">
-<<<<<<< HEAD
+<!-- <<<<<<< HEAD
 			<a href="productDetail2.jsp?product_number=${row.product_number}" >
 				<table class="table-responsive" >
 					<tr>
@@ -201,7 +201,7 @@
 						</c:if>
 							
 				</table>
-=======
+======= -->
 				<a href="productDetail.jsp?product_number=${row.product_number}">
 					<table class="table-responsive">
 						<tr>
@@ -252,7 +252,7 @@
 							</c:if>
 						</tr>
 					</table>
->>>>>>> 77ba3004592d42eda4e1ffc4df4237ca2c7441dc
+<!-- >>>>>>> 77ba3004592d42eda4e1ffc4df4237ca2c7441dc -->
 				</a>
 			</div>
 		</div>

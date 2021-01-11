@@ -465,18 +465,18 @@ table {
 			</div>
 		</div>
 
-<<<<<<< HEAD
+<!-- <<<<<<< HEAD
 <button type="button" class="openModal">가격 올리기</button>
-<button id="btnMoredata" > 데이터더보기</button><!-- ============================================= 데이터 더보기 =============================================== -->
+<button id="btnMoredata" > 데이터더보기</button>  ============================================= 데이터 더보기 ===============================================
 <div>
 <div id="chartContainer1" style="height: 370px; width: 50%;"></div>
 <div id="chartContainer2" style="height: 370px; width: 50%;"></div>
-</div>
+</div> -->
 <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
-=======
+
 	</div>
 	<!-- End row -->
->>>>>>> bd2d40a91df02740db7c8c8252ee018053ebbb5c
+<!-- >>>>>>> bd2d40a91df02740db7c8c8252ee018053ebbb5c -->
 
 <hr>
 
@@ -496,7 +496,7 @@ table {
 			<div id="chartContainer2"  class="col-sm-12 databox"></div>
 		</div>
 	</div>
-<<<<<<< HEAD
+<!-- <<<<<<< HEAD
 	<form action="registerProductPrice.jsp" method="POST">
 	<div class="row">
 		<table class="table tavle-bordered">
@@ -751,8 +751,8 @@ table {
 		</table>
 	</div>
 	<div class="row text-center" >
-		<button type="submit" id="register" class="btn">완료</button>
-=======
+		<button type="submit" id="register" class="btn">완료</button> -->
+
 	<script type="text/javascript"
 		src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
 	<script type="text/javascript"
@@ -901,7 +901,7 @@ table {
 				<button type="submit" id="register" class="btn">완료</button>
 			</div>
 		</form>
->>>>>>> 77ba3004592d42eda4e1ffc4df4237ca2c7441dc
+<!-- >>>>>>> 77ba3004592d42eda4e1ffc4df4237ca2c7441dc -->
 	</div>
 </div>
 <!-- END container -->

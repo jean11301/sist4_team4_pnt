@@ -61,13 +61,13 @@
           <!-- 지역 관리 -->
           <li class="nav-header">지역 관리</li>
           <li class="nav-item">
-            <a href="country.jsp" class="nav-link">
+            <a href="../area/country.jsp" class="nav-link">
               <i class="fas fa-globe nav-icon "></i>
               <p>국가 관리</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="city.jsp" class="nav-link">
+            <a href="../area/city.jsp" class="nav-link">
               <i class="fas fa-map-marked-alt nav-icon"></i>
               <p>상세 도시 관리</p>
             </a>

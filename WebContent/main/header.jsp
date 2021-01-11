@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:useBean id="select" class="com.example.libs.service.MemberService" />
+<c:if test="${not empty user_id}">
+	<c:set var="member" value="${select.selectMember(user_id)}" />
+</c:if>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -46,11 +50,34 @@
           </li> -->
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <!-- <li><a href="../navbar/">Default</a></li>
-          <li><a href="../navbar-static-top/">Static top</a></li>
-          <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li> -->
-          <!-- <li><a href="#">로그인</a></li> -->
-          <button type="button" class="btn btn-primary navbar-btn"  onclick="changeView(1)" style="margin-right:30px">로그인</button>
+				<%--login 안했을 때, 로그인 --%>
+				<c:if test="${empty user_id}">
+					<button type="button" class="btn btn-primary navbar-btn"
+						onclick="changeView(2)" style="margin-right: 30px">로그인</button>
+				</c:if>
+
+				<%-- login 했다면 --%>
+				<!-- 관리자일경우 관리자페이지, 회원일 경우 마이페이지 -->
+				<c:if test="${not empty user_id}">
+					<c:if test="${flag eq 0}">
+						<i class="fas fa-user usdrinfoicon"></i>
+						<div class="userinfo">${member.user_id}</div>
+						<button type="button" class="btn btn-primary navbar-btn"
+							onclick="changeView(5)" style="margin-right: 10px">PNT 계정 관리</button>
+					</c:if>
+					<c:if test="${flag eq 1}">
+						<%--관리자라면 --%>
+						<div class="userinfo">${member.user_id}</div>
+						<button type="button" class="btn btn-primary navbar-btn"
+							onclick="changeView(4)" style="margin-right: 10px">관리자페이지</button>
+					</c:if>
+				</c:if>
+
+				<!-- 로그인 상태라면, 로그아웃 -->
+				<c:if test="${not empty user_id}">
+					<button id="btnLogout" class="btn navbar-btn buttonlogout" onclick="changeView(3)">Log
+						Out</button>
+				</c:if>
         </ul>
       </div><!--/.nav-collapse -->
   </nav>
