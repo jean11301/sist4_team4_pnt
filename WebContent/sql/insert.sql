@@ -178,7 +178,24 @@ INSERT INTO product VALUES(119, '바나나', 1590, '<img src="../images/product/
 INSERT INTO product VALUES(120, '사과', 1000, '<img src="../images/product/apple_1.png">', TO_DATE('2020-12-09', 'RRRR-MM-DD'), 23, 1, 15, 25, 'admin');	
 INSERT INTO product VALUES(121, '콜라', 1800, '<img src="../images/product/콜라.png">', TO_DATE('2020-12-01', 'RRRR-MM-DD'), 871, 1, 15, 25, 'admin');	
 INSERT INTO product VALUES(122, '망고', 4200, '<img src="../images/product/mango.png">', TO_DATE('2020-12-02', 'RRRR-MM-DD'), 689, 1, 15, 25, 'admin');	
-
+INSERT INTO product VALUES(123, '망고', 4000, '<img src="../images/product/mango.png">', TO_DATE('2020-06-02', 'RRRR-MM-DD'), 423, 1, 4, 6, 'admin');	
+INSERT INTO product VALUES(124, '망고', 4300, '<img src="../images/product/mango.png">', TO_DATE('2020-09-12', 'RRRR-MM-DD'), 876, 1, 4, 6, 'admin');	
+INSERT INTO product VALUES(125, '망고', 4400, '<img src="../images/product/mango.png">', TO_DATE('2020-09-24', 'RRRR-MM-DD'), 456, 1, 4, 6, 'admin');	
+INSERT INTO product VALUES(126, '망고', 4100, '<img src="../images/product/mango.png">', TO_DATE('2020-08-12', 'RRRR-MM-DD'), 196, 1, 4, 6, 'admin');	
+INSERT INTO product VALUES(127, '망고', 4210, '<img src="../images/product/mango.png">', TO_DATE('2020-07-13', 'RRRR-MM-DD'), 396, 1, 4, 6, 'admin');	
+INSERT INTO product VALUES(128, '망고', 4250, '<img src="../images/product/mango.png">', TO_DATE('2020-06-14', 'RRRR-MM-DD'), 752, 1, 4, 6, 'admin');	
+INSERT INTO product VALUES(129, '망고', 4320, '<img src="../images/product/mango.png">', TO_DATE('2020-05-15', 'RRRR-MM-DD'), 258, 1, 4, 6, 'admin');	
+INSERT INTO product VALUES(130, '망고', 4400, '<img src="../images/product/mango.png">', TO_DATE('2020-04-16', 'RRRR-MM-DD'), 367, 1, 4, 6, 'admin');	
+INSERT INTO product VALUES(131, '망고', 4200, '<img src="../images/product/mango.png">', TO_DATE('2020-03-17', 'RRRR-MM-DD'), 175, 1, 4, 6, 'admin');	
+INSERT INTO product VALUES(132, '망고', 4510, '<img src="../images/product/mango.png">', TO_DATE('2020-08-15', 'RRRR-MM-DD'), 285, 1, 4, 6, 'admin');	
+INSERT INTO product VALUES(133, '망고', 4100, '<img src="../images/product/mango.png">', TO_DATE('2020-07-03', 'RRRR-MM-DD'), 142, 1, 4, 6, 'admin');	
+INSERT INTO product VALUES(134, '망고', 4190, '<img src="../images/product/mango.png">', TO_DATE('2020-06-04', 'RRRR-MM-DD'), 368, 1, 4, 6, 'admin');	
+INSERT INTO product VALUES(135, '망고', 4180, '<img src="../images/product/mango.png">', TO_DATE('2020-09-05', 'RRRR-MM-DD'), 254, 1, 4, 6, 'admin');	
+INSERT INTO product VALUES(136, '망고', 4230, '<img src="../images/product/mango.png">', TO_DATE('2020-11-14', 'RRRR-MM-DD'), 896, 1, 4, 6, 'admin');	
+INSERT INTO product VALUES(137, '망고', 4270, '<img src="../images/product/mango.png">', TO_DATE('2020-10-28', 'RRRR-MM-DD'), 742, 1, 4, 6, 'admin');	
+INSERT INTO product VALUES(138, '망고', 4320, '<img src="../images/product/mango.png">', TO_DATE('2020-11-27', 'RRRR-MM-DD'), 385, 1, 4, 6, 'admin');	
+INSERT INTO product VALUES(139, '망고', 4350, '<img src="../images/product/mango.png">', TO_DATE('2020-10-07', 'RRRR-MM-DD'), 263, 1, 4, 6, 'admin');	
+INSERT INTO product VALUES(140, '망고', 4350, '<img src="../images/product/mango.png">', TO_DATE('2020-12-15', 'RRRR-MM-DD'), 208, 1, 4, 6, 'admin');	
 
 
 
