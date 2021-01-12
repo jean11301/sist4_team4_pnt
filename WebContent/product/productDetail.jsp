@@ -173,6 +173,24 @@ where MARKET_NUMBER = (SELECT MARKET_NUMBER
 			 }
 			
 		});
+//-------------------------------------------------지도 마커
+		getmarker();
+		
+		function getmarker(){
+			let marketname = $('#market').val().trim();
+		    $.ajax({
+			      method : 'POST',
+			      contentType: 'application/x-www-form-urlencoded; charset=euc-kr',
+			      url : 'getlatlon.jsp',
+			      data : {
+			    	  marketname : marketname
+			      },
+			      success : function(data){
+			          drawMarkers(data);
+			      }
+			    });
+		}
+		
 		//======================================================데이터 더보기
 		$('#btnMoredata').on('click',function(){
 			let product_name = $('#product').val().trim();
