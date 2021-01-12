@@ -8,7 +8,11 @@
 <%
 	ArrayList<CountryVO> list = country.readAll();
 %>
-
+<div class="content-wrapper">
+	<div class="content-header">
+		<div class="container-fluid">
+		</div>
+	</div>
 <div class="container">
 	<div class="row">
 		<form action="countryupdating.jsp" method="POST">
@@ -47,5 +51,6 @@
 			<button type="reset" class="btn btn-primary">취소</button>
 		</form>
 	</div>
+</div>
 </div>
 <jsp:include page="../main/footer.jsp" />

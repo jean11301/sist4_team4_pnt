@@ -6,10 +6,10 @@
 	/* hr{
 		border: 5px; color: black;} */
 	thead{
-		background-color: dodgerblue;
+		background-color: white;
 	}
 	tbody{
-		background-color:lightcyan;
+		background-color:white;
 	}
 </style>
 <script src="../../js/jquery-3.5.1.js"></script>
@@ -56,6 +56,12 @@ function cityupdate(){
 <%
 	ArrayList<CityVO> list = cities.readAll();
 %>
+<div class="content-wrapper">
+	<div class="content-header">
+		<div class="container-fluid">
+
+		</div>
+	</div>
 
 	<div id="titletext">지역관리 | 국가관리</div>
 		<div class="container">
@@ -111,5 +117,5 @@ function cityupdate(){
 				</div>
 			</span>
 		</div> 
-
+</div>
 <jsp:include page="../main/footer.jsp" />

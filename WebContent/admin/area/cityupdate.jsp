@@ -11,6 +11,16 @@
 	ArrayList<CountryVO> list1 = country.readAll();
 	ArrayList<CityVO> list2 = city.readAll();
 %>
+<div class="content-wrapper">
+	<div class="content-header">
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-sm-6">
+					<h1 class="m-0">시장 관리</h1>
+				</div>
+			</div>
+		</div>
+	</div>
 
 <div class="container">
 	<div class="row">
@@ -60,5 +70,6 @@
 			<button type="reset" class="btn btn-primary">취소</button>
 		</form>
 	</div>
+</div>
 </div>
 <jsp:include page="../main/footer.jsp" />

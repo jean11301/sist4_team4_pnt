@@ -4,11 +4,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style>
 thead {
-	background-color: dodgerblue;
+	background-color: white;
 }
 
 tbody {
-	background-color: lightcyan;
+	background-color: white;
 }
 </style>
 <script src="../../js/jquery-3.5.1.js"></script>
@@ -54,6 +54,12 @@ tbody {
 	ArrayList<CountryVO> list = countries.readAll();
 %>
 <jsp:include page="../main/header.jsp" />
+<div class="content-wrapper">
+	<div class="content-header">
+		<div class="container-fluid">
+		</div>
+	</div>
+
 <div id="titletext">지역관리 | 국가관리</div>
 
 	<div class="container">
@@ -121,6 +127,6 @@ tbody {
 			</div>
 		</span>
 	</div>
-
+</div>
 <jsp:include page="../main/footer.jsp" />
 

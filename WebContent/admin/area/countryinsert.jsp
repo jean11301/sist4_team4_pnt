@@ -3,6 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <jsp:include page="../main/header.jsp" />
+<div class="content-wrapper">
+	<div class="content-header">
+		<div class="container-fluid">
+		</div>
+	</div>
 <div class="container">
 	<div class="row">
 		<form action="countryinserting.jsp" method="POST">
@@ -30,5 +35,6 @@
 			<button type="reset" class="btn btn-primary">취소</button>
 		  </form>
 	</div>
+</div>
 </div>
 <jsp:include page="../main/footer.jsp" />

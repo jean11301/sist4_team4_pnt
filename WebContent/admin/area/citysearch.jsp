@@ -15,11 +15,11 @@
 /* hr{
 		border: 5px; color: black;} */
 thead {
-	background-color: dodgerblue;
+	background-color: white;
 }
 
 tbody {
-	background-color: lightcyan;
+	background-color: white;
 }
 </style>
 <script>
@@ -58,6 +58,17 @@ function cityupdate(){
 }
 </script>
 <jsp:include page="../main/header.jsp" />
+<div class="content-wrapper">
+	<div class="content-header">
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-sm-6">
+					<h1 class="m-0">시장 관리</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+
 <div id="titletext">지역관리 | 국가관리</div>
 <div class="container">
 	<div class="page-header">
@@ -113,5 +124,6 @@ function cityupdate(){
 			</form>
 		</div>
 	</span>
+</div>
 </div>
 <jsp:include page="../main/footer.jsp" />
