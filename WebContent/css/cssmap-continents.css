@@ -102,10 +102,10 @@ end of the maps */
 
 
 /* 물가 교통 페이지 이동 버튼 */
-.goToPrice, .goToTrans { padding: 5px 11px; border-radius: 5px; font-size: 1.7vh; background: #337AB7; color: #fff; cursor: pointer; border: 1px solid #5BC0DE; transition: all 0.2s cubic-bezier(0.42, 0, 0.58, 1); 0s;}
+.goToPrice, .goToTrans { padding: 5px 11px; border-radius: 5px; font-size: 1.7vh; background: #337AB7; color: #fff; cursor: pointer; border: 1px solid #5BC0DE; transition: all 0.2s cubic-bezier(0.42, 0, 0.58, 1);}
 .goToPrice:hover , .goToTrans:hover{color: #337AB7 !important; background-color: transparent; text-shadow: nthree;}
 .goToPrice:hover:before, .goToTrans:hover:before {left: 0%; right: auto; width: 100%;}
-.goToPrice:before, .goToTrans:before{display: block; position: absolute; top: 0px; right: 0px; height: 100%; width: 0px; z-index: -1; content: ''; color: #5BC0DE !important; background: #fff; transition: all 0.2s cubic-bezier(0.42, 0, 0.58, 1); 0s; }
+.goToPrice:before, .goToTrans:before{display: block; position: absolute; top: 0px; right: 0px; height: 100%; width: 0px; z-index: -1; content: ''; color: #5BC0DE !important; background: #fff; transition: all 0.2s cubic-bezier(0.42, 0, 0.58, 1); }
 
 
 /* 모달창 닫기 버튼 */
